@@ -9,7 +9,7 @@ const techStackLogos = {
   "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
   "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
   "TailwindCSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg",
-  "ConvexDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", // Using PostgreSQL as fallback
+  "ConvexDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", 
   "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
   "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
   "Express": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
@@ -116,7 +116,6 @@ const StatusBadge = ({ status }) => {
   );
 };
 
-// ProjectLayout.js
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";

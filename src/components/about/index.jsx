@@ -1,7 +1,8 @@
 import React from "react";
 import ItemLayout from "./ItemLayout";
 import Link from "next/link";
-import { User } from "lucide-react";
+import Image from "next/image";
+
 const AboutDetails = () => {
   return (
     <section className="py-20 w-full">
@@ -16,19 +17,10 @@ const AboutDetails = () => {
             Software Developer | AI & ML Enthusiast
           </h2>
           <p className="font-light text-xs sm:text-sm md:text-base leading-relaxed">
-            I am pursuing a <strong className="text-accent">B.Tech in Computer Science (AI & ML)</strong> 
-            at Uttarakhand Technical University, graduating in 2026. Recently, I worked as a 
-            <strong className="text-accent"> Software Trainee at ExplorIn Academy</strong>, where I built 
-            production-ready applications using modern technologies such as Next.js, GraphQL, and Prisma ORM. 
-            My expertise lies in <strong className="text-accent">full-stack development</strong> with a strong 
-            focus on <strong className="text-accent">AI-powered solutions</strong> and scalable web platforms.
+            I am pursuing a <strong className="text-accent">B.Tech in Computer Science (AI & ML)</strong> at Uttarakhand Technical University, graduating in 2026. Recently, I worked as a <strong className="text-accent"> Software Trainee at ExplorIn Academy</strong>, where I built production-ready applications using modern technologies such as Next.js, GraphQL, and Prisma ORM. My expertise lies in <strong className="text-accent">full-stack development</strong> with a strong focus on <strong className="text-accent">AI-powered solutions</strong> and scalable web platforms.
           </p>
           <p className="font-light text-xs sm:text-sm md:text-base mt-4 leading-relaxed">
-            I have delivered impactful projects including 
-            <strong className="text-accent"> HealSync</strong> (healthcare appointment platform), 
-            <strong className="text-accent"> DarkStore IMS</strong> (inventory management with real-time analytics), and 
-            <strong className="text-accent"> Trip Bandhu</strong> (AI-based trip planner). 
-            My toolkit spans React, Next.js, TypeScript, Python, MongoDB, Prisma, ConvexDB, and advanced AI integrations.
+            I have delivered impactful projects including <strong className="text-accent"> HealSync</strong> (healthcare appointment platform), <strong className="text-accent"> DarkStore IMS</strong> (inventory management with real-time analytics), and <strong className="text-accent"> Trip Bandhu</strong> (AI-based trip planner). My toolkit spans React, Next.js, TypeScript, Python, MongoDB, Prisma, ConvexDB, and advanced AI integrations.
           </p>
         </ItemLayout>
 
@@ -51,7 +43,10 @@ const AboutDetails = () => {
           className={" col-span-full xs:col-span-6 lg:col-span-4 text-accent"}
         >
           <p className="font-semibold w-full text-center text-2xl sm:text-4xl">
-            350+ <sub className="font-semibold text-base block">coding challenges solved</sub>
+            350+{" "}
+            <sub className="font-semibold text-base block">
+              coding challenges solved
+            </sub>
           </p>
         </ItemLayout>
 
@@ -61,7 +56,9 @@ const AboutDetails = () => {
         >
           <p className="font-semibold w-full text-center text-2xl sm:text-4xl">
             3+{" "}
-            <sub className="font-semibold text-base block">production-ready applications</sub>
+            <sub className="font-semibold text-base block">
+              production-ready applications
+            </sub>
           </p>
         </ItemLayout>
 
@@ -81,10 +78,12 @@ const AboutDetails = () => {
 
         {/* GitHub Contribution Calendar */}
         <ItemLayout className={"col-span-full lg:col-span-6 !p-0"}>
-          <img
+          <Image
             className="w-full h-auto"
-            src={`https://ghchart.rshah.org/FEFE5B/anishsingh234`}
+            src="https://ghchart.rshah.org/FEFE5B/anishsingh234"
             alt="Anish's GitHub Contribution Calendar"
+            width={800}
+            height={200}
             loading="lazy"
           />
         </ItemLayout>
@@ -93,20 +92,24 @@ const AboutDetails = () => {
         <ItemLayout
           className={"col-span-full sm:col-span-6 md:col-span-4 !p-0"}
         >
-          <img
+          <Image
             className="w-full h-auto"
             src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api/top-langs?username=anishsingh234&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&layout=compact`}
             alt="Anish's Top Languages"
+            width={400}
+            height={300}
             loading="lazy"
           />
         </ItemLayout>
 
         {/* GitHub General Stats */}
         <ItemLayout className={"col-span-full sm:col-span-6 md:col-span-8 !p-0"}>
-          <img
+          <Image
             className="w-full h-auto"
             src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api?username=anishsingh234&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&show_icons=true&include_all_commits=true`}
             alt="Anish's GitHub Stats"
+            width={600}
+            height={200}
             loading="lazy"
           />
         </ItemLayout>
@@ -117,17 +120,21 @@ const AboutDetails = () => {
             <h3 className="text-lg font-semibold text-accent mb-4 text-center">
               Technical Arsenal
             </h3>
-            <img
+            <Image
               className="w-full h-auto"
-              src={`https://skillicons.dev/icons?i=react,nextjs,ts,js,python,cpp,tailwind,prisma,mongodb,graphql,nodejs,express,vercel,git,github,vscode,html,css,mysql`}
+              src="https://skillicons.dev/icons?i=react,nextjs,ts,js,python,cpp,tailwind,prisma,mongodb,graphql,nodejs,express,vercel,git,github,vscode,html,css,mysql"
               alt="Anish's Technical Skills"
+              width={800}
+              height={100}
               loading="lazy"
             />
           </div>
         </ItemLayout>
 
         {/* Coursework & Learning */}
-        <ItemLayout className={"col-span-full sm:col-span-6 lg:col-span-4 text-center"}>
+        <ItemLayout
+          className={"col-span-full sm:col-span-6 lg:col-span-4 text-center"}
+        >
           <div className="h-full flex flex-col justify-center">
             <h3 className="text-accent font-bold text-lg mb-3">Academic Focus</h3>
             <div className="text-xs sm:text-sm font-light space-y-1">
@@ -142,34 +149,39 @@ const AboutDetails = () => {
 
         {/* GitHub Profile Trophy */}
         <ItemLayout className={"col-span-full sm:col-span-6 lg:col-span-4 !p-0"}>
-          <img
+          <Image
             className="w-full h-auto"
-            src={`https://github-profile-trophy.vercel.app/?username=anishsingh234&theme=darkhub&no-frame=true&no-bg=true&margin-w=4`}
+            src="https://github-profile-trophy.vercel.app/?username=anishsingh234&theme=darkhub&no-frame=true&no-bg=true&margin-w=4"
             alt="Anish's GitHub Trophies"
+            width={500}
+            height={200}
             loading="lazy"
           />
         </ItemLayout>
 
         {/* Achievement Highlight */}
-        <ItemLayout className={"col-span-full sm:col-span-6 lg:col-span-4 text-center"}>
+        <ItemLayout
+          className={"col-span-full sm:col-span-6 lg:col-span-4 text-center"}
+        >
           <div className="h-full flex flex-col justify-center">
             <div className="bg-accent/10 rounded-full p-4 mx-auto mb-3">
               <span className="text-2xl">🚀</span>
             </div>
             <h4 className="text-accent font-semibold mb-2">Fast Learner</h4>
             <p className="text-xs font-light">
-              Adapted quickly to professional workflows, completing a full-stack 
-              internship while maintaining academic excellence in AI & ML.
+              Adapted quickly to professional workflows, completing a full-stack internship while maintaining academic excellence in AI & ML.
             </p>
           </div>
         </ItemLayout>
 
         {/* GitHub Streak */}
         <ItemLayout className={"col-span-full sm:col-span-6 md:col-span-6 !p-0"}>
-          <img
+          <Image
             className="w-full h-auto"
             src={`${process.env.NEXT_PUBLIC_GITHUB_STREAK_STATS_URL}?user=anishsingh234&theme=dark&hide_border=true&type=svg&background=EB545400&ring=FEFE5B&currStreakLabel=FEFE5B`}
             alt="Anish's GitHub Streak"
+            width={500}
+            height={200}
             loading="lazy"
           />
         </ItemLayout>
@@ -181,10 +193,12 @@ const AboutDetails = () => {
             target="_blank"
             className="w-full block hover:scale-105 transition-transform duration-300"
           >
-            <img
+            <Image
               className="w-full h-auto"
               src={`${process.env.NEXT_PUBLIC_GITHUB_STATS_URL}/api/pin/?username=anishsingh234&repo=HealSync&theme=transparent&hide_border=true&title_color=FEFE5B&text_color=FFFFFF&icon_color=FEFE5B&text_bold=false&description_lines_count=2`}
               alt="HealSync - Doctor Appointment Platform"
+              width={500}
+              height={200}
               loading="lazy"
             />
           </Link>
@@ -208,8 +222,8 @@ const AboutDetails = () => {
                     <p className="text-xs text-muted-foreground">Healthcare Platform</p>
                   </div>
                 </div>
-                <Link 
-                  href="https://github.com/anishsingh234/HealSync" 
+                <Link
+                  href="https://github.com/anishsingh234/HealSync"
                   target="_blank"
                   className="text-accent hover:text-accent/80 transition-colors"
                 >
@@ -219,8 +233,7 @@ const AboutDetails = () => {
                 </Link>
               </div>
               <p className="text-sm font-light mb-4 leading-relaxed">
-                Comprehensive healthcare solution with doctor dashboards, appointment scheduling, 
-                video consultations, and administrative management. Built for scalability and user experience.
+                Comprehensive healthcare solution with doctor dashboards, appointment scheduling, video consultations, and administrative management. Built for scalability and user experience.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full font-medium">Next.js</span>
@@ -253,8 +266,7 @@ const AboutDetails = () => {
                 </div>
               </div>
               <p className="text-sm font-light mb-4 leading-relaxed">
-                Enterprise-grade inventory management with real-time analytics, role-based access control, 
-                and interactive reporting dashboards for business intelligence.
+                Enterprise-grade inventory management with real-time analytics, role-based access control, and interactive reporting dashboards for business intelligence.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full font-medium">React</span>
@@ -290,8 +302,7 @@ const AboutDetails = () => {
                 </div>
               </div>
               <p className="text-sm font-light mb-4 leading-relaxed">
-                Intelligent travel planning platform leveraging <strong className="text-accent">Mistral AI</strong> for personalized itinerary generation. 
-                Features real-time data synchronization, smart recommendations, and seamless user experience for modern travelers.
+                Intelligent travel planning platform leveraging <strong className="text-accent">Mistral AI</strong> for personalized itinerary generation. Features real-time data synchronization, smart recommendations, and seamless user experience for modern travelers.
               </p>
               <div className="flex flex-wrap gap-2 mb-4">
                 <span className="text-xs bg-accent/20 text-accent px-3 py-1 rounded-full font-medium">Next.js 14</span>
@@ -313,7 +324,7 @@ const AboutDetails = () => {
         {/* Enhanced Contact Info */}
         <ItemLayout className={"col-span-full lg:col-span-8 flex-col items-start"}>
           <h3 className="text-xl md:text-2xl font-bold text-accent mb-6 text-center w-full">
-            🤝 Let's Connect & Collaborate
+            🤝 Let&apos;s Connect & Collaborate
           </h3>
           <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Contact Details */}
@@ -337,8 +348,8 @@ const AboutDetails = () => {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">LinkedIn</p>
-                    <Link 
-                      href="https://linkedin.com/in/anish-ai" 
+                    <Link
+                      href="https://linkedin.com/in/anish-ai"
                       target="_blank"
                       className="text-sm font-medium text-accent hover:text-accent/80 transition-colors"
                     >
@@ -352,8 +363,8 @@ const AboutDetails = () => {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground">GitHub</p>
-                    <Link 
-                      href="https://github.com/anishsingh234" 
+                    <Link
+                      href="https://github.com/anishsingh234"
                       target="_blank"
                       className="text-sm font-medium text-accent hover:text-accent/80 transition-colors"
                     >
@@ -417,7 +428,6 @@ const AboutDetails = () => {
               </div>
             </div>
           </div>
-          
           <div className="w-full mt-6 p-4 bg-accent/5 rounded-lg border border-accent/20">
             <p className="text-sm text-center text-muted-foreground">
               💡 <strong className="text-accent">Quick Response Guaranteed</strong> - I typically respond within 24 hours and am always excited to discuss new opportunities and innovative projects!
@@ -426,7 +436,9 @@ const AboutDetails = () => {
         </ItemLayout>
 
         {/* Quick Stats */}
-        <ItemLayout className={"col-span-full lg:col-span-4 text-center"}>
+        <ItemLayout
+          className={"col-span-full lg:col-span-4 text-center"}
+        >
           <div className="h-full flex flex-col justify-center">
             <div className="bg-gradient-to-br from-accent/20 via-accent/10 to-accent/5 rounded-full p-6 mx-auto mb-4 w-20 h-20 flex items-center justify-center">
               <span className="text-3xl">⚡</span>
@@ -434,21 +446,17 @@ const AboutDetails = () => {
             <h4 className="text-accent font-bold text-lg mb-3">Ready to Ship</h4>
             <div className="space-y-2 text-sm font-light">
               <p className="flex items-center justify-center gap-2">
-                <span className="text-green-500">●</span> 
-                Available for immediate start
+                <span className="text-green-500">●</span> Available for immediate start
               </p>
               <p className="flex items-center justify-center gap-2">
-                <span className="text-blue-500">●</span> 
-                Remote & On-site ready
+                <span className="text-blue-500">●</span> Remote & On-site ready
               </p>
               <p className="flex items-center justify-center gap-2">
-                <span className="text-purple-500">●</span> 
-                Passionate about innovation
+                <span className="text-purple-500">●</span> Passionate about innovation
               </p>
             </div>
           </div>
         </ItemLayout>
-
       </div>
     </section>
   );
