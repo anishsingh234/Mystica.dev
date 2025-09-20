@@ -1,7 +1,7 @@
 import React from "react";
 import ItemLayout from "./ItemLayout";
 import Link from "next/link";
-
+import { User } from "lucide-react";
 const AboutDetails = () => {
   return (
     <section className="py-20 w-full">
