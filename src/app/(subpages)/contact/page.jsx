@@ -31,7 +31,7 @@ export default function Contact() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center justify-center space-y-6 w-full max-w-3xl relative"
         >
-          {/* Animated background decoration */}
+            Whether you have a project in mind, want to discuss opportunities, or simply want to chat about code and AI, I&apos;d love to hear from you. Let&apos;s build something amazing together.
           <motion.div
             className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-gradient-to-r from-accent/20 via-transparent to-accent/20 rounded-full blur-3xl opacity-30 -z-10"
             animate={{
