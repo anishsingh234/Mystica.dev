@@ -196,7 +196,7 @@ const Footer = () => {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          className="fixed bottom-8 right-8 w-12 h-12 rounded-lg bg-accent/10 border border-accent/30 flex items-center justify-center text-accent hover:bg-accent/20 transition-all duration-200 backdrop-blur-sm md:flex hidden"
+          className="fixed bottom-8 right-8 w-12 h-12 rounded-lg bg-accent/10 border border-accent/30 hidden md:flex items-center justify-center text-accent hover:bg-accent/20 transition-all duration-200 backdrop-blur-sm"
         >
           <svg
             className="w-5 h-5"

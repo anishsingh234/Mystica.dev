@@ -73,7 +73,7 @@ export default function Contact() {
             transition={{ delay: 0.4, duration: 0.6 }}
             className="text-center text-foreground/70 text-sm xs:text-base sm:text-lg max-w-2xl leading-relaxed font-medium px-2"
           >
-            Whether you have a project in mind, want to discuss opportunities, or simply want to chat about code and AI, I'd love to hear from you. Let's build something amazing together.
+            Whether you have a project in mind, want to discuss opportunities, or simply want to chat about code and AI, I&apos;d love to hear from you. Let&apos;s build something amazing together.
           </motion.p>
         </motion.div>
 
