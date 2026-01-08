@@ -170,7 +170,7 @@ export default function Home() {
               </div>
               <div className="hover:scale-105 transition-transform duration-300">
                 <p className="text-xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">350+</p>
-                <p className="text-xs sm:text-sm text-foreground/60">Problems Solved</p>
+                <p className="text-xs sm:text-sm text-foreground/60">LeetCode Problems Solved</p>
               </div>
               <div className="hover:scale-105 transition-transform duration-300">
                 <p className="text-xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">3+</p>
