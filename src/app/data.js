@@ -67,6 +67,52 @@ export const projectsData = [
     techStack: ["C++", "Java"],
     GithubLink: "https://github.com/anishsingh234/GeeksforGeeks.git",
   },
+  {
+  id: 8,
+  name: "Password Generator",
+  description:
+    "Password Generator is a simple and efficient application that generates secure passwords based on user input, helping improve security practices with a clean and responsive UI.",
+  status: "Completed",
+  techStack: ["HTML", "CSS", "JavaScript", "React", "Next.js"],
+  GithubLink: "https://github.com/anishsingh234/PassWordGen.git",
+},
+{
+  id: 9,
+  name: "Weather App",
+  description:
+    "Weather App fetches real-time weather data and displays current conditions in a clean interface, helping users quickly check temperature and weather updates for any location.",
+  status: "Completed",
+  techStack: ["HTML", "CSS", "JavaScript"],
+  GithubLink: "https://github.com/anishsingh234/WeatherApp",
+},
+{
+  id: 10,
+  name: "Quiz App",
+  description:
+    "Quiz App is an interactive web application that allows users to test their knowledge through multiple-choice questions, featuring instant feedback and a simple, user-friendly design.",
+  status: "Completed",
+  techStack: ["HTML", "CSS", "JavaScript"],
+  GithubLink: "https://github.com/anishsingh234/QuizApp.git",
+},
+{
+  id: 11,
+  name: "Background Changer",
+  description:
+    "Background Changer is a React-based application that dynamically updates backgrounds using the Unsplash API, providing an engaging way to explore and apply high-quality images.",
+  status: "Completed",
+  techStack: ["HTML", "CSS", "JavaScript", "React", "Unsplash API"],
+  GithubLink: "https://github.com/anishsingh234/BackGroundChanger.git",
+},
+{
+  id: 12,
+  name: "Counter App",
+  description:
+    "Counter App is a basic React application that demonstrates state management by incrementing and decrementing values, serving as a foundational project for understanding React concepts.",
+  status: "Completed",
+  techStack: ["HTML", "CSS", "JavaScript", "React"],
+  GithubLink: "https://github.com/anishsingh234/CounterApp/tree/main/counter",
+},
+
 ];
 
 
