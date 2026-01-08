@@ -1,4 +1,6 @@
 "use client"
+import Image from "next/image";
+
 const techStackLogos = {
   "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
   "Java": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
@@ -55,7 +57,7 @@ const TechLogo = ({ tech, size = 16 }) => {
   const logoUrl = getTechLogo(tech);
   
   return (
-    <img
+    <Image
       src={logoUrl}
       alt={`${tech} logo`}
       width={size}
