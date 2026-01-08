@@ -49,40 +49,40 @@ export default function Contact() {
           initial="hidden"
           animate="visible"
           variants={containerVariants}
-          className="min-h-screen flex flex-col items-center justify-center py-16 sm:py-20 md:py-24 px-3 sm:px-6 lg:px-8"
+          className="min-h-screen flex flex-col items-center justify-center py-16 sm:py-20 md:py-24 px-4 sm:px-6 lg:px-8"
         >
-          <motion.div variants={itemVariants} className="text-center max-w-4xl mx-auto">
+          <motion.div variants={itemVariants} className="text-center max-w-4xl mx-auto w-full">
             {/* Badge */}
             <motion.div
-              className="inline-flex items-center space-x-2 px-4 sm:px-5 py-2.5 rounded-full bg-accent/10 border border-accent/30 mb-6 sm:mb-8"
+              className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full bg-accent/10 border border-accent/30 mb-5 sm:mb-6 md:mb-8"
             >
-              <MessageSquare size={16} className="text-accent" />
+              <MessageSquare size={14} className="text-accent" />
               <span className="text-xs sm:text-sm font-medium text-accent">Let&apos;s Collaborate</span>
             </motion.div>
 
             {/* Title */}
             <motion.h1
               variants={itemVariants}
-              className="text-4xl xs:text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-4 sm:mb-6 leading-tight"
+              className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-5 md:mb-6 leading-tight tracking-tight px-2 sm:px-0"
             >
-              Ready to <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">Build Something</span>
+              Ready to <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">Build</span>
               <br />
-              <span className="text-foreground">Amazing?</span>
+              <span className="text-foreground">Something Amazing?</span>
             </motion.h1>
 
             {/* Description */}
             <motion.p
               variants={itemVariants}
-              className="text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-10 sm:mb-14"
+              className="text-xs xs:text-sm sm:text-base md:text-lg text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-8 sm:mb-10 md:mb-12 px-2 sm:px-0"
             >
-              Whether it&apos;s a full-time role, freelance project, or just a conversation about tech and AI, I&apos;m always excited to connect.
+              Whether it&apos;s a full-time role, freelance project, or just a conversation about tech, I&apos;m always excited to connect.
             </motion.p>
 
             {/* Animated scroll indicator */}
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 2, repeat: Infinity }}
-              className="text-foreground/40 text-sm mt-8"
+              className="text-foreground/40 text-xs sm:text-sm mt-6 sm:mt-8"
             >
               ↓ Scroll to see contact options
             </motion.div>
@@ -95,25 +95,25 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
-          className="py-12 sm:py-16 md:py-20 px-3 sm:px-6 lg:px-8"
+          className="py-10 sm:py-14 md:py-18 px-4 sm:px-6 lg:px-8"
         >
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+          <div className="max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {/* Quick Contact Card 1 */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-accent/15 to-accent/5 border border-accent/20 hover:border-accent/40 transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                className="p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl bg-gradient-to-br from-accent/15 to-accent/5 border border-accent/20 hover:border-accent/40 transition-all duration-300"
               >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-accent/20 rounded-xl">
-                    <Mail className="w-6 h-6 text-accent" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-2.5 sm:p-3 bg-accent/20 rounded-lg sm:rounded-xl flex-shrink-0">
+                    <Mail className="w-5 sm:w-6 h-5 sm:h-6 text-accent" />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-foreground mb-1">Email</h3>
+                  <div className="min-w-0">
+                    <h3 className="font-bold text-foreground mb-1 text-sm sm:text-base">Email</h3>
                     <Link
                       href="mailto:anishsingh210204@gmail.com"
-                      className="text-accent hover:text-accent/80 text-sm font-medium transition-colors"
+                      className="text-accent hover:text-accent/80 text-xs sm:text-sm font-medium transition-colors break-all"
                     >
                       anishsingh210204@gmail.com
                     </Link>
@@ -124,16 +124,16 @@ export default function Contact() {
               {/* Quick Contact Card 2 */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/20 hover:border-accent/40 transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                className="p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/20 hover:border-accent/40 transition-all duration-300"
               >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-foreground/15 rounded-xl">
-                    <Clock className="w-6 h-6 text-foreground" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-2.5 sm:p-3 bg-foreground/15 rounded-lg sm:rounded-xl flex-shrink-0">
+                    <Clock className="w-5 sm:w-6 h-5 sm:h-6 text-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground mb-1">Response Time</h3>
-                    <p className="text-foreground/70 text-sm">24-48 hours</p>
+                    <h3 className="font-bold text-foreground mb-1 text-sm sm:text-base">Response Time</h3>
+                    <p className="text-foreground/70 text-xs sm:text-sm">24-48 hours</p>
                   </div>
                 </div>
               </motion.div>
@@ -141,16 +141,16 @@ export default function Contact() {
               {/* Quick Contact Card 3 */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ scale: 1.03 }}
-                className="p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/20 hover:border-accent/40 transition-all duration-300"
+                whileHover={{ scale: 1.02 }}
+                className="p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/20 hover:border-accent/40 transition-all duration-300"
               >
-                <div className="flex items-start gap-4">
-                  <div className="p-3 bg-foreground/15 rounded-xl">
-                    <MapPin className="w-6 h-6 text-foreground" />
+                <div className="flex items-start gap-3 sm:gap-4">
+                  <div className="p-2.5 sm:p-3 bg-foreground/15 rounded-lg sm:rounded-xl flex-shrink-0">
+                    <MapPin className="w-5 sm:w-6 h-5 sm:h-6 text-foreground" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-foreground mb-1">Location</h3>
-                    <p className="text-foreground/70 text-sm">India (Open to Remote)</p>
+                    <h3 className="font-bold text-foreground mb-1 text-sm sm:text-base">Location</h3>
+                    <p className="text-foreground/70 text-xs sm:text-sm">India (Open to Remote)</p>
                   </div>
                 </div>
               </motion.div>
@@ -164,36 +164,36 @@ export default function Contact() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={containerVariants}
-          className="py-12 sm:py-16 md:py-20 px-3 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-accent/5 to-transparent"
+          className="py-10 sm:py-14 md:py-18 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-transparent via-accent/5 to-transparent"
         >
           <div className="max-w-5xl mx-auto">
-            <motion.div variants={itemVariants} className="text-center mb-10 sm:mb-14">
+            <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground">
                 Connect On <span className="text-accent">Social</span>
               </h2>
-              <p className="text-foreground/60 text-sm sm:text-base mt-3">
+              <p className="text-foreground/60 text-xs sm:text-sm md:text-base mt-2 sm:mt-3">
                 Follow my work and connect with me on these platforms
               </p>
             </motion.div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
               {/* GitHub */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ y: -8 }}
-                className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-foreground/8 to-transparent border border-foreground/20 hover:border-accent/40 transition-all duration-300 hover:shadow-xl hover:shadow-accent/10"
+                whileHover={{ y: -4 }}
+                className="group p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl bg-gradient-to-br from-foreground/8 to-transparent border border-foreground/20 hover:border-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
               >
-                <div className="p-4 bg-foreground/10 rounded-xl w-fit mb-4 group-hover:bg-accent/20 transition-colors">
-                  <Github className="w-7 h-7 text-foreground group-hover:text-accent transition-colors" />
+                <div className="p-3 sm:p-4 bg-foreground/10 rounded-lg sm:rounded-xl w-fit mb-3 sm:mb-4 group-hover:bg-accent/20 transition-colors">
+                  <Github className="w-6 sm:w-7 h-6 sm:h-7 text-foreground group-hover:text-accent transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">GitHub</h3>
-                <p className="text-foreground/70 text-sm mb-5">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">GitHub</h3>
+                <p className="text-foreground/70 text-xs sm:text-sm mb-4">
                   Check out my projects, code, and contributions
                 </p>
                 <Link
                   href="https://github.com/anishsingh234"
                   target="_blank"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group-hover:gap-3"
+                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold text-sm transition-colors group-hover:gap-3"
                 >
                   View Profile
                   <ExternalLink className="w-4 h-4" />
@@ -203,20 +203,20 @@ export default function Contact() {
               {/* LinkedIn */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ y: -8 }}
-                className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-foreground/8 to-transparent border border-foreground/20 hover:border-accent/40 transition-all duration-300 hover:shadow-xl hover:shadow-accent/10"
+                whileHover={{ y: -4 }}
+                className="group p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl bg-gradient-to-br from-foreground/8 to-transparent border border-foreground/20 hover:border-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
               >
-                <div className="p-4 bg-foreground/10 rounded-xl w-fit mb-4 group-hover:bg-accent/20 transition-colors">
-                  <Linkedin className="w-7 h-7 text-foreground group-hover:text-accent transition-colors" />
+                <div className="p-3 sm:p-4 bg-foreground/10 rounded-lg sm:rounded-xl w-fit mb-3 sm:mb-4 group-hover:bg-accent/20 transition-colors">
+                  <Linkedin className="w-6 sm:w-7 h-6 sm:h-7 text-foreground group-hover:text-accent transition-colors" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">LinkedIn</h3>
-                <p className="text-foreground/70 text-sm mb-5">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">LinkedIn</h3>
+                <p className="text-foreground/70 text-xs sm:text-sm mb-4">
                   Connect professionally and see my experience
                 </p>
                 <Link
                   href="https://linkedin.com/in/anish-ai"
                   target="_blank"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group-hover:gap-3"
+                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold text-sm transition-colors group-hover:gap-3"
                 >
                   View Profile
                   <ExternalLink className="w-4 h-4" />
@@ -226,19 +226,19 @@ export default function Contact() {
               {/* Email */}
               <motion.div
                 variants={itemVariants}
-                whileHover={{ y: -8 }}
-                className="group p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-accent/15 to-accent/5 border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:shadow-xl hover:shadow-accent/20"
+                whileHover={{ y: -4 }}
+                className="group p-5 sm:p-6 md:p-7 rounded-xl sm:rounded-2xl bg-gradient-to-br from-accent/15 to-accent/5 border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent/20"
               >
-                <div className="p-4 bg-accent/20 rounded-xl w-fit mb-4 group-hover:bg-accent/30 transition-colors">
-                  <Mail className="w-7 h-7 text-accent" />
+                <div className="p-3 sm:p-4 bg-accent/20 rounded-lg sm:rounded-xl w-fit mb-3 sm:mb-4 group-hover:bg-accent/30 transition-colors">
+                  <Mail className="w-6 sm:w-7 h-6 sm:h-7 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold text-foreground mb-2">Email Direct</h3>
-                <p className="text-foreground/70 text-sm mb-5">
+                <h3 className="text-lg sm:text-xl font-bold text-foreground mb-2">Email Direct</h3>
+                <p className="text-foreground/70 text-xs sm:text-sm mb-4">
                   Send me an email with your inquiry
                 </p>
                 <Link
                   href="mailto:anishsingh210204@gmail.com"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold transition-colors group-hover:gap-3"
+                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-semibold text-sm transition-colors group-hover:gap-3"
                 >
                   Send Email
                   <ExternalLink className="w-4 h-4" />
