@@ -45,13 +45,13 @@ const ProjectList = ({ projects }) => {
   ];
 
   return (
-    <div className="w-full min-h-screen py-12 xs:py-16 md:py-20 px-4 sm:px-6 lg:px-16">
+    <div className="w-full min-h-screen py-16 sm:py-20 md:py-24 px-3 sm:px-6 lg:px-8">
       {/* Hero Section */}
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto mb-10 xs:mb-16 md:mb-20 relative"
+        className="max-w-6xl mx-auto mb-14 sm:mb-16 md:mb-20 relative"
       >
         {/* Background decoration */}
         <motion.div
@@ -72,17 +72,17 @@ const ProjectList = ({ projects }) => {
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center space-x-2 px-3 xs:px-4 py-2 rounded-full bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 mb-4 xs:mb-6 backdrop-blur-sm shadow-lg shadow-accent/10"
+            className="inline-flex items-center space-x-2 px-3 sm:px-4 py-2 rounded-full bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 mb-4 sm:mb-6 backdrop-blur-sm shadow-lg shadow-accent/10"
           >
-            <Zap size={14} className="text-accent animate-pulse xs:w-4 xs:h-4" />
-            <span className="text-xs xs:text-sm font-medium text-accent">Featured Projects</span>
+            <Zap size={16} className="text-accent animate-pulse" />
+            <span className="text-xs sm:text-sm font-medium text-accent">Featured Projects</span>
           </motion.div>
 
-          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-center mb-4 xs:mb-6 bg-gradient-to-r from-foreground via-accent to-foreground bg-clip-text text-transparent leading-tight px-2">
-            Projects & Work
+          <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 sm:mb-6 bg-gradient-to-r from-foreground via-accent to-foreground bg-clip-text text-transparent leading-tight px-2">
+            My Work
           </h1>
-          <p className="text-foreground/70 text-center text-sm xs:text-base sm:text-lg lg:text-xl max-w-3xl mx-auto leading-relaxed font-medium px-2">
-            A curated collection of full-stack applications, competitive programming solutions, and innovative web technologies
+          <p className="text-foreground/70 text-center text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-medium px-2">
+            Full-stack applications, AI solutions, and creative web projects built with modern technologies.
           </p>
         </div>
       </motion.div>
@@ -92,7 +92,7 @@ const ProjectList = ({ projects }) => {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.3, duration: 0.6 }}
-        className="max-w-7xl mx-auto mb-10 xs:mb-12 md:mb-16"
+        className="max-w-6xl mx-auto mb-12 sm:mb-14 md:mb-18"
       >
         <motion.div
           className="relative"
@@ -103,19 +103,19 @@ const ProjectList = ({ projects }) => {
           {/* Decorative background */}
           <div className="absolute -inset-2 bg-gradient-to-r from-accent/5 via-transparent to-accent/5 rounded-2xl blur-2xl -z-10" />
           
-          <div className="flex items-center justify-center flex-wrap gap-2 xs:gap-3 p-4 xs:p-6 rounded-xl border border-foreground/10 bg-foreground/[0.02] backdrop-blur-sm">
-            <div className="flex items-center space-x-2 text-muted mb-2 xs:mb-3 md:mb-0 w-full md:w-auto justify-center md:justify-start">
-              <Filter size={14} className="xs:w-4 xs:h-4" />
-              <span className="text-xs xs:text-sm font-medium">Filter:</span>
+          <div className="flex items-center justify-center flex-wrap gap-2 sm:gap-3 p-4 sm:p-6 rounded-xl border border-foreground/10 bg-foreground/[0.02] backdrop-blur-sm">
+            <div className="flex items-center space-x-2 text-muted mb-3 sm:mb-0 w-full sm:w-auto justify-center sm:justify-start">
+              <Filter size={16} className="text-accent" />
+              <span className="text-xs sm:text-sm font-medium">Filter:</span>
             </div>
-            <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+            <div className="flex flex-wrap gap-2 justify-center sm:justify-start">
               {filterOptions.map((option) => (
                 <motion.button
                   key={option.value}
                   onClick={() => setActiveFilter(option.value)}
                   whileHover={{ scale: 1.08, y: -2 }}
                   whileTap={{ scale: 0.95 }}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center space-x-2 relative overflow-hidden group ${
+                  className={`px-3 sm:px-4 py-2 rounded-full text-xs sm:text-sm font-medium transition-all duration-300 flex items-center space-x-2 relative overflow-hidden group ${
                     activeFilter === option.value
                       ? "bg-gradient-to-r from-accent/40 to-accent/20 border border-accent/60 text-accent shadow-lg shadow-accent/20"
                       : "bg-gradient-to-r from-foreground/5 to-foreground/0 border border-foreground/15 text-foreground/70 hover:bg-gradient-to-r hover:from-foreground/10 hover:to-foreground/5 hover:border-foreground/30"
@@ -148,7 +148,7 @@ const ProjectList = ({ projects }) => {
         variants={container}
         initial="hidden"
         animate="show"
-        className="max-w-7xl mx-auto"
+        className="max-w-6xl mx-auto"
       >
         {filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 xs:gap-4 md:gap-6 lg:gap-8">
@@ -172,17 +172,17 @@ const ProjectList = ({ projects }) => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.6 }}
-        className="max-w-7xl mx-auto mt-12 xs:mt-16 md:mt-24 pt-10 xs:pt-12 border-t border-foreground/10 relative"
+        className="max-w-6xl mx-auto mt-16 sm:mt-20 md:mt-28 pt-12 sm:pt-16 border-t border-foreground/10 relative"
       >
         {/* Background glow */}
         <div className="absolute inset-0 bg-gradient-to-t from-accent/5 via-transparent to-transparent rounded-2xl blur-3xl -z-10" />
         
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 xs:gap-4 md:gap-6 text-center">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 md:gap-6 text-center">
           {[
             { value: projects.length, label: "Projects", icon: "📁" },
             { value: projects.filter((p) => p.status?.toLowerCase() === "completed").length, label: "Completed", icon: "✅" },
             { value: projects.filter((p) => p.status?.toLowerCase() === "always working").length, label: "In Progress", icon: "🚀" },
-            { value: new Set(projects.flatMap((p) => p.techStack || [])).size, label: "Technologies", icon: "⚙️" },
+            { value: new Set(projects.flatMap((p) => p.techStack || [])).size, label: "Tech Stack", icon: "⚙️" },
           ].map((stat, idx) => (
             <motion.div
               key={idx}
@@ -190,17 +190,17 @@ const ProjectList = ({ projects }) => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6 + idx * 0.1 }}
               whileHover={{ y: -4, scale: 1.05 }}
-              className="p-3 xs:p-4 rounded-xl bg-gradient-to-br from-foreground/5 to-foreground/0 border border-foreground/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
+              className="p-3 sm:p-4 md:p-5 rounded-xl bg-gradient-to-br from-foreground/5 to-foreground/0 border border-foreground/10 hover:border-accent/30 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
             >
               <motion.div
-                className="text-xl xs:text-2xl md:text-3xl mb-1 xs:mb-2"
+                className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-3"
                 animate={{ scale: [1, 1.2, 1] }}
                 transition={{ duration: 2, repeat: Infinity, delay: idx * 0.2 }}
               >
                 {stat.icon}
               </motion.div>
-              <div className="text-lg xs:text-xl md:text-3xl font-bold text-accent mb-1 xs:mb-2">{stat.value}</div>
-              <p className="text-xs xs:text-sm text-muted">{stat.label}</p>
+              <div className="text-lg sm:text-2xl md:text-3xl font-bold text-accent mb-1 sm:mb-2">{stat.value}</div>
+              <p className="text-xs sm:text-sm text-foreground/70">{stat.label}</p>
             </motion.div>
           ))}
         </div>

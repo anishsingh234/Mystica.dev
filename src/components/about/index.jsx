@@ -27,12 +27,12 @@ const AboutDetails = () => {
   };
 
   return (
-    <section className="py-12 xs:py-16 md:py-24 lg:py-28 w-full px-4 sm:px-6 lg:px-16">
+    <section className="py-16 sm:py-20 md:py-28 lg:py-32 w-full px-3 sm:px-6 lg:px-8">
       <motion.div
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="max-w-7xl mx-auto"
+        className="max-w-6xl mx-auto"
       >
         {/* Hero Bio Section */}
         <motion.div
@@ -40,7 +40,7 @@ const AboutDetails = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-12 gap-6 md:gap-8 w-full mb-16"
+          className="grid grid-cols-12 gap-4 sm:gap-6 md:gap-8 w-full mb-14 sm:mb-16 md:mb-20"
         >
           {/* Hero Bio Section */}
           <motion.div
@@ -48,34 +48,34 @@ const AboutDetails = () => {
             className="col-span-full"
           >
             <ItemLayout className="flex-col items-start">
-              <h2 className="text-3xl xs:text-4xl sm:text-5xl lg:text-6xl font-bold mb-4 xs:mb-6 leading-tight">
+              <h2 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-3 sm:mb-4 md:mb-6 leading-tight">
                 <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
                   Full-Stack Developer
                 </span>
                 <br />
                 <span className="text-foreground">& AI Enthusiast</span>
               </h2>
-              <p className="text-base xs:text-lg text-foreground/70 leading-relaxed mb-4 xs:mb-6 max-w-2xl">
-                I craft beautiful, scalable web applications with a focus on <span className="text-accent font-semibold">AI-powered solutions</span>. Currently pursuing B.Tech in CS (AI & ML) and building production-grade applications that solve real-world problems.
+              <p className="text-sm xs:text-base sm:text-lg text-foreground/70 leading-relaxed mb-4 sm:mb-6 max-w-2xl">
+                I build scalable web applications with React, Next.js, and Node.js. I also work with AI and machine learning to create smart solutions. Currently pursuing B.Tech in CS (AI & ML).
               </p>
-              <div className="flex flex-wrap gap-2 xs:gap-3 w-full">
+              <div className="flex flex-wrap gap-2 sm:gap-3 w-full">
                 <Link
                   href="https://github.com/anishsingh234"
                   target="_blank"
-                  className="px-4 xs:px-6 py-2 text-sm xs:text-base bg-accent/10 hover:bg-accent/20 border border-accent/30 rounded-lg text-accent font-medium transition-all duration-300 hover:scale-105"
+                  className="px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm bg-accent/10 hover:bg-accent/20 border border-accent/30 rounded-lg text-accent font-medium transition-all duration-300 hover:scale-105"
                 >
                   GitHub
                 </Link>
                 <Link
                   href="https://linkedin.com/in/anish-ai"
                   target="_blank"
-                  className="px-4 xs:px-6 py-2 text-sm xs:text-base bg-foreground/5 hover:bg-foreground/10 border border-foreground/20 rounded-lg text-foreground font-medium transition-all duration-300 hover:scale-105"
+                  className="px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm bg-foreground/5 hover:bg-foreground/10 border border-foreground/20 rounded-lg text-foreground font-medium transition-all duration-300 hover:scale-105"
                 >
                   LinkedIn
                 </Link>
                 <Link
                   href="mailto:anishsingh210204@gmail.com"
-                  className="px-4 xs:px-6 py-2 text-sm xs:text-base bg-foreground/5 hover:bg-foreground/10 border border-foreground/20 rounded-lg text-foreground font-medium transition-all duration-300 hover:scale-105"
+                  className="px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm bg-foreground/5 hover:bg-foreground/10 border border-foreground/20 rounded-lg text-foreground font-medium transition-all duration-300 hover:scale-105"
                 >
                   Email
                 </Link>
@@ -90,49 +90,49 @@ const AboutDetails = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 xs:gap-4 md:gap-6 w-full mb-12 xs:mb-16"
+          className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 w-full mb-12 sm:mb-16 md:mb-20"
         >
           {/* Stat Card 1 */}
           <motion.div variants={itemVariants}>
             <ItemLayout className="flex-col items-center justify-center text-center h-full">
-              <div className="mb-3 xs:mb-4 p-2 xs:p-3 bg-accent/10 rounded-lg">
-                <Code2 className="w-5 xs:w-6 h-5 xs:h-6 text-accent" />
+              <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-accent/10 rounded-lg">
+                <Code2 className="w-5 sm:w-6 h-5 sm:h-6 text-accent" />
               </div>
-              <h3 className="text-xl xs:text-2xl md:text-3xl font-bold text-accent mb-1">7+</h3>
-              <p className="text-xs xs:text-sm text-foreground/70">Projects Shipped</p>
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-accent mb-1">7+</h3>
+              <p className="text-xs sm:text-sm text-foreground/70">Projects Shipped</p>
             </ItemLayout>
           </motion.div>
 
           {/* Stat Card 2 */}
           <motion.div variants={itemVariants}>
             <ItemLayout className="flex-col items-center justify-center text-center h-full">
-              <div className="mb-3 xs:mb-4 p-2 xs:p-3 bg-accent/10 rounded-lg">
-                <Zap className="w-5 xs:w-6 h-5 xs:h-6 text-accent" />
+              <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-accent/10 rounded-lg">
+                <Zap className="w-5 sm:w-6 h-5 sm:h-6 text-accent" />
               </div>
-              <h3 className="text-xl xs:text-2xl md:text-3xl font-bold text-accent mb-1">350+</h3>
-              <p className="text-xs xs:text-sm text-foreground/70">leetcode problem solved</p>
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-accent mb-1">350+</h3>
+              <p className="text-xs sm:text-sm text-foreground/70">leetcode solved</p>
             </ItemLayout>
           </motion.div>
 
           {/* Stat Card 3 */}
           <motion.div variants={itemVariants}>
             <ItemLayout className="flex-col items-center justify-center text-center h-full">
-              <div className="mb-3 xs:mb-4 p-2 xs:p-3 bg-accent/10 rounded-lg">
-                <Clock className="w-5 xs:w-6 h-5 xs:h-6 text-accent" />
+              <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-accent/10 rounded-lg">
+                <Clock className="w-5 sm:w-6 h-5 sm:h-6 text-accent" />
               </div>
-              <h3 className="text-xl xs:text-2xl md:text-3xl font-bold text-accent mb-1">Fresher</h3>
-              <p className="text-xs xs:text-sm text-foreground/70">Ready to Learn</p>
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-accent mb-1">Fresher</h3>
+              <p className="text-xs sm:text-sm text-foreground/70">Ready to Learn</p>
             </ItemLayout>
           </motion.div>
 
           {/* Stat Card 4 */}
           <motion.div variants={itemVariants}>
             <ItemLayout className="flex-col items-center justify-center text-center h-full">
-              <div className="mb-3 xs:mb-4 p-2 xs:p-3 bg-accent/10 rounded-lg">
-                <Rocket className="w-5 xs:w-6 h-5 xs:h-6 text-accent" />
+              <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-accent/10 rounded-lg">
+                <Rocket className="w-5 sm:w-6 h-5 sm:h-6 text-accent" />
               </div>
-              <h3 className="text-xl xs:text-2xl md:text-3xl font-bold text-accent mb-1">Full Stack </h3>
-              <p className="text-xs xs:text-sm text-foreground/70">Developer</p>
+              <h3 className="text-lg sm:text-2xl md:text-3xl font-bold text-accent mb-1">Full Stack</h3>
+              <p className="text-xs sm:text-sm text-foreground/70">Developer</p>
             </ItemLayout>
           </motion.div>
         </motion.div>
