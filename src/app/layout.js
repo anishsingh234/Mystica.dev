@@ -2,6 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
 import FireFliesBackground from "@/components/fireFilesBackground";
+import Footer from "@/components/footer";
 
 
 const inter = Inter({
@@ -25,6 +26,7 @@ export default function RootLayout({ children }) {
           inter.variable,
           "bg-background text-foreground font-inter"
         )}>{children}
+        <Footer />
         <FireFliesBackground/>
         </body>
     </html>

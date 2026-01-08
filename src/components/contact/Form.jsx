@@ -4,21 +4,30 @@ import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 import { Toaster, toast } from "sonner";
 import { motion } from "framer-motion";
+import { Mail, MessageSquare, User, Send } from "lucide-react";
 
 const container = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.3,
+      staggerChildren: 0.15,
       delayChildren: 0.2,
     },
   },
 };
 
 const item = {
-  hidden: { scale: 0 },
-  show: { scale: 1 },
+  hidden: { opacity: 0, y: 20 },
+  show: { 
+    opacity: 1, 
+    y: 0,
+    transition: {
+      duration: 0.5,
+      type: "spring",
+      stiffness: 100,
+    }
+  },
 };
 
 export default function Form() {
@@ -82,7 +91,7 @@ export default function Form() {
   };
 
   return (
-    <div className="w-full flex items-center justify-center min-h-screen p-4">
+    <div className="w-full flex items-center justify-center min-h-auto p-4">
       <Toaster richColors={true} />
       
       <motion.form
@@ -90,21 +99,49 @@ export default function Form() {
         initial="hidden"
         animate="show"
         onSubmit={handleSubmit(onSubmit)}
-        className="max-w-md w-full flex flex-col items-center justify-center space-y-6 p-6 sm:p-8"
+        className="w-full max-w-md flex flex-col items-center justify-center space-y-6"
       >
+        {/* Background decoration */}
+        <motion.div
+          className="absolute inset-0 w-96 h-96 bg-gradient-to-r from-accent/10 via-transparent to-accent/10 rounded-full blur-3xl -z-10 opacity-20"
+          animate={{
+            scale: [1, 1.1, 1],
+            opacity: [0.1, 0.2, 0.1],
+          }}
+          transition={{
+            duration: 6,
+            repeat: Infinity,
+            repeatType: "reverse",
+          }}
+        />
+
+        {/* Form wrapper with glass effect */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ delay: 0.3, duration: 0.6 }}
+          className="w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-foreground/5 to-foreground/0 border border-foreground/10 backdrop-blur-lg shadow-2xl hover:shadow-xl transition-all duration-300"
+        >
         {/* Name Input */}
         <motion.div variants={item} className="w-full space-y-2">
+          <motion.label
+            className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted ml-1"
+          >
+            <User size={14} className="text-accent" />
+            <span>Full Name</span>
+          </motion.label>
           <motion.input
             type="text"
-            placeholder="name"
+            placeholder="Enter your name"
             {...register("name", {
               required: "This field is required!",
               minLength: {
                 value: 3,
-                message: "Name should be atleast 3 characters long.",
+                message: "Name should be at least 3 characters long.",
               },
             })}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-transparent hover:border-accent/20"
+            whileFocus={{ scale: 1.02 }}
+            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 font-medium"
           />
           {errors.name && (
             <motion.span 
@@ -112,18 +149,25 @@ export default function Form() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block text-accent text-sm font-medium"
             >
-              {errors.name.message}
+              ✗ {errors.name.message}
             </motion.span>
           )}
         </motion.div>
 
         {/* Email Input */}
         <motion.div variants={item} className="w-full space-y-2">
+          <motion.label
+            className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted ml-1"
+          >
+            <Mail size={14} className="text-accent" />
+            <span>Email Address</span>
+          </motion.label>
           <motion.input
             type="email"
-            placeholder="email"
+            placeholder="your.email@example.com"
             {...register("email", { required: "This field is required!" })}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-transparent hover:border-accent/20"
+            whileFocus={{ scale: 1.02 }}
+            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 font-medium"
           />
           {errors.email && (
             <motion.span 
@@ -131,15 +175,21 @@ export default function Form() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block text-accent text-sm font-medium"
             >
-              {errors.email.message}
+              ✗ {errors.email.message}
             </motion.span>
           )}
         </motion.div>
 
         {/* Message Textarea */}
         <motion.div variants={item} className="w-full space-y-2">
+          <motion.label
+            className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted ml-1"
+          >
+            <MessageSquare size={14} className="text-accent" />
+            <span>Message</span>
+          </motion.label>
           <motion.textarea
-            placeholder="message"
+            placeholder="Share your thoughts, ideas, or collaboration proposals..."
             rows={5}
             {...register("message", {
               required: "This field is required!",
@@ -152,7 +202,8 @@ export default function Form() {
                 message: "Message should be more than 50 characters",
               },
             })}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-transparent hover:border-accent/20 resize-none"
+            whileFocus={{ scale: 1.02 }}
+            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 resize-none font-medium"
           />
           {errors.message && (
             <motion.span 
@@ -160,20 +211,23 @@ export default function Form() {
               animate={{ opacity: 1, y: 0 }}
               className="inline-block text-accent text-sm font-medium"
             >
-              {errors.message.message}
+              ✗ {errors.message.message}
             </motion.span>
           )}
         </motion.div>
 
         {/* Submit Button */}
-        <motion.input
+        <motion.button
           variants={item}
-          value="Cast your message!"
-          className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 rounded-xl shadow-lg bg-background border border-accent/30 border-solid
-          hover:shadow-glass-sm backdrop-blur-sm text-foreground focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer capitalize
-          transition-all duration-300 hover:border-accent/50 hover:shadow-xl active:scale-95 font-medium text-base sm:text-lg"
           type="submit"
-        />
+          whileHover={{ scale: 1.05, y: -2 }}
+          whileTap={{ scale: 0.95 }}
+          className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 rounded-xl shadow-lg bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 hover:border-accent/60 text-foreground hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer capitalize transition-all duration-300 hover:shadow-xl active:scale-95 font-semibold text-base sm:text-lg flex items-center justify-center space-x-2 group"
+        >
+          <Send size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
+          <span>Cast your message!</span>
+        </motion.button>
+        </motion.div>
       </motion.form>
     </div>
   );

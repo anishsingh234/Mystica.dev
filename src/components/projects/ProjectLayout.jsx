@@ -169,47 +169,52 @@ const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLi
     >
       <motion.div
         whileHover={{ 
-          scale: 1.03,
-          transition: { duration: 0.2 }
+          scale: 1.05,
+          y: -12,
+          transition: { duration: 0.3, type: "spring", stiffness: 400, damping: 30 }
         }}
         whileTap={{ scale: 0.97 }}
         className={`
           relative overflow-hidden rounded-2xl p-5 md:p-6 lg:p-8 h-full
           bg-gradient-to-br ${getAccentColor(index, status)}
-          backdrop-blur-sm border
-          shadow-lg hover:shadow-2xl
+          backdrop-blur-lg border
+          shadow-2xl hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]
           transition-all duration-300 ease-out
-          min-h-[280px] md:min-h-[320px]
+          min-h-[320px] md:min-h-[360px]
           flex flex-col
+          before:absolute before:inset-0 before:rounded-2xl before:opacity-0 before:hover:opacity-100 before:bg-gradient-to-t before:from-foreground/5 before:to-transparent before:transition-opacity before:duration-500
         `}
       >
         {/* Animated background gradient */}
         <motion.div
           className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-          style={{
-            background: `radial-gradient(circle at ${isHovered ? '50%' : '0%'} ${isHovered ? '50%' : '0%'}, rgba(255,255,255,0.1) 0%, transparent 70%)`
+          animate={{
+            background: isHovered 
+              ? 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 70%)'
+              : 'radial-gradient(circle at 0% 0%, rgba(255,255,255,0.05) 0%, transparent 70%)'
           }}
+          transition={{ duration: 0.4 }}
         />
 
         {/* Content */}
         <div className="relative z-10 flex flex-col h-full">
           {/* Header Section */}
-          <div className="flex items-start justify-between mb-4">
-            <div className="flex items-center space-x-3 flex-1 min-w-0">
+          <div className="flex items-start justify-between mb-5 gap-3 pb-3 border-b border-foreground/10">
+            <div className="flex items-start space-x-3 flex-1 min-w-0">
               <motion.div
-                animate={{ rotate: isHovered ? 180 : 0 }}
-                transition={{ duration: 0.3 }}
-                className="p-2.5 rounded-xl bg-foreground/10 border border-foreground/20 shrink-0"
+                animate={{ rotate: isHovered ? 12 : 0 }}
+                transition={{ duration: 0.4 }}
+                className="p-3 rounded-xl bg-gradient-to-br from-foreground/20 to-foreground/10 border border-foreground/20 shrink-0 group-hover:from-accent/40 group-hover:to-accent/20 group-hover:border-accent/40 transition-all duration-300 shadow-lg shadow-foreground/10 group-hover:shadow-accent/20"
               >
-                <Code size={18} className="text-foreground" />
+                <Code size={20} className="text-foreground group-hover:text-accent transition-colors duration-300" />
               </motion.div>
               <div className="min-w-0 flex-1">
-                <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground group-hover:text-accent transition-colors duration-300 truncate">
+                <h2 className="text-lg md:text-xl lg:text-2xl font-bold text-foreground group-hover:text-accent transition-colors duration-300 line-clamp-2">
                   {name}
                 </h2>
-                <div className="flex items-center space-x-2 mt-1">
+                <div className="flex items-center space-x-2 mt-2 flex-wrap gap-1">
                   <Clock size={12} className="text-muted shrink-0" />
-                  <span className="text-xs md:text-sm text-muted">
+                  <span className="text-xs md:text-sm text-muted/80 font-medium">
                     Project #{String(id).padStart(2, '0')}
                   </span>
                 </div>
@@ -218,13 +223,14 @@ const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLi
 
             <motion.div
               animate={{ 
-                x: isHovered ? 5 : 0,
-                y: isHovered ? -5 : 0 
+                x: isHovered ? 4 : 0,
+                y: isHovered ? -4 : 0,
+                scale: isHovered ? 1.2 : 1 
               }}
-              transition={{ duration: 0.2 }}
-              className="opacity-60 group-hover:opacity-100 transition-opacity duration-300 shrink-0"
+              transition={{ duration: 0.3 }}
+              className="opacity-40 group-hover:opacity-100 transition-opacity duration-300 shrink-0 text-accent"
             >
-              <Github size={20} className="text-foreground" />
+              <Github size={24} />
             </motion.div>
           </div>
 
@@ -235,7 +241,7 @@ const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLi
 
           {/* Description */}
           <div className="flex-1 mb-4">
-            <p className="text-muted text-sm md:text-base leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 line-clamp-4">
+            <p className="text-muted text-sm md:text-base leading-relaxed group-hover:text-foreground/90 transition-colors duration-300 line-clamp-4 font-medium">
               {description}
             </p>
           </div>
@@ -243,29 +249,46 @@ const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLi
           {/* Tech Stack */}
           <div className="mb-4">
             <div className="flex items-center space-x-2 mb-3">
-              <Layers size={14} className="text-muted" />
+              <motion.div
+                animate={{ rotate: isHovered ? 360 : 0 }}
+                transition={{ duration: 0.6 }}
+              >
+                <Layers size={14} className="text-accent" />
+              </motion.div>
               <span className="text-xs md:text-sm font-medium text-muted">Tech Stack</span>
             </div>
             <div className="flex flex-wrap gap-2">
               {techStack.slice(0, 6).map((tech, techIndex) => (
                 <motion.div
                   key={tech}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: techIndex * 0.1 }}
-                  className="flex items-center space-x-1.5 px-2.5 py-1.5 rounded-lg bg-foreground/5 border border-foreground/10 hover:bg-foreground/10 transition-colors duration-200 group/tech"
+                  initial={{ opacity: 0, scale: 0.6, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ delay: techIndex * 0.08, type: "spring", stiffness: 500, damping: 30 }}
+                  whileHover={{ scale: 1.1, y: -4 }}
+                  className="flex items-center space-x-1.5 px-3 py-2 rounded-lg bg-gradient-to-br from-foreground/10 to-foreground/5 border border-foreground/20 hover:border-accent/50 hover:shadow-lg hover:shadow-accent/20 transition-all duration-200 group/tech cursor-default"
                   title={tech}
                 >
-                  <TechLogo tech={tech} size={16} />
-                  <span className="text-xs md:text-sm font-medium text-foreground/80">
+                  <motion.div
+                    whileHover={{ rotate: 12 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <TechLogo tech={tech} size={16} />
+                  </motion.div>
+                  <span className="text-xs md:text-sm font-semibold text-foreground/80 group-hover/tech:text-accent transition-colors duration-200">
                     {tech}
                   </span>
                 </motion.div>
               ))}
               {techStack.length > 6 && (
-                <div className="flex items-center justify-center px-2.5 py-1.5 rounded-lg bg-foreground/5 border border-foreground/10">
-                  <span className="text-xs text-muted">+{techStack.length - 6}</span>
-                </div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.6 }}
+                  whileHover={{ scale: 1.05 }}
+                  className="flex items-center justify-center px-3 py-2 rounded-lg bg-gradient-to-br from-accent/20 to-accent/10 border border-accent/30 hover:border-accent/50 transition-all duration-200"
+                >
+                  <span className="text-xs font-medium text-accent">+{techStack.length - 6} more</span>
+                </motion.div>
               )}
             </div>
           </div>
@@ -292,21 +315,29 @@ const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLi
           </div>
         </div>
 
-        {/* Corner decoration */}
+        {/* Corner decorations */}
         <motion.div
-          className="absolute top-4 right-4 w-2 h-2 rounded-full bg-accent opacity-0 group-hover:opacity-100"
+          className="absolute top-4 right-4 w-3 h-3 rounded-full bg-accent opacity-0 group-hover:opacity-100 shadow-lg shadow-accent/50"
           animate={{ 
-            scale: isHovered ? [1, 1.5, 1] : 1,
+            scale: isHovered ? [1, 1.8, 1] : 1,
+            opacity: isHovered ? 1 : 0,
           }}
           transition={{ 
-            duration: 2,
+            duration: 2.5,
             repeat: isHovered ? Infinity : 0,
             repeatType: "reverse"
           }}
         />
 
+        {/* Animated corner accent */}
+        <motion.div
+          className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-bl from-accent/20 to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100"
+          animate={{ scale: isHovered ? 1 : 0.8 }}
+          transition={{ duration: 0.4 }}
+        />
+
         {/* Gradient overlay for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-t from-background/5 via-transparent to-transparent pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/10 via-transparent to-transparent pointer-events-none" />
       </motion.div>
     </ProjectLink>
   );
