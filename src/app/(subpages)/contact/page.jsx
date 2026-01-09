@@ -87,7 +87,7 @@ export default function Contact() {
               variants={itemVariants}
               className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/70 leading-relaxed max-w-2xl mx-auto mb-8 sm:mb-12 px-4"
             >
-              Whether it's a full-time role, freelance project, or just a tech conversation - I'm always excited to connect and collaborate.
+              Whether it&apos;s a full-time role, freelance project, or just a tech conversation - I&apos;m always excited to connect and collaborate.
             </motion.p>
 
             {/* Quick stats */}
@@ -324,7 +324,7 @@ export default function Contact() {
                 Ready to Start?
               </h2>
               <p className="text-sm sm:text-base md:text-lg text-foreground/70 mb-8 sm:mb-12 max-w-2xl mx-auto">
-                Let's connect and discuss how we can work together on your next project.
+                Let&apos;s connect and discuss how we can work together on your next project.
               </p>
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-lg mx-auto">
                 <Link

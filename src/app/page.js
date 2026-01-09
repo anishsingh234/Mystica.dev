@@ -561,7 +561,7 @@ export default function Home() {
                       <p className="text-sm text-foreground/60">{testimonial.role}</p>
                     </div>
                   </div>
-                  <p className="text-sm text-foreground/70 italic">"{testimonial.text}"</p>
+                  <p className="text-sm text-foreground/70 italic">&quot;{testimonial.text}&quot;</p>
                 </motion.div>
               ))}
             </motion.div>
@@ -578,9 +578,9 @@ export default function Home() {
               variants={itemVariants}
               className="p-8 bg-gradient-to-r from-accent/10 to-accent/5 rounded-xl border border-accent/20 text-center"
             >
-              <p className="text-xl font-semibold text-accent mb-4">Let's Build Something Amazing</p>
+              <p className="text-xl font-semibold text-accent mb-4">Let&apos;s Build Something Amazing</p>
               <p className="text-foreground/70 mb-6 max-w-xl mx-auto">
-                I'm always interested in hearing about new projects and opportunities in web development and AI.
+                I&apos;m always interested in hearing about new projects and opportunities in web development and AI.
               </p>
               <div className="flex flex-wrap gap-3 justify-center">
                 <Link

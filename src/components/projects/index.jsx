@@ -68,7 +68,7 @@ const ProjectList = ({ projects }) => {
             </span>
           </h1>
           <p className="text-sm sm:text-base md:text-lg lg:text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed">
-            A collection of web applications, AI tools, and full-stack solutions I've built using modern technologies.
+            A collection of web applications, AI tools, and full-stack solutions I&apos;ve built using modern technologies.
           </p>
         </div>
       </motion.div>
