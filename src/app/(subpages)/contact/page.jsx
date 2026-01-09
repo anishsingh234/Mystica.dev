@@ -68,7 +68,7 @@ export default function Contact() {
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent/15 border border-accent/40 mb-8 shadow-lg shadow-accent/20"
             >
               <MessageSquare size={16} className="text-accent" />
-              <span className="text-sm font-semibold text-accent">💬 Let's Connect</span>
+              <span className="text-sm font-semibold text-accent">💬 Let&apos;s Connect</span>
             </motion.div>
 
             {/* Title */}
@@ -79,7 +79,7 @@ export default function Contact() {
               <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent block mb-1 sm:mb-2">
                 Get In Touch
               </span>
-              <span className="text-foreground block">Let's Work Together</span>
+              <span className="text-foreground block">Let&apos;s Work Together</span>
             </motion.h1>
 
             {/* Description */}
@@ -300,7 +300,7 @@ export default function Contact() {
                 Send a <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">Message</span>
               </h2>
               <p className="text-sm sm:text-base md:text-lg text-foreground/70">
-                Fill out the form and I'll get back to you within 24-48 hours
+                Fill out the form and I&apos;ll get back to you within 24-48 hours
               </p>
             </motion.div>
 
