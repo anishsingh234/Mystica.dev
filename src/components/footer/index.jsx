@@ -14,7 +14,7 @@ const Footer = () => {
     },
     {
       label: "About",
-      href: "/about",
+      href: "/#about",
     },
     {
       label: "Projects",
@@ -29,13 +29,13 @@ const Footer = () => {
   const socialLinks = [
     {
       icon: Github,
-      href: "https://github.com",
+      href: "https://github.com/anishsingh234",
       label: "GitHub",
       color: "hover:text-accent/80",
     },
     {
       icon: Linkedin,
-      href: "https://linkedin.com",
+      href: "https://linkedin.com/in/anish-ai",
       label: "LinkedIn",
       color: "hover:text-accent/80",
     },

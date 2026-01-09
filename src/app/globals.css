@@ -11,6 +11,10 @@
     --accent: 254 254 91;
     /* hex value of rgb(254,254,91) color is  #FEFE5B  */
   }
+
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 

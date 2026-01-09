@@ -11,9 +11,9 @@ const inter = Inter({
 });
 
 export const metadata= {
-  title: "Mystica.dev | The Wizard’s Portfolio",
+  title: "Anish Singh | Full Stack Developer",
   description:
-    "Step into Mystica.dev — a magical portfolio where code meets wizardry. Showcasing enchanting projects, creative spells of design, and the sorcery of development.",
+    "Full stack developer specializing in React, Next.js, Node.js, and AI/ML integration. Building modern web applications with clean code and great user experience.",
    icons: {
     icon: "/favicon.ico",
   },

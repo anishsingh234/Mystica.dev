@@ -125,7 +125,7 @@ export default function Form() {
         {/* Name Input */}
         <motion.div variants={item} className="w-full space-y-2">
           <motion.label
-            className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted ml-1"
+            className="flex items-center space-x-2 text-xs sm:text-sm font-medium text-muted ml-1"
           >
             <User size={14} className="text-accent" />
             <span>Full Name</span>
@@ -140,8 +140,8 @@ export default function Form() {
                 message: "Name should be at least 3 characters long.",
               },
             })}
-            whileFocus={{ scale: 1.02 }}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 font-medium"
+            whileFocus={{ scale: 1.01 }}
+            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-sm sm:text-base text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 font-medium"
           />
           {errors.name && (
             <motion.span 
@@ -220,12 +220,12 @@ export default function Form() {
         <motion.button
           variants={item}
           type="submit"
-          whileHover={{ scale: 1.05, y: -2 }}
+          whileHover={{ scale: 1.03, y: -2 }}
           whileTap={{ scale: 0.95 }}
-          className="w-full sm:w-auto px-8 sm:px-12 py-4 sm:py-5 rounded-xl shadow-lg bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 hover:border-accent/60 text-foreground hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer capitalize transition-all duration-300 hover:shadow-xl active:scale-95 font-semibold text-base sm:text-lg flex items-center justify-center space-x-2 group"
+          className="w-full sm:w-auto px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 rounded-xl shadow-lg bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 hover:border-accent/60 text-foreground hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer capitalize transition-all duration-300 hover:shadow-xl active:scale-95 font-semibold text-sm sm:text-base md:text-lg flex items-center justify-center space-x-2 group"
         >
-          <Send size={18} className="group-hover:translate-x-1 transition-transform duration-200" />
-          <span>Cast your message!</span>
+          <Send size={16} className="sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform duration-200" />
+          <span>Send Message</span>
         </motion.button>
         </motion.div>
       </motion.form>

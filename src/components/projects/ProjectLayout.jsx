@@ -76,23 +76,27 @@ const StatusBadge = ({ status }) => {
     switch (status?.toLowerCase()) {
       case "completed":
         return {
-          color: "bg-green-500/20 text-green-400 border-green-500/30",
-          label: "Completed"
+          color: "bg-green-500/20 text-green-400 border-green-500/40 shadow-green-500/20",
+          label: "✓ Completed",
+          icon: "✓"
         };
       case "always working":
         return {
-          color: "bg-orange-500/20 text-orange-400 border-orange-500/30",
-          label: "Active"
+          color: "bg-orange-500/20 text-orange-400 border-orange-500/40 shadow-orange-500/20",
+          label: "⚡ Active",
+          icon: "⚡"
         };
       case "in progress":
         return {
-          color: "bg-blue-500/20 text-blue-400 border-blue-500/30",
-          label: "In Progress"
+          color: "bg-blue-500/20 text-blue-400 border-blue-500/40 shadow-blue-500/20",
+          label: "🔄 In Progress",
+          icon: "🔄"
         };
       default:
         return {
-          color: "bg-gray-500/20 text-gray-400 border-gray-500/30",
-          label: status
+          color: "bg-gray-500/20 text-gray-400 border-gray-500/40 shadow-gray-500/20",
+          label: status,
+          icon: "•"
         };
     }
   };
@@ -100,7 +104,7 @@ const StatusBadge = ({ status }) => {
   const config = getStatusConfig(status);
 
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}>
+    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border shadow-lg ${config.color}`}>
       {config.label}
     </span>
   );
@@ -134,53 +138,76 @@ const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLi
       className="group block"
     >
       <motion.div
-        whileHover={{ y: -4 }}
-        transition={{ duration: 0.2 }}
-        className="border border-foreground/10 rounded-lg p-6 h-full bg-foreground/[0.02] hover:bg-foreground/[0.05] hover:border-accent/30 transition-all duration-300 flex flex-col"
+        whileHover={{ y: -8, scale: 1.02 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="relative border border-foreground/10 rounded-2xl p-5 sm:p-6 md:p-8 h-full bg-gradient-to-br from-foreground/[0.03] to-foreground/[0.01] hover:from-accent/[0.08] hover:to-accent/[0.03] hover:border-accent/40 transition-all duration-300 flex flex-col backdrop-blur-sm overflow-hidden group"
       >
-        {/* Header */}
-        <div className="mb-4">
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <h2 className="text-xl font-bold text-foreground group-hover:text-accent transition-colors duration-300">
-              {name}
-            </h2>
-            <Github size={20} className="text-foreground/40 group-hover:text-accent transition-colors duration-300 shrink-0" />
-          </div>
-          <StatusBadge status={status} />
-        </div>
-
-        {/* Description */}
-        <p className="text-sm text-foreground/70 mb-4 flex-1 line-clamp-3">
-          {description}
-        </p>
-
-        {/* Tech Stack */}
-        {techStack.length > 0 && (
-          <div className="mb-4">
-            <div className="flex flex-wrap gap-2">
-              {techStack.slice(0, 5).map((tech) => (
-                <div
-                  key={tech}
-                  className="flex items-center gap-1.5 px-2.5 py-1.5 rounded text-xs bg-foreground/5 border border-foreground/10 group-hover:border-accent/20 transition-colors duration-200"
-                  title={tech}
-                >
-                  <TechLogo tech={tech} size={14} />
-                  <span className="text-foreground/70">{tech}</span>
-                </div>
-              ))}
-              {techStack.length > 5 && (
-                <div className="px-2.5 py-1.5 rounded text-xs text-foreground/60">
-                  +{techStack.length - 5}
-                </div>
-              )}
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
+        {/* Glow effect */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10" />
+        
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="mb-5">
+            <div className="flex items-start justify-between gap-3 mb-4">
+              <h2 className="text-2xl font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
+                {name}
+              </h2>
+              <motion.div
+                whileHover={{ rotate: 360, scale: 1.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                <Github size={24} className="text-foreground/40 group-hover:text-accent transition-colors duration-300 shrink-0" />
+              </motion.div>
             </div>
+            <StatusBadge status={status} />
           </div>
-        )}
 
-        {/* Footer */}
-        <div className="flex items-center justify-between pt-4 border-t border-foreground/10">
-          <span className="text-xs text-foreground/60">View on GitHub</span>
-          <ExternalLink size={16} className="text-foreground/40 group-hover:text-accent transition-colors duration-300" />
+          {/* Description */}
+          <p className="text-base text-foreground/70 mb-6 flex-1 line-clamp-3 leading-relaxed">
+            {description}
+          </p>
+
+          {/* Tech Stack */}
+          {techStack.length > 0 && (
+            <div className="mb-6">
+              <div className="flex flex-wrap gap-2">
+                {techStack.slice(0, 6).map((tech, idx) => (
+                  <motion.div
+                    key={tech}
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: idx * 0.05 }}
+                    whileHover={{ scale: 1.1, y: -2 }}
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-foreground/5 border border-foreground/10 group-hover:border-accent/30 group-hover:bg-accent/10 transition-all duration-200"
+                    title={tech}
+                  >
+                    <TechLogo tech={tech} size={16} />
+                    <span className="text-foreground/80 font-medium">{tech}</span>
+                  </motion.div>
+                ))}
+                {techStack.length > 6 && (
+                  <div className="flex items-center px-3 py-2 rounded-lg text-sm text-foreground/60 bg-foreground/5 border border-foreground/10 font-medium">
+                    +{techStack.length - 6} more
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Footer with arrow animation */}
+          <div className="flex items-center justify-between pt-5 border-t border-foreground/10 group-hover:border-accent/30 transition-colors">
+            <span className="text-sm font-medium text-foreground/70 group-hover:text-accent transition-colors">View Project</span>
+            <motion.div
+              initial={{ x: 0 }}
+              whileHover={{ x: 4 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ExternalLink size={18} className="text-foreground/40 group-hover:text-accent transition-colors duration-300" />
+            </motion.div>
+          </div>
         </div>
       </motion.div>
     </ProjectLink>
