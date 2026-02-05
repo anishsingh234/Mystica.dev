@@ -30,60 +30,64 @@ export default function Home() {
   };
 
   const skills = [
-    "React", "Next.js", "TypeScript", "Node.js", "MongoDB",
-    "TailwindCSS", "Prisma", "AI/ML", "C++", "Java"
+    "React", "Next.js", "React Native", "TypeScript", "Node.js",
+    "Python", "FastAPI", "MongoDB", "Prisma", "LangChain",
+    "LLMs", "RAG Systems", "GraphQL", "Three.js", "Tailwind CSS"
   ];
 
   const techStack = [
     { name: "React", emoji: "⚛️" },
     { name: "Next.js", emoji: "▲" },
+    { name: "React Native", emoji: "📱" },
     { name: "TypeScript", emoji: "📘" },
     { name: "Python", emoji: "🐍" },
-    { name: "MongoDB", emoji: "🍃" },
-    { name: "GraphQL", emoji: "⚡" },
-    { name: "Prisma", emoji: "🔐" },
-    { name: "ConvexDB", emoji: "🔄" },
-    { name: "Tailwind", emoji: "🎨" },
+    { name: "LangChain", emoji: "⛓️" },
+    { name: "FastAPI", emoji: "⚡" },
     { name: "Node.js", emoji: "🟢" },
-    { name: "Git", emoji: "📦" },
-    { name: "Vercel", emoji: "▲" },
+    { name: "MongoDB", emoji: "🍃" },
+    { name: "Prisma", emoji: "🔐" },
+    { name: "GraphQL", emoji: "🔗" },
+    { name: "Three.js", emoji: "🎮" },
   ];
 
   const featuredProjects = [
     {
       title: "HealSync",
-      desc: "Healthcare appointment platform with doctor dashboards and video consultations",
-      tech: ["Next.js", "Prisma", "MongoDB"],
+      desc: "Healthcare appointment platform with booking, cancellation, and real-time consultation management for patients, doctors, and admins",
+      tech: ["Next.js", "Prisma", "MongoDB", "Clerk"],
       icon: "🏥",
-      metrics: "Real-time booking system"
+      metrics: "HIPAA-compliant · Video Calling",
+      date: "Sep 2025"
     },
     {
-      title: "DarkStore IMS",
-      desc: "Enterprise inventory management with real-time analytics and dashboards",
-      tech: ["React", "GraphQL", "Recharts"],
-      icon: "📊",
-      metrics: "Full inventory tracking"
+      title: "NutriMate",
+      desc: "AI-powered diet planning mobile app with personalized meal recommendations and real-time nutritional tracking",
+      tech: ["React Native", "Expo", "Gemini AI"],
+      icon: "🥗",
+      metrics: "Cross-platform · AI Suggestions",
+      date: "Jul 2025"
     },
     {
-      title: "Trip Bandhu",
-      desc: "AI-powered trip planner using Mistral AI for personalized itineraries",
-      tech: ["Next.js", "ConvexDB", "AI"],
-      icon: "✈️",
-      metrics: "AI-powered suggestions"
+      title: "Deep Research Agent",
+      desc: "Multi-step AI research system with Chain-of-Thought reasoning, live web search, and autonomous task execution",
+      tech: ["Python", "LangChain", "FastAPI"],
+      icon: "🤖",
+      metrics: "Autonomous · Real-time Research",
+      date: "Jan 2026"
     },
   ];
 
   const testimonials = [
     {
-      name: "ExplorIn Academy",
-      role: "Training Program",
-      text: "Demonstrated strong problem-solving skills and quick learning ability in full-stack development.",
+      name: "Exponent Solutions",
+      role: "Full Stack Developer Intern",
+      text: "Developing full-stack web and mobile applications with modern technologies. Building scalable backend services and responsive interfaces.",
       avatar: "💼"
     },
     {
-      name: "Open Source",
-      role: "Community Contributor",
-      text: "Active on GitHub with consistent contributions and well-documented projects.",
+      name: "Open Source & Learning",
+      role: "Continuous Contributor",
+      text: "Active on GitHub with 350+ LeetCode problems solved. Consistent contributions and well-documented projects showcasing problem-solving skills.",
       avatar: "🌟"
     },
   ];
@@ -183,8 +187,9 @@ export default function Home() {
             variants={itemVariants}
             className="text-center text-sm sm:text-base md:text-lg text-foreground/70 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
           >
-            I build fast, modern web applications using React, Next.js, and Node.js. 
-            I integrate AI/ML features and focus on clean code and great user experience.
+            Proven ability in developing full-stack web and mobile applications, integrating AI/ML solutions, 
+            and optimizing databases for high performance. Proficient in modern web technologies with strong 
+            foundation in LLMs, RAG systems, and AI agents.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -278,11 +283,11 @@ export default function Home() {
                 <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
                   <Code2 className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold">Web Development</h3>
+                <h3 className="text-xl font-bold">Full-Stack Development</h3>
               </div>
               <p className="text-foreground/70 leading-relaxed">
-                Build responsive, fast web applications with modern frameworks. 
-                Clean architecture and optimized performance.
+                Build responsive web and mobile applications with React, Next.js, and React Native. 
+                Focus on scalable backend services, optimized databases, and modern UI/UX.
               </p>
             </div>
 
@@ -291,11 +296,11 @@ export default function Home() {
                 <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
                   <Zap className="w-6 h-6 text-accent" />
                 </div>
-                <h3 className="text-xl font-bold">AI Integration</h3>
+                <h3 className="text-xl font-bold">AI/ML Integration</h3>
               </div>
               <p className="text-foreground/70 leading-relaxed">
-                Integrate AI and machine learning features into applications. 
-                Smart solutions for complex problems.
+                Integrate LLMs, RAG systems, and AI agents using LangChain, Hugging Face, and Ollama. 
+                Build intelligent workflows with function calling and multi-agent orchestration.
               </p>
             </div>
           </motion.div>
@@ -366,7 +371,9 @@ export default function Home() {
               </h2>
               <div className="w-20 h-1 bg-gradient-to-r from-transparent via-accent to-transparent mx-auto mb-6"></div>
               <p className="text-base sm:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto">
-                I build scalable web applications with React, Next.js, and Node.js. I also work with AI and machine learning to create smart solutions. Currently pursuing B.Tech in CS (AI & ML), graduating in 2026.
+                Full Stack Developer with expertise in React, Next.js, React Native, and modern backend technologies. 
+                Specialized in integrating AI/ML solutions including LLMs, RAG systems, and multi-agent orchestration. 
+                Currently pursuing B.Tech in CS (AI & ML), graduating in 2026.
               </p>
             </motion.div>
 
@@ -390,12 +397,12 @@ export default function Home() {
                   <div className="pb-4 border-b border-foreground/10">
                     <p className="font-semibold text-foreground mb-1">B.Tech in Computer Science</p>
                     <p className="text-sm text-foreground/70">Uttarakhand Technical University</p>
-                    <p className="text-xs text-accent mt-1">AI & ML Specialization | Graduating 2026</p>
+                    <p className="text-xs text-accent mt-1">AI & ML Specialization | Aug 2022 - Jun 2026</p>
                   </div>
                   <div>
-                    <p className="font-semibold text-foreground mb-1">Software Trainee</p>
-                    <p className="text-sm text-foreground/70">ExplorIn Academy</p>
-                    <p className="text-xs text-accent mt-1">Full-Stack Development | Production Applications</p>
+                    <p className="font-semibold text-foreground mb-1">Full Stack Developer Intern</p>
+                    <p className="text-sm text-foreground/70">Exponent Solutions</p>
+                    <p className="text-xs text-accent mt-1">Nov 2025 - Present | Next.js, React Native, TypeScript</p>
                   </div>
                 </div>
               </motion.div>
@@ -414,11 +421,11 @@ export default function Home() {
                 <div className="grid grid-cols-2 gap-3">
                   {[
                     "Full-Stack Development",
-                    "AI & Machine Learning",
+                    "AI/ML Integration",
+                    "LLMs & RAG Systems",
+                    "React Native",
                     "Next.js & React",
-                    "Backend Development",
-                    "GraphQL & APIs",
-                    "Three.js",
+                    "Python & FastAPI",
                   ].map((skill, idx) => (
                     <div
                       key={idx}
@@ -476,6 +483,10 @@ export default function Home() {
                   <ExternalLink className="w-4 h-4" />
                 </a>
                 <p className="text-xs text-foreground/60 mt-2">350+ LeetCode problems • Active contributor</p>
+                <div className="mt-3 pt-3 border-t border-accent/20">
+                  <p className="text-xs font-semibold text-accent mb-1">🏆 Certification</p>
+                  <p className="text-xs text-foreground/70">Java Programming Certificate - HackerRank</p>
+                </div>
               </div>
             </motion.div>
           </motion.div>
@@ -500,12 +511,17 @@ export default function Home() {
                 <motion.div
                   key={idx}
                   variants={itemVariants}
-                  whileHover={{ y: -8 }}
-                  className="p-6 bg-gradient-to-br from-accent/10 via-background/50 to-background rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10"
+                  whileHover={{ y: -8, scale: 1.02 }}
+                  className="p-6 bg-gradient-to-br from-accent/10 via-background/50 to-background rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 cursor-pointer"
                 >
-                  <p className="text-3xl mb-3">{project.icon}</p>
+                  <div className="flex justify-between items-start mb-3">
+                    <p className="text-3xl">{project.icon}</p>
+                    <span className="text-[10px] bg-accent/10 text-accent px-2 py-1 rounded-full font-medium">
+                      {project.date}
+                    </span>
+                  </div>
                   <h4 className="text-lg font-bold text-accent mb-2">{project.title}</h4>
-                  <p className="text-sm text-foreground/70 mb-3">{project.desc}</p>
+                  <p className="text-sm text-foreground/70 mb-3 line-clamp-3">{project.desc}</p>
                   <p className="text-xs text-accent/80 mb-4 italic">✨ {project.metrics}</p>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((t, i) => (
@@ -521,13 +537,49 @@ export default function Home() {
               ))}
             </motion.div>
             <motion.div variants={itemVariants} className="text-center mt-8">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-accent hover:bg-accent/90 text-background font-semibold rounded-lg transition-all duration-300"
-              >
-                View All Projects
-                <ArrowRight className="w-4 h-4" />
-              </Link>
+              <div className="relative p-8 bg-gradient-to-r from-accent/10 via-accent/5 to-transparent rounded-2xl border border-accent/30 overflow-hidden group cursor-pointer">
+                {/* Animated background gradient */}
+                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                
+                <div className="relative z-10">
+                  <div className="flex justify-center mb-4">
+                    <div className="p-4 bg-accent/10 rounded-full group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
+                      <Rocket className="w-8 h-8 text-accent" />
+                    </div>
+                  </div>
+                  
+                  <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
+                    Explore More Projects
+                  </h3>
+                  
+                  <p className="text-foreground/70 mb-6 max-w-md mx-auto">
+                    Discover 12+ full-stack applications, AI integrations, and open-source contributions
+                  </p>
+                  
+                  <Link
+                    href="/projects"
+                    className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent/90 text-background font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-accent/30 group-hover:scale-105"
+                  >
+                    <span>View All Projects</span>
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
+                  </Link>
+                  
+                  <div className="mt-6 flex justify-center gap-6 text-sm">
+                    <div className="flex items-center gap-2">
+                      <Code2 className="w-4 h-4 text-accent" />
+                      <span className="text-foreground/60">Full Stack</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Zap className="w-4 h-4 text-accent" />
+                      <span className="text-foreground/60">AI Powered</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Layers className="w-4 h-4 text-accent" />
+                      <span className="text-foreground/60">Modern Stack</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </motion.div>
           </motion.div>
 
