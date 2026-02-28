@@ -1,4 +1,6 @@
 export const projectsData = [
+  // ===================== AI PROJECTS =====================
+
   {
     id: 1,
     name: "HopeBridge",
@@ -24,7 +26,14 @@ export const projectsData = [
     description:
       "Trip Bandhu is an AI-powered trip planner that generates customized itineraries based on user preferences, locations, and budget, providing a smarter way to plan memorable travel experiences.",
     status: "Completed",
-    techStack: ["Next.js", "React", "ConvexDB", "MongoDB", "TypeScript", "TailwindCSS"],
+    techStack: [
+      "Next.js",
+      "React",
+      "ConvexDB",
+      "MongoDB",
+      "TypeScript",
+      "TailwindCSS"
+    ],
     GithubLink: "https://github.com/anishsingh234/TripBandhu.git",
   },
 
@@ -38,10 +47,12 @@ export const projectsData = [
       "React Native",
       "Expo",
       "TypeScript",
-      "Google Gemini AI",
+      "Google Gemini AI"
     ],
     GithubLink: "https://github.com/anishsingh234/NutriMate.git",
   },
+
+  // ===================== FULL STACK PROJECTS =====================
 
   {
     id: 4,
@@ -49,7 +60,14 @@ export const projectsData = [
     description:
       "HealSync is a doctor appointment booking application with secure video call functionality, real-time scheduling, and patient management features designed to streamline healthcare services using modern web technologies.",
     status: "Completed",
-    techStack: ["Next.js", "React", "PrismaORM", "MongoDB", "TypeScript", "TailwindCSS"],
+    techStack: [
+      "Next.js",
+      "React",
+      "Prisma ORM",
+      "MongoDB",
+      "TypeScript",
+      "TailwindCSS"
+    ],
     GithubLink: "https://github.com/anishsingh234/HealSync.git",
   },
 
@@ -57,24 +75,56 @@ export const projectsData = [
     id: 5,
     name: "QuickBasket",
     description:
-      "QuickBasket is a full-featured e-commerce platform that includes essential product filters, user-friendly navigation, responsive UI, and seamless shopping experience built with Next.js, PrismaORM, and MongoDB backend.",
+      "QuickBasket is a full-featured e-commerce platform that includes essential product filters, user-friendly navigation, responsive UI, and seamless shopping experience built with Next.js, Prisma ORM, and MongoDB backend.",
     status: "Completed",
-    techStack: ["Next.js", "React", "PrismaORM", "MongoDB", "TypeScript", "TailwindCSS"],
+    techStack: [
+      "Next.js",
+      "React",
+      "Prisma ORM",
+      "MongoDB",
+      "TypeScript",
+      "TailwindCSS"
+    ],
     GithubLink: "https://github.com/anishsingh234/QuickBasket.git",
   },
 
   {
     id: 6,
-    name: "DarkStoreIMS",
+    name: "JobHunt",
     description:
-      "DarkStoreIMS is an advanced inventory management system tailored for dark store operations, featuring efficient stock tracking, data-driven analytics, and smooth integration with modern backend technologies.",
+      "JobHunt is a comprehensive job application and recruitment platform built with Next.js and React. It streamlines the hiring process by enabling job seekers to search and apply for jobs, while providing employers with tools to post openings, manage applicants, and review candidates. The platform features secure authentication, applicant tracking, and company management, leveraging Prisma ORM with PostgreSQL for robust data handling.",
     status: "Completed",
-    techStack: ["Next.js", "React", "ConvexDB", "MongoDB", "TypeScript", "TailwindCSS"],
-    GithubLink: "https://github.com/anishsingh234/DarkStoreIMS.git",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "Prisma ORM",
+      "PostgreSQL"
+    ],
+    GithubLink: "https://github.com/anishsingh234/jobHunt.git",
   },
 
   {
     id: 7,
+    name: "DarkStoreIMS",
+    description:
+      "DarkStoreIMS is an advanced inventory management system tailored for dark store operations, featuring efficient stock tracking, data-driven analytics, and smooth integration with modern backend technologies.",
+    status: "Completed",
+    techStack: [
+      "Next.js",
+      "React",
+      "ConvexDB",
+      "MongoDB",
+      "TypeScript",
+      "TailwindCSS"
+    ],
+    GithubLink: "https://github.com/anishsingh234/DarkStoreIMS.git",
+  },
+
+  // ===================== DSA PRACTICE =====================
+
+  {
+    id: 8,
     name: "LeetCode",
     description:
       "A comprehensive repository where I regularly upload solutions to problems solved on LeetCode, covering a wide range of data structures, algorithms, and problem-solving techniques using C++ and Java.",
@@ -84,7 +134,7 @@ export const projectsData = [
   },
 
   {
-    id: 8,
+    id: 9,
     name: "GeeksForGeeks",
     description:
       "This repository contains solutions to coding problems solved on GeeksForGeeks. It demonstrates consistent practice in competitive programming and mastery of core computer science fundamentals using C++ and Java.",
@@ -93,8 +143,10 @@ export const projectsData = [
     GithubLink: "https://github.com/anishsingh234/GeeksforGeeks.git",
   },
 
+  // ===================== MINI PROJECTS =====================
+
   {
-    id: 9,
+    id: 10,
     name: "Password Generator",
     description:
       "Password Generator is a simple and efficient application that generates secure passwords based on user input, helping improve security practices with a clean and responsive UI.",
@@ -104,7 +156,7 @@ export const projectsData = [
   },
 
   {
-    id: 10,
+    id: 11,
     name: "Weather App",
     description:
       "Weather App fetches real-time weather data and displays current conditions in a clean interface, helping users quickly check temperature and weather updates for any location.",
@@ -114,7 +166,7 @@ export const projectsData = [
   },
 
   {
-    id: 11,
+    id: 12,
     name: "Quiz App",
     description:
       "Quiz App is an interactive web application that allows users to test their knowledge through multiple-choice questions, featuring instant feedback and a simple, user-friendly design.",
@@ -124,7 +176,7 @@ export const projectsData = [
   },
 
   {
-    id: 12,
+    id: 13,
     name: "Background Changer",
     description:
       "Background Changer is a React-based application that dynamically updates backgrounds using the Unsplash API, providing an engaging way to explore and apply high-quality images.",
@@ -134,7 +186,7 @@ export const projectsData = [
   },
 
   {
-    id: 13,
+    id: 14,
     name: "Counter App",
     description:
       "Counter App is a basic React application that demonstrates state management by incrementing and decrementing values, serving as a foundational project for understanding React concepts.",
