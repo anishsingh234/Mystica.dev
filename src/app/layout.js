@@ -3,18 +3,18 @@ import "./globals.css";
 import clsx from "clsx";
 import FireFliesBackground from "@/components/fireFilesBackground";
 import Footer from "@/components/footer";
-
+import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
 });
 
-export const metadata= {
+export const metadata = {
   title: "Anish Singh | Full Stack Developer",
   description:
     "Full stack developer specializing in React, Next.js, Node.js, and AI/ML integration. Building modern web applications with clean code and great user experience.",
-   icons: {
+  icons: {
     icon: "/favicon.ico",
   },
 };
@@ -22,13 +22,22 @@ export const metadata= {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body  className={clsx(
+      <body
+        className={clsx(
           inter.variable,
-          "bg-background text-foreground font-inter"
-        )}>{children}
+          "bg-background text-foreground font-inter",
+        )}
+      >
+        {children}
+        {/* Script */}
+      <script 
+  src="https://chat-sathi.vercel.app/chatBot.js" 
+  data-owner-id="usr_115500314898989325">
+</script>
+      
         <Footer />
-        <FireFliesBackground/>
-        </body>
+        <FireFliesBackground />
+      </body>
     </html>
   );
 }
