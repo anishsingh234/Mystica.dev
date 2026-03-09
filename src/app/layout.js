@@ -29,11 +29,11 @@ export default function RootLayout({ children }) {
         )}
       >
         {children}
-        {/* Script */}
-      <script 
-  src="https://chat-sathi.vercel.app/chatBot.js" 
-  data-owner-id="usr_115500314898989325">
-</script>
+        <Script 
+          src="https://chat-sathi.vercel.app/chatBot.js" 
+          data-owner-id="usr_115500314898989325"
+          strategy="afterInteractive"
+        />
       
         <Footer />
         <FireFliesBackground />
