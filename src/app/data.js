@@ -3,6 +3,26 @@ export const projectsData = [
 
   {
     id: 1,
+    name: "ChatSathi",
+    description:
+      "ChatSathi is a multi-tenant AI chatbot SaaS platform that enables businesses to deploy intelligent chatbots on their websites using a simple embeddable JavaScript script. It leverages LLMs to deliver real-time, context-aware responses and supports scalable chatbot configuration and conversation management.",
+    status: "Completed",
+    techStack: [
+      "Next.js",
+      "React",
+      "TypeScript",
+      "MongoDB",
+      "Scalekit",
+      "Gemini 2.5 Flash",
+      "TailwindCSS",
+      "Framer Motion",
+      "Vercel"
+    ],
+    GithubLink: "https://github.com/anishsingh234/ChatSathi",
+  },
+
+  {
+    id: 2,
     name: "HopeBridge",
     description:
       "HopeBridge is an AI-powered cancer information and assistance platform built using Retrieval-Augmented Generation (RAG). It provides accurate, context-aware responses by retrieving verified medical knowledge from structured datasets and generating reliable answers using advanced LLMs, ensuring trustworthy support for patients and caregivers.",
@@ -21,7 +41,7 @@ export const projectsData = [
   },
 
   {
-    id: 2,
+    id: 3,
     name: "Trip Bandhu",
     description:
       "Trip Bandhu is an AI-powered trip planner that generates customized itineraries based on user preferences, locations, and budget, providing a smarter way to plan memorable travel experiences.",
@@ -38,7 +58,7 @@ export const projectsData = [
   },
 
   {
-    id: 3,
+    id: 4,
     name: "AI Diet Planner",
     description:
       "AI Diet Planner is a smart nutrition app that provides personalized meal recommendations and real-time nutritional tracking based on user health goals, helping users plan and maintain a healthier lifestyle.",
@@ -55,7 +75,7 @@ export const projectsData = [
   // ===================== FULL STACK PROJECTS =====================
 
   {
-    id: 4,
+    id: 5,
     name: "HealSync",
     description:
       "HealSync is a doctor appointment booking application with secure video call functionality, real-time scheduling, and patient management features designed to streamline healthcare services using modern web technologies.",
@@ -72,7 +92,7 @@ export const projectsData = [
   },
 
   {
-    id: 5,
+    id: 6,
     name: "QuickBasket",
     description:
       "QuickBasket is a full-featured e-commerce platform that includes essential product filters, user-friendly navigation, responsive UI, and seamless shopping experience built with Next.js, Prisma ORM, and MongoDB backend.",
@@ -89,7 +109,7 @@ export const projectsData = [
   },
 
   {
-    id: 6,
+    id: 7,
     name: "JobHunt",
     description:
       "JobHunt is a comprehensive job application and recruitment platform built with Next.js and React. It streamlines the hiring process by enabling job seekers to search and apply for jobs, while providing employers with tools to post openings, manage applicants, and review candidates. The platform features secure authentication, applicant tracking, and company management, leveraging Prisma ORM with PostgreSQL for robust data handling.",
@@ -105,7 +125,7 @@ export const projectsData = [
   },
 
   {
-    id: 7,
+    id: 8,
     name: "DarkStoreIMS",
     description:
       "DarkStoreIMS is an advanced inventory management system tailored for dark store operations, featuring efficient stock tracking, data-driven analytics, and smooth integration with modern backend technologies.",
@@ -124,7 +144,7 @@ export const projectsData = [
   // ===================== DSA PRACTICE =====================
 
   {
-    id: 8,
+    id: 9,
     name: "LeetCode",
     description:
       "A comprehensive repository where I regularly upload solutions to problems solved on LeetCode, covering a wide range of data structures, algorithms, and problem-solving techniques using C++ and Java.",
@@ -134,7 +154,7 @@ export const projectsData = [
   },
 
   {
-    id: 9,
+    id: 10,
     name: "GeeksForGeeks",
     description:
       "This repository contains solutions to coding problems solved on GeeksForGeeks. It demonstrates consistent practice in competitive programming and mastery of core computer science fundamentals using C++ and Java.",
@@ -146,7 +166,7 @@ export const projectsData = [
   // ===================== MINI PROJECTS =====================
 
   {
-    id: 10,
+    id: 11,
     name: "Password Generator",
     description:
       "Password Generator is a simple and efficient application that generates secure passwords based on user input, helping improve security practices with a clean and responsive UI.",
@@ -156,7 +176,7 @@ export const projectsData = [
   },
 
   {
-    id: 11,
+    id: 12,
     name: "Weather App",
     description:
       "Weather App fetches real-time weather data and displays current conditions in a clean interface, helping users quickly check temperature and weather updates for any location.",
@@ -166,7 +186,7 @@ export const projectsData = [
   },
 
   {
-    id: 12,
+    id: 13,
     name: "Quiz App",
     description:
       "Quiz App is an interactive web application that allows users to test their knowledge through multiple-choice questions, featuring instant feedback and a simple, user-friendly design.",
@@ -176,7 +196,7 @@ export const projectsData = [
   },
 
   {
-    id: 13,
+    id: 14,
     name: "Background Changer",
     description:
       "Background Changer is a React-based application that dynamically updates backgrounds using the Unsplash API, providing an engaging way to explore and apply high-quality images.",
@@ -186,7 +206,7 @@ export const projectsData = [
   },
 
   {
-    id: 14,
+    id: 15,
     name: "Counter App",
     description:
       "Counter App is a basic React application that demonstrates state management by incrementing and decrementing values, serving as a foundational project for understanding React concepts.",
