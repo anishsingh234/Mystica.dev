@@ -19,9 +19,9 @@ export function FadeUp({ children, delay = 0, className = "" }) {
     <motion.div
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, margin: "-60px" }}
+      viewport={{ once: true, margin: "-40px" }}
       variants={fadeUpVariants}
-      transition={{ duration: 0.55, ease: EASE, delay }}
+      transition={{ duration: 0.5, delay }}
       className={className}
     >
       {children}

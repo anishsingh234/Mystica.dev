@@ -55,7 +55,7 @@ export default function Contact() {
           
           <motion.div 
             variants={itemVariants}
-            className="w-full max-w-2xl bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 sm:p-10 shadow-lg relative"
+            className="w-full max-w-2xl bg-white/5 backdrop-blur-none sm:backdrop-blur-lg border border-white/10 rounded-2xl p-8 sm:p-10 shadow-lg relative"
           >
             <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
               <motion.button

@@ -16,18 +16,32 @@ const heroItem = {
 
 function CursorGlow() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isMobile, setIsMobile] = useState(true);
 
   useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Initial check
+    
     const handleMouseMove = (e) => {
-      setMousePosition({ x: e.pageX, y: e.pageY });
+      if (window.innerWidth >= 768) {
+        setMousePosition({ x: e.pageX, y: e.pageY });
+      }
     };
+
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("resize", handleResize);
+    };
   }, []);
+
+  if (isMobile) return null;
 
   return (
     <motion.div
-      className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none z-0"
+      className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none z-0"
       animate={{
         x: mousePosition.x - 250,
         y: mousePosition.y - 250,

@@ -73,7 +73,7 @@ function ProjectCard({ project }) {
       <motion.div
         whileHover={{ scale: 1.02, y: -4 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E]/80 backdrop-blur-xl border border-white/10 group-hover:border-purple-500/30 overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.2)] group-hover:shadow-[0_10px_40px_rgba(139,92,246,0.25)]"
+        className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E]/80 backdrop-blur-none sm:backdrop-blur-xl border border-white/10 group-hover:border-purple-500/30 overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.2)] group-hover:shadow-[0_10px_40px_rgba(139,92,246,0.25)]"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none z-10" />
 
@@ -87,14 +87,16 @@ function ProjectCard({ project }) {
         )}
 
         <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-white/[0.06] bg-[#050508]">
-          <Image
-            src={project.image}
-            alt={`${project.name} background blur`}
-            fill
-            unoptimized
-            className="object-cover blur-[24px] opacity-40 scale-125 saturate-150 group-hover:opacity-60 transition-all duration-700 pointer-events-none"
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          />
+          <div className="hidden sm:block absolute inset-0">
+            <Image
+              src={project.image}
+              alt={`${project.name} background blur`}
+              fill
+              unoptimized
+              className="object-cover blur-[24px] opacity-40 scale-125 saturate-150 group-hover:opacity-60 transition-all duration-700 pointer-events-none"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          </div>
           <Image
             src={project.image}
             alt={project.name}
