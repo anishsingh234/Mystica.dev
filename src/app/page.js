@@ -30,53 +30,56 @@ const featuredProjects = [
   {
     id: 1,
     name: "ChatSathi",
-    tag: "AI Â· SaaS",
+    tag: "AI · SaaS Platform",
     featured: true,
+    image: "/projects/chatsathi.png",
     oneLiner:
-      "AI chatbot SaaS platform enabling real-time conversations using LLMs and vector search",
+      "Multi-tenant AI chatbot platform enabling businesses to deploy custom assistants via embeddable scripts.",
     bullets: [
-      "Built AI chatbot using OpenAI APIs with streaming responses",
-      "Implemented full RAG pipeline for contextual, accurate answers",
-      "Vector search with FAISS / Pinecone for semantic retrieval",
-      "Multi-tenant architecture with scalable Node.js backend",
+      "Built embeddable JavaScript SDK for seamless chatbot integration across websites",
+      "Designed multi-tenant backend to manage isolated chatbot configs and conversations",
+      "Integrated Gemini 2.5 Flash for fast, low-latency AI responses",
+      "Developed scalable backend services using MongoDB and Scalekit",
     ],
-    tech: ["React", "Node.js", "OpenAI", "LangChain", "FAISS", "MongoDB"],
+    tech: ["Next.js", "TypeScript", "MongoDB", "Scalekit", "Gemini API", "Tailwind CSS", "Vercel"],
     github: "https://github.com/anishsingh234/ChatSathi",
-    demo: "https://chat-sathi.vercel.app",
+    demo: "https://chat-sathi.vercel.app/",
   },
   {
     id: 2,
     name: "HopeBridge",
-    tag: "AI Â· RAG",
+    tag: "AI · RAG System",
     featured: false,
+    image: "/projects/hopebridge.png",
     oneLiner:
-      "RAG-based AI assistant delivering reliable, citation-backed cancer information",
+      "AI-powered medical assistant delivering source-grounded cancer insights using RAG architecture.",
     bullets: [
-      "Document-aware AI system built with LangChain & LLMs",
-      "RAG architecture for accuracy over verified medical datasets",
-      "Semantic search via vector database for relevant retrieval",
-      "FastAPI backend with async endpoints",
+      "Engineered RAG pipeline using LLMs + vector embeddings for accurate retrieval",
+      "Built semantic search system for contextual medical Q&A",
+      "Reduced hallucinations using document-grounded responses",
+      "Implemented scalable document ingestion + vector indexing pipeline",
     ],
-    tech: ["Python", "LangChain", "FAISS", "OpenAI", "FastAPI"],
+    tech: ["Next.js", "React", "Vercel AI SDK", "Gemini 2.5 Flash", "LangChain", "Vector DB"],
     github: "https://github.com/anishsingh234/HopeBridge",
-    demo: null,
+    demo: "https://try-hope-bridge.vercel.app/",
   },
   {
     id: 3,
     name: "HealSync",
-    tag: "Full Stack Â· Healthcare",
+    tag: "Full Stack · Healthcare",
     featured: false,
+    image: "/projects/healsync.png",
     oneLiner:
-      "Full-stack healthcare platform for managing patient appointments and workflows",
+      "Full-stack healthcare platform enabling appointment booking and real-time consultations.",
     bullets: [
-      "Responsive frontend built with React and Tailwind CSS",
-      "RESTful backend APIs with Express and MongoDB",
-      "Secure authentication and role-based access",
-      "Real-world healthcare scheduling use case",
+      "Built end-to-end booking system with real-time scheduling",
+      "Integrated video consultation features for remote healthcare",
+      "Implemented RBAC-based admin panel with secure access control",
+      "Scaled platform to support 100+ users with optimized backend",
     ],
-    tech: ["Next.js", "React", "Prisma ORM", "MongoDB", "TypeScript"],
+    tech: ["Next.js", "React", "MongoDB", "Prisma ORM", "Clerk Auth", "Tailwind CSS"],
     github: "https://github.com/anishsingh234/HealSync",
-    demo: null,
+    demo: "https://heal-sync-amber.vercel.app/",
   },
 ];
 
@@ -131,6 +134,47 @@ const experience = [
 
 // â”€â”€â”€ SHARED COMPONENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+// ─── ANIMATION SYSTEM ─────────────────────────────────────────────────────────────────
+
+// Expo-out easing — same feel as Apple / Stripe
+const EASE = [0.16, 1, 0.3, 1];
+
+const fadeUpVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: EASE } },
+};
+
+const staggerContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+};
+
+const heroContainer = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.1, delayChildren: 0.15 } },
+};
+
+const heroItem = {
+  hidden: { opacity: 0, y: 24 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.65, ease: EASE } },
+};
+
+// Reusable scroll-triggered fade + slide-up wrapper
+function FadeUp({ children, delay = 0, className = "" }) {
+  return (
+    <motion.div
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-60px" }}
+      variants={fadeUpVariants}
+      transition={{ duration: 0.55, ease: EASE, delay }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 function SectionLabel({ children }) {
   return (
     <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
@@ -141,7 +185,7 @@ function SectionLabel({ children }) {
 
 function SectionHeader({ label, title, subtitle }) {
   return (
-    <div className="mb-12 sm:mb-16">
+    <FadeUp className="mb-12 sm:mb-16">
       <SectionLabel>{label}</SectionLabel>
       <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 leading-tight">
         {title}
@@ -151,7 +195,7 @@ function SectionHeader({ label, title, subtitle }) {
           {subtitle}
         </p>
       )}
-    </div>
+    </FadeUp>
   );
 }
 
@@ -167,19 +211,31 @@ function Navbar() {
   }, []);
 
   return (
-    <header
+    <motion.header
+      initial={{ y: -80, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-[#05050A]/70 backdrop-blur-2xl border-b border-white/[0.05] shadow-[inset_0_-1px_0_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.3)]"
           : "bg-transparent"
       }`}
     >
-      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      <nav
+        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${
+          scrolled ? "h-14" : "h-16"
+        }`}
+      >
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center shrink-0">
+          <motion.div
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center shrink-0"
+          >
             <span className="text-background font-bold text-sm leading-none">AK</span>
-          </div>
+          </motion.div>
           <span className="font-semibold text-foreground/80 group-hover:text-foreground transition-colors text-sm hidden sm:block">
             Anish Kumar Singh
           </span>
@@ -188,171 +244,267 @@ function Navbar() {
         {/* Nav links */}
         <div className="hidden md:flex items-center">
           {["Projects", "Skills", "Experience", "About", "Contact"].map((item) => (
-            <a
+            <motion.a
               key={item}
               href={`#${item.toLowerCase()}`}
+              whileHover={{ y: -1 }}
+              transition={{ duration: 0.15, ease: EASE }}
               className="px-3 py-2 text-sm text-foreground/50 hover:text-foreground/90 rounded-md transition-colors duration-150"
             >
               {item}
-            </a>
+            </motion.a>
           ))}
         </div>
 
         {/* Right side */}
         <div className="flex items-center gap-3">
           <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+            <motion.span
+              animate={{ opacity: [1, 0.35, 1] }}
+              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
+              className="w-1.5 h-1.5 bg-emerald-400 rounded-full"
+            />
             <span className="text-[10px] font-medium text-emerald-400">Open to work</span>
           </div>
-          <a
+          <motion.a
             href="/resume.pdf"
             download
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/25 rounded-lg transition-all duration-200"
+            whileHover={{ scale: 1.04, y: -1 }}
+            whileTap={{ scale: 0.96 }}
+            transition={{ duration: 0.2, ease: EASE }}
+            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/25 rounded-lg transition-colors duration-200"
           >
             <Download className="w-3.5 h-3.5" />
             <span className="hidden sm:inline">Resume</span>
-          </a>
+          </motion.a>
         </div>
       </nav>
-    </header>
+    </motion.header>
   );
 }
 
 // â”€â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
+function CursorGlow() {
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.pageX, y: e.pageY });
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, []);
+
+  return (
+    <motion.div
+      className="absolute top-0 left-0 w-[500px] h-[500px] bg-purple-600/15 rounded-full blur-[120px] pointer-events-none z-0"
+      animate={{
+        x: mousePosition.x - 250,
+        y: mousePosition.y - 250,
+      }}
+      transition={{ type: "tween", ease: "backOut", duration: 0.5 }}
+    />
+  );
+}
+
 function Hero() {
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
-      {/* Ambient glow */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-[25%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-accent/[0.08] rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute top-[15%] right-[20%] w-[400px] h-[400px] bg-blue-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
-      </div>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0B0F1A] pt-20">
+      <CursorGlow />
 
-      {/* Dot grid */}
-      <div
-        className="absolute inset-0 -z-10 pointer-events-none"
-        style={{
-          backgroundImage: `radial-gradient(circle, rgba(234,179,8,0.12) 1px, transparent 1px)`,
-          backgroundSize: "28px 28px",
-          maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
-          WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
-        }}
+      {/* Static glowing orbs */}
+      <div className="absolute top-[20%] right-[10%] w-[400px] h-[400px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[10%] w-[400px] h-[400px] bg-purple-600/10 rounded-full blur-[120px] pointer-events-none" />
+
+      {/* Subtle Noise Texture */}
+      <div 
+        className="absolute inset-0 opacity-[0.015] pointer-events-none mix-blend-overlay"
+        style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}
       />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 w-full relative z-10">
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="max-w-5xl mx-auto text-center"
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center flex-1">
+        {/* Left Side: Text and CTAs */}
+        <motion.div
+          variants={heroContainer}
+          initial="hidden"
+          animate="visible"
+          className="text-left"
         >
-          {/* Role pill */}
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            className="inline-flex items-center gap-2.5 px-5 py-2 mb-8 bg-accent/[0.08] border border-accent/20 rounded-full shadow-[0_0_24px_rgba(139,92,246,0.15)]"
-          >
-            <Sparkles className="w-4 h-4 text-accent" />
-            <span className="text-xs font-bold text-accent tracking-widest uppercase">
-              Full-Stack · AI Engineer
+          {/* Availability Badge */}
+          <motion.div variants={heroItem} className="group relative inline-flex items-center gap-2 px-3 py-1.5 mb-6 bg-white/[0.03] border border-white/10 rounded-full cursor-default hover:bg-white/[0.05] transition-colors">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
             </span>
+            <span className="text-xs font-semibold text-foreground/80 tracking-wide">
+              Open to Work
+            </span>
+            {/* Tooltip */}
+            <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 px-2.5 py-1.5 bg-[#1A1F2E] text-white text-[10px] font-medium rounded-md opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10 shadow-xl z-50">
+              Actively looking for opportunities
+            </div>
           </motion.div>
 
-          {/* New Giant Headline */}
-          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] font-extrabold tracking-tighter mb-8 text-foreground leading-[1.05]">
-            I build <span className="text-gradient drop-shadow-sm">AI-powered</span> applications using <span className="text-gradient hover:opacity-80 transition-opacity cursor-default">LLMs</span>, <span className="text-gradient drop-shadow-sm hover:opacity-80 transition-opacity cursor-default">RAG</span> &amp; scalable systems
-          </h1>
-
-          {/* Subtext */}
-          <p className="text-lg sm:text-lg lg:text-xl font-medium text-foreground/50 max-w-3xl mx-auto mb-14 leading-relaxed tracking-wide">
-            Short, clean, impactful. I transform cutting-edge AI research into production-grade systems that solve real world problems.
-          </p>
-
-          <motion.div 
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.5 }}
-            className="flex flex-wrap items-center justify-center gap-5 mb-16"
+          {/* Heading */}
+          <motion.h1
+            variants={heroItem}
+            className="text-4xl sm:text-5xl lg:text-[60px] tracking-tight font-extrabold mb-6 text-foreground leading-[1.1]"
           >
-            <a
+            I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300">AI-powered</span> applications using{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300 cursor-default">LLMs</span>,{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300 cursor-default">RAG</span>{" "}
+            &amp; scalable systems
+          </motion.h1>
+
+          <motion.p
+            variants={heroItem}
+            className="text-lg text-foreground/50 mb-8 max-w-xl leading-relaxed"
+          >
+            I transform cutting-edge AI research into production-grade systems that solve real world problems. Clean. Fast. Scalable.
+          </motion.p>
+
+          {/* Trust Indicators */}
+          <motion.div variants={heroItem} className="flex flex-wrap items-center gap-3 mb-10">
+            <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.02] border border-white/[0.08] rounded-xl backdrop-blur-sm shadow-sm hover:shadow-[0_0_15px_rgba(124,58,237,0.15)] transition-shadow">
+              <Brain className="w-4 h-4 text-purple-400" />
+              <span className="text-xs font-medium text-foreground/75">Built 3+ AI Products</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.02] border border-white/[0.08] rounded-xl backdrop-blur-sm shadow-sm hover:shadow-[0_0_15px_rgba(59,130,246,0.15)] transition-shadow">
+              <Terminal className="w-4 h-4 text-blue-400" />
+              <span className="text-xs font-medium text-foreground/75">350+ DSA Problems</span>
+            </div>
+            <div className="flex items-center gap-2 px-3 py-2 bg-white/[0.02] border border-white/[0.08] rounded-xl backdrop-blur-sm shadow-sm hover:shadow-[0_0_15px_rgba(6,182,212,0.15)] transition-shadow">
+              <Server className="w-4 h-4 text-cyan-400" />
+              <span className="text-xs font-medium text-foreground/75">Full-Stack + AI</span>
+            </div>
+          </motion.div>
+
+          {/* CTA Buttons */}
+          <motion.div variants={heroItem} className="flex flex-wrap items-center gap-4">
+            <motion.a
               href="#projects"
-              className="flex items-center gap-2 px-8 py-4 bg-accent text-white text-base font-bold rounded-2xl hover:bg-accent/90 shadow-[0_0_32px_rgba(139,92,246,0.4)] hover:shadow-[0_0_60px_rgba(139,92,246,0.6)] hover:-translate-y-1 transition-all duration-300 group"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="group flex items-center gap-2 px-7 py-3.5 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-bold rounded-xl hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] transition-all duration-300"
             >
               View Projects
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
-            </a>
-            <a
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </motion.a>
+            <motion.a
               href="https://github.com/anishsingh234"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2.5 px-8 py-4 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/90 hover:text-white border border-white/[0.08] hover:border-white/[0.2] text-base font-bold rounded-2xl backdrop-blur-md transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:-translate-y-1"
+              whileHover={{ scale: 1.05, backgroundColor: "rgba(255,255,255,0.05)" }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-7 py-3.5 border border-white/20 text-foreground/90 hover:text-white font-bold rounded-xl transition-all duration-300 shadow-[0_4px_14px_rgba(0,0,0,0.1)] hover:shadow-[0_6px_20px_rgba(255,255,255,0.15)] hover:-translate-y-0.5"
             >
               <Github className="w-5 h-5" />
               GitHub
-            </a>
-            <a
+            </motion.a>
+            <motion.a
               href="#contact"
-              className="flex items-center gap-2.5 px-8 py-4 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/90 hover:text-white border border-white/[0.08] hover:border-white/[0.2] text-base font-bold rounded-2xl backdrop-blur-md transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:-translate-y-1"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="flex items-center gap-2 px-7 py-3.5 bg-white/[0.03] hover:bg-white/[0.08] border border-white/5 hover:border-white/10 text-foreground/90 hover:text-white font-bold rounded-xl backdrop-blur-md transition-all duration-300 shadow-[0_4px_14px_rgba(0,0,0,0.1)] hover:-translate-y-0.5"
             >
               <Mail className="w-5 h-5" />
               Contact
-            </a>
+            </motion.a>
+          </motion.div>
+        </motion.div>
+
+        {/* Right Side: Floating Visuals */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1, delay: 0.3, ease: EASE }}
+          className="hidden lg:flex relative h-[500px] w-full items-center justify-center pointer-events-none"
+        >
+          {/* Main IDE / Code Mockup */}
+          <motion.div 
+            animate={{ y: [-10, 10, -10] }}
+            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute z-10 w-[380px] bg-[#10141f] border border-white/10 rounded-2xl shadow-2xl overflow-hidden backdrop-blur-xl"
+            style={{ top: "15%", left: "5%" }}
+          >
+            <div className="flex items-center gap-1.5 px-4 py-3 border-b border-white/10 bg-white/5">
+              <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
+              <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
+              <span className="ml-2 text-[10px] text-foreground/40 font-mono">llm_pipeline.ts</span>
+            </div>
+            <div className="p-5 font-mono text-[11px] leading-relaxed text-blue-200">
+              <span className="text-purple-400">import</span> {"{ Document }"} <span className="text-purple-400">from</span> <span className="text-green-300">"langchain/document"</span>;<br/><br/>
+              <span className="text-purple-400">const</span> chain = <span className="text-purple-400">await</span> <span className="text-yellow-200">RetrievalQAChain</span>.fromLLM(<br/>
+              &nbsp;&nbsp;model,<br/>
+              &nbsp;&nbsp;vectorStore.asRetriever()<br/>
+              );<br/><br/>
+              <span className="text-foreground/40">// Process query...</span><br/>
+              <span className="text-purple-400">const</span> res = <span className="text-purple-400">await</span> chain.<span className="text-blue-300">call</span>({"{"} query {"}"});
+            </div>
           </motion.div>
 
-          {/* Social row */}
-          <div className="flex items-center justify-center flex-wrap gap-5 text-xs text-foreground/35">
-            <a
-              href="mailto:anishsingh210204@gmail.com"
-              className="flex items-center gap-1.5 hover:text-foreground/60 transition-colors"
-            >
-              <Mail className="w-3.5 h-3.5" />
-              anishsingh210204@gmail.com
-            </a>
-            <span className="text-foreground/15">·</span>
-            <a
-              href="https://linkedin.com/in/anish-ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-foreground/60 transition-colors"
-            >
-              <Linkedin className="w-3.5 h-3.5" />
-              linkedin.com/in/anish-ai
-            </a>
-            <span className="text-foreground/15">·</span>
-            <a
-              href="https://github.com/anishsingh234"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-foreground/60 transition-colors"
-            >
-              <Github className="w-3.5 h-3.5" />
-              github.com/anishsingh234
-            </a>
-          </div>
-        </motion.div>
-
-        {/* Stats strip */}
-        <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 0.8 }}
-          className="mt-20 pt-10 border-t border-white/[0.06] grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-4xl mx-auto text-center"
-        >
-          {[
-            { value: "12+", label: "Projects Shipped" },
-            { value: "350+", label: "DSA Problems" },
-            { value: "4+", label: "AI / LLM Projects" },
-            { value: "2026", label: "B.Tech Graduating" },
-          ].map(({ value, label }) => (
-            <div key={label}>
-              <p className="text-2xl sm:text-3xl font-bold text-foreground">{value}</p>
-              <p className="text-xs text-foreground/35 mt-1.5 leading-tight">{label}</p>
+          {/* AI Chat Layout Mockup */}
+          <motion.div 
+            animate={{ y: [10, -10, 10] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+            className="absolute z-20 w-[300px] bg-white/[0.02] border border-white/10 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden backdrop-blur-2xl"
+            style={{ bottom: "10%", right: "-5%" }}
+          >
+            <div className="p-4 flex flex-col gap-4">
+              <div className="flex gap-3 items-start">
+                <div className="w-7 h-7 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+                  <span className="text-[10px] text-purple-200">USR</span>
+                </div>
+                <div className="bg-white/5 border border-white/5 rounded-2xl rounded-tl-sm p-3 text-[11px] text-foreground/80">
+                  How can we optimize the RAG retrieval speed?
+                </div>
+              </div>
+              <div className="flex gap-3 items-start">
+                <div className="w-7 h-7 rounded-full bg-blue-500/20 flex items-center justify-center shrink-0">
+                  <Brain className="w-3.5 h-3.5 text-blue-400" />
+                </div>
+                <div className="bg-gradient-to-br from-purple-500/10 to-blue-500/10 border border-purple-500/20 rounded-2xl rounded-tl-sm p-3 text-[11px] text-foreground/90">
+                  To optimize RAG retrieval, we can use <strong>HNSW indexing</strong> and embed document metadata for pre-filtering before semantic search.
+                </div>
+              </div>
             </div>
-          ))}
+          </motion.div>
+          
+          {/* Subtle connecting spline/path (SVG) */}
+          <svg className="absolute inset-0 w-full h-full -z-10 opacity-30 pointer-events-none" viewBox="0 0 500 500">
+            <path d="M 120 200 C 300 200, 200 350, 400 350" fill="none" stroke="url(#paint0_linear)" strokeWidth="2" strokeDasharray="4 4" />
+            <defs>
+              <linearGradient id="paint0_linear" x1="120" y1="200" x2="400" y2="350" gradientUnits="userSpaceOnUse">
+                <stop stopColor="#9333ea" />
+                <stop offset="1" stopColor="#3b82f6" />
+              </linearGradient>
+            </defs>
+          </svg>
         </motion.div>
       </div>
+
+      {/* Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 pointer-events-none"
+      >
+        <span className="text-[10px] font-semibold uppercase tracking-widest text-foreground/30">Scroll</span>
+        <motion.div 
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          className="w-5 h-8 border-[1.5px] border-foreground/20 rounded-full flex justify-center py-1.5"
+        >
+          <div className="w-1 h-1.5 bg-foreground/40 rounded-full" />
+        </motion.div>
+      </motion.div>
+
+      {/* Subtle Divider Glow Under Hero */}
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-[2px] bg-gradient-to-r from-transparent via-purple-500/20 to-transparent blur-sm" />
     </section>
   );
 }
@@ -361,94 +513,104 @@ function Hero() {
 
 function ProjectCard({ project }) {
   return (
-    <div className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E] border border-white/[0.08] overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] cursor-pointer">
-      {/* Gradient glowing border effect on hover */}
-      <div className="absolute inset-0 z-0 bg-gradient-to-br from-purple-500/20 via-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem] border border-transparent" style={{ backgroundClip: "padding-box, border-box", backgroundImage: "linear-gradient(#0A0A0E, #0A0A0E), linear-gradient(to bottom right, #a855f7, #3b82f6, #06b6d4)"}}></div>
-      
-      {/* Gloss reflection overlay */}
-      <div className="absolute inset-x-0 top-0 h-1/2 z-0 bg-gradient-to-b from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+    // Outer group wrapper: handles hover state for the gradient glow border
+    <div className="relative h-full group">
+      {/* Gradient glow layer – purple → blue → cyan, shows through as border */}
+      <div className="absolute -inset-[1px] rounded-[2rem] bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
-      {project.featured && (
-        <div className="absolute top-5 right-5 z-20">
-          <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-accent bg-background/80 backdrop-blur-md border border-accent/25 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
-            Featured
-          </span>
-        </div>
-      )}
+      {/* Ambient bloom beneath card */}
+      <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/20 via-blue-500/15 to-cyan-500/10 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300 -z-10 pointer-events-none" />
 
-      {/* Image Container (16:9) */}
-      <div className="relative w-full aspect-video overflow-hidden border-b border-white/[0.06] z-10 bg-black/40">
-        <Image
-          src={project.image}
-          alt={project.name}
-          fill
-          className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        />
-        {/* Subtle overlay */}
-        <div className="absolute inset-0 bg-[#0A0A0E]/60 group-hover:bg-[#0A0A0E]/10 transition-colors duration-500"></div>
-      </div>
+      {/* Main card surface */}
+      <motion.div
+        whileHover={{ scale: 1.03, y: -4 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
+        className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E] border border-white/[0.08] group-hover:border-transparent overflow-hidden transition-colors duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.3)] group-hover:shadow-[0_24px_60px_rgba(0,0,0,0.6)]"
+      >
+        {/* Gloss sheen */}
+        <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
 
-      <div className="p-7 flex flex-col flex-1 relative z-10">
-        <p className="text-[11px] font-semibold uppercase tracking-widest text-accent mb-3 drop-shadow-sm">
-          {project.tag}
-        </p>
-
-        <h3 className="text-xl font-bold text-foreground mb-2 leading-tight pr-16">
-          {project.name}
-        </h3>
-
-        <p className="text-[13px] text-foreground/60 leading-relaxed mb-5 min-h-[40px]">
-          {project.oneLiner}
-        </p>
-
-        <ul className="space-y-2 mb-6 flex-1">
-          {project.bullets.map((b, i) => (
-            <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/50">
-              <CheckCircle2 className="w-4 h-4 text-accent mt-[1px] shrink-0" />
-              <span className="leading-snug">{b}</span>
-            </li>
-          ))}
-        </ul>
-
-        <div className="flex flex-wrap gap-1.5 mb-8">
-          {project.tech.map((t) => (
-            <span
-              key={t}
-              className="px-2.5 py-1 text-[10px] font-semibold tracking-wide bg-white/[0.03] border border-white/[0.08] text-foreground/70 rounded-full backdrop-blur-md hover:border-accent/30 hover:bg-accent/5 hover:text-accent transition-colors duration-300 cursor-default"
-            >
-              {t}
+        {project.featured && (
+          <div className="absolute top-5 right-5 z-20">
+            <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-accent bg-background/80 backdrop-blur-md border border-accent/25 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+              Featured
             </span>
-          ))}
+          </div>
+        )}
+
+        {/* Image Container (16:9) */}
+        <div className="relative w-full aspect-video overflow-hidden border-b border-white/[0.06] bg-black/40">
+          <Image
+            src={project.image}
+            alt={project.name}
+            fill
+            className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          <div className="absolute inset-0 bg-[#0A0A0E]/60 group-hover:bg-[#0A0A0E]/10 transition-colors duration-500" />
         </div>
 
-        <div className="flex gap-2.5 mt-auto">
-          {project.demo && (
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white text-black rounded-xl hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-[0_4px_14px_rgba(255,255,255,0.1)] group/btn"
-            >
-              <ExternalLink className="w-3.5 h-3.5 group-hover/btn:rotate-[-5deg] transition-transform" />
-              Live Demo
-            </a>
-          )}
-          {project.github && (
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={(e) => e.stopPropagation()}
-              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white/[0.03] border border-white/[0.10] text-foreground/80 rounded-xl hover:bg-white/[0.08] hover:text-foreground hover:-translate-y-0.5 transition-all shadow-sm group/btn"
-            >
-              <Github className="w-3.5 h-3.5" />
-              GitHub
-            </a>
-          )}
+        <div className="p-7 flex flex-col flex-1">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-accent mb-3 drop-shadow-sm">
+            {project.tag}
+          </p>
+
+          <h3 className="text-xl font-bold text-foreground mb-2 leading-tight pr-16">
+            {project.name}
+          </h3>
+
+          <p className="text-[13px] text-foreground/60 leading-relaxed mb-5 min-h-[40px]">
+            {project.oneLiner}
+          </p>
+
+          <ul className="space-y-2 mb-6 flex-1">
+            {project.bullets.map((b, i) => (
+              <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/50">
+                <CheckCircle2 className="w-4 h-4 text-accent mt-[1px] shrink-0" />
+                <span className="leading-snug">{b}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="flex flex-wrap gap-1.5 mb-8">
+            {project.tech.map((t) => (
+              <span
+                key={t}
+                className="px-2.5 py-1 text-[10px] font-semibold tracking-wide bg-white/[0.03] border border-white/[0.08] text-foreground/70 rounded-full backdrop-blur-md hover:border-accent/30 hover:bg-accent/5 hover:text-accent transition-colors duration-300 cursor-default"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="flex gap-2.5 mt-auto">
+            {project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white text-black rounded-xl hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-[0_4px_14px_rgba(255,255,255,0.1)] group/btn"
+              >
+                <ExternalLink className="w-3.5 h-3.5 group-hover/btn:rotate-[-5deg] transition-transform" />
+                Live Demo
+              </a>
+            )}
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={(e) => e.stopPropagation()}
+                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white/[0.03] border border-white/[0.10] text-foreground/80 rounded-xl hover:bg-white/[0.08] hover:text-foreground hover:-translate-y-0.5 transition-all shadow-sm group/btn"
+              >
+                <Github className="w-3.5 h-3.5" />
+                GitHub
+              </a>
+            )}
+          </div>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -707,49 +869,151 @@ function About() {
 // â”€â”€â”€ CONTACT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function Contact() {
+  const [copied, setCopied] = useState(false);
+
+  const copyEmail = () => {
+    navigator.clipboard.writeText("anishsingh210204@gmail.com");
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: { 
+      opacity: 1, 
+      transition: { staggerChildren: 0.1, delayChildren: 0.2 } 
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } }
+  };
+
   return (
-    <section id="contact" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative rounded-[2.5rem] border border-white/[0.06] bg-white/[0.015] p-10 sm:p-16 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.2)]">
-          <div className="absolute inset-0 -z-10 pointer-events-none">
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-accent/[0.06] rounded-full blur-[80px]" />
-          </div>
-          <SectionLabel>Contact</SectionLabel>
-          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
-            Let&apos;s build something impactful
-          </h2>
-          <p className="text-foreground/45 mb-10 max-w-lg mx-auto leading-relaxed text-[15px]">
-            I&apos;m actively looking for Full-Stack and AI Engineering opportunities.
-            Open to full-time roles, internships, and interesting collaborations.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
-            <a
-              href="mailto:anishsingh210204@gmail.com"
-              className="flex items-center gap-2.5 px-6 py-3.5 bg-accent text-white text-sm font-bold rounded-xl hover:bg-accent/90 shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)] transition-all duration-300 w-full sm:w-auto justify-center"
-            >
-              <Mail className="w-5 h-5" />
-              anishsingh210204@gmail.com
-            </a>
-            <a
-              href="https://linkedin.com/in/anish-ai"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 px-6 py-3.5 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/80 hover:text-foreground border border-white/[0.08] hover:border-white/[0.15] text-sm font-bold rounded-xl backdrop-blur-sm transition-all duration-300 w-full sm:w-auto justify-center"
-            >
-              <Linkedin className="w-5 h-5" />
-              LinkedIn
-            </a>
-            <a
-              href="https://github.com/anishsingh234"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2.5 px-6 py-3.5 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/80 hover:text-foreground border border-white/[0.08] hover:border-white/[0.15] text-sm font-bold rounded-xl backdrop-blur-sm transition-all duration-300 w-full sm:w-auto justify-center"
-            >
-              <Github className="w-5 h-5" />
-              GitHub
-            </a>
-          </div>
-        </div>
+    <section id="contact" className="relative py-24 sm:py-32 bg-[#0a0a0f] overflow-hidden scroll-mt-20 border-t border-white/[0.06]">
+      {/* Background radial gradient */}
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(139,92,246,0.15),transparent_70%)] pointer-events-none" />
+      
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          variants={containerVariants}
+          className="flex flex-col items-center text-center"
+        >
+          <motion.h2 
+            variants={itemVariants}
+            className="text-4xl sm:text-5xl font-extrabold mb-6 bg-gradient-to-r from-purple-400 to-blue-500 text-transparent bg-clip-text drop-shadow-sm pb-1"
+          >
+            Let&apos;s Connect
+          </motion.h2>
+          
+          <motion.p 
+            variants={itemVariants}
+            className="text-lg text-foreground/70 max-w-2xl mx-auto mb-12 leading-relaxed"
+          >
+            I&apos;m actively looking for Full-Stack / AI Engineering opportunities. Let&apos;s build something impactful.
+          </motion.p>
+          
+          {/* Contact Card */}
+          <motion.div 
+            variants={itemVariants}
+            className="w-full max-w-2xl bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl p-8 sm:p-10 shadow-lg relative"
+          >
+            {/* Contact Options */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6 mb-12">
+              <motion.button
+                onClick={copyEmail}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative flex items-center justify-center gap-2.5 px-6 py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-xl hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] transition-all duration-300 w-full sm:w-auto overflow-hidden group"
+              >
+                {copied ? <CheckCircle2 className="w-5 h-5 shrink-0" /> : <Mail className="w-5 h-5 shrink-0 group-hover:animate-bounce" />}
+                {copied ? "Email Copied!" : "Email Me"}
+                <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300 ease-out" />
+              </motion.button>
+
+              <motion.a
+                href="https://github.com/anishsingh234"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group flex items-center justify-center gap-2.5 px-6 py-3 border border-white/20 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] text-foreground/90 hover:text-white font-semibold rounded-xl transition-all duration-300 w-full sm:w-auto"
+              >
+                <Github className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span className="relative">
+                  GitHub
+                  <span className="absolute left-0 bottom-0 w-full h-[1.5px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                </span>
+              </motion.a>
+
+              <motion.a
+                href="https://linkedin.com/in/anish-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="group flex items-center justify-center gap-2.5 px-6 py-3 border border-white/20 hover:bg-white/10 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] text-foreground/90 hover:text-white font-semibold rounded-xl transition-all duration-300 w-full sm:w-auto"
+              >
+                <Linkedin className="w-5 h-5 group-hover:scale-110 transition-transform" />
+                <span className="relative">
+                  LinkedIn
+                  <span className="absolute left-0 bottom-0 w-full h-[1.5px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
+                </span>
+              </motion.a>
+            </div>
+
+            {/* Optional Minimal Contact Form */}
+            <div className="text-left relative pt-10 border-t border-white/10 mt-4">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0d0d14] px-4 py-1 border border-white/10 rounded-full">
+                <span className="text-xs font-semibold text-foreground/50 uppercase tracking-widest whitespace-nowrap">
+                  Or send a message
+                </span>
+              </div>
+              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); e.target.reset(); }}>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input 
+                    type="text" 
+                    placeholder="Name" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all font-medium"
+                    required
+                  />
+                  <input 
+                    type="email" 
+                    placeholder="Email" 
+                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all font-medium"
+                    required
+                  />
+                </div>
+                <textarea 
+                  rows={4} 
+                  placeholder="Message" 
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all resize-none font-medium"
+                  required
+                />
+                <button 
+                  type="submit"
+                  className="w-full py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-xl hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 group"
+                >
+                  Send Message
+                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </form>
+            </div>
+            
+          </motion.div>
+          
+          <motion.p 
+            variants={itemVariants}
+            className="mt-12 text-foreground/60 font-medium tracking-wide flex items-center gap-2 group cursor-default"
+          >
+            Let&apos;s build something amazing together
+            <span className="group-hover:animate-bounce">🚀</span>
+          </motion.p>
+        </motion.div>
       </div>
     </section>
   );

@@ -1,216 +1,226 @@
-"use client"
-import Image from "next/image";
+"use client";
+import { motion } from "framer-motion";
+import { ExternalLink, Github, Star, CheckCircle2, ArrowRight } from "lucide-react";
 
-const techStackLogos = {
-  "C++": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
-  "Java": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
-  "Next.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg",
-  "React": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  "PrismaORM": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
-  "Prisma": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/prisma/prisma-original.svg",
-  "MongoDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg",
-  "TypeScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg",
-  "TailwindCSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original-wordmark.svg",
-  "ConvexDB": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg", 
-  "JavaScript": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
-  "Node.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
-  "Express": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg",
-  "Python": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
-  "Django": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg",
-  "Vue.js": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg",
-  "Angular": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/angularjs/angularjs-original.svg",
-  "Firebase": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/firebase/firebase-plain.svg",
-  "PostgreSQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg",
-  "MySQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mysql/mysql-original.svg",
-  "Redis": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redis/redis-original.svg",
-  "Docker": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg",
-  "AWS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original.svg",
-  "GraphQL": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/graphql/graphql-plain.svg",
-  "Git": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/git/git-original.svg",
-  "HTML": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
-  "CSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg",
-  "SCSS": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
-  "Sass": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sass/sass-original.svg",
-  "Bootstrap": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/bootstrap/bootstrap-original.svg",
-  "Material-UI": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/materialui/materialui-original.svg",
-  "Flutter": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/flutter/flutter-original.svg",
-  "React Native": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
-  "Linux": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg",
-  "Ubuntu": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ubuntu/ubuntu-plain.svg",
-  "Windows": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg",
-  "Figma": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg",
-  "VS Code": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg",
-  "Webpack": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/webpack/webpack-original.svg",
-  "Babel": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/babel/babel-original.svg",
-  "ESLint": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg",
-  "GitHub": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg",
-  "GitLab": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/gitlab/gitlab-original.svg",
-  "Yarn": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/yarn/yarn-original.svg",
-  "npm": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg",
+const EASE = [0.16, 1, 0.3, 1];
+
+// ── Card entrance animation ───────────────────────────────────────────────
+const cardVariants = {
+  hidden: { opacity: 0, y: 28 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: EASE },
+  },
 };
 
-const getTechLogo = (tech) => {
-  return techStackLogos[tech] || "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-original.svg";
-};
-
-const TechLogo = ({ tech, size = 16 }) => {
-  const logoUrl = getTechLogo(tech);
-  
-  return (
-    <Image
-      src={logoUrl}
-      alt={`${tech} logo`}
-      width={size}
-      height={size}
-      className="shrink-0 transition-transform duration-200"
-      onError={(e) => {
-        e.target.src = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/devicon/devicon-original.svg";
-      }}
-      loading="lazy"
-    />
-  );
+// ── Status badge ─────────────────────────────────────────────────────────
+const STATUS_CFG = {
+  completed: {
+    cls: "bg-emerald-500/10 border-emerald-500/20 text-emerald-400 shadow-[0_0_10px_rgba(34,197,94,0.25)]",
+    dot: "bg-emerald-400",
+    label: "Completed",
+    pulse: true,
+  },
+  "always working": {
+    cls: "bg-amber-500/10 border-amber-500/20 text-amber-400",
+    dot: "bg-amber-400",
+    label: "Active",
+    pulse: false,
+  },
+  "in progress": {
+    cls: "bg-blue-500/10 border-blue-500/20 text-blue-400",
+    dot: "bg-blue-400",
+    label: "In Progress",
+    pulse: false,
+  },
 };
 
 const StatusBadge = ({ status }) => {
-  const getStatusConfig = (status) => {
-    switch (status?.toLowerCase()) {
-      case "completed":
-        return {
-          color: "bg-green-500/20 text-green-400 border-green-500/40 shadow-green-500/20",
-          label: "✓ Completed",
-          icon: "✓"
-        };
-      case "always working":
-        return {
-          color: "bg-orange-500/20 text-orange-400 border-orange-500/40 shadow-orange-500/20",
-          label: "⚡ Active",
-          icon: "⚡"
-        };
-      case "in progress":
-        return {
-          color: "bg-blue-500/20 text-blue-400 border-blue-500/40 shadow-blue-500/20",
-          label: "🔄 In Progress",
-          icon: "🔄"
-        };
-      default:
-        return {
-          color: "bg-gray-500/20 text-gray-400 border-gray-500/40 shadow-gray-500/20",
-          label: status,
-          icon: "•"
-        };
-    }
+  const cfg = STATUS_CFG[status?.toLowerCase()] ?? {
+    cls: "bg-white/5 border-white/10 text-white/40",
+    dot: "bg-white/30",
+    label: status,
+    pulse: false,
   };
-
-  const config = getStatusConfig(status);
-
   return (
-    <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold border shadow-lg ${config.color}`}>
-      {config.label}
+    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${cfg.cls}`}>
+      {/* Pulsing dot — live indicator feel */}
+      <span className="relative flex h-1.5 w-1.5 shrink-0">
+        {cfg.pulse && (
+          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${cfg.dot}`} />
+        )}
+        <span className={`relative inline-flex h-1.5 w-1.5 rounded-full ${cfg.dot}`} />
+      </span>
+      {cfg.label}
     </span>
   );
 };
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import { ExternalLink, Github } from "lucide-react";
-
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: { 
-    opacity: 1, 
-    y: 0,
-    transition: {
-      duration: 0.4,
-      ease: "easeOut"
-    }
-  },
-};
-
-const ProjectLink = motion(Link);
-
-const ProjectLayout = ({ id, name, description, status, techStack = [], GithubLink, index }) => {
+// ── Card ────────────────────────────────────────────────────────────────
+const ProjectLayout = ({
+  name,
+  tag,
+  featured,
+  description,
+  bullets,
+  status,
+  techStack = [],
+  GithubLink,
+  demoLink,
+}) => {
   return (
-    <ProjectLink
-      variants={item}
-      href={GithubLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group block"
-    >
+    <motion.div variants={cardVariants} className="relative group h-full">
+
+      {/* Reduced ambient glow — balanced, not overpowering */}
+      <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500/10 to-blue-500/5 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-300 -z-10 pointer-events-none" />
+
+      {/* Card surface */}
       <motion.div
-        whileHover={{ y: -8, scale: 1.02 }}
+        whileHover={{ scale: 1.02, y: -4 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="relative border border-foreground/10 rounded-2xl p-5 sm:p-6 md:p-8 h-full bg-gradient-to-br from-foreground/[0.03] to-foreground/[0.01] hover:from-accent/[0.08] hover:to-accent/[0.03] hover:border-accent/40 transition-all duration-300 flex flex-col backdrop-blur-sm overflow-hidden group"
+        className={[
+          "relative flex flex-col h-full rounded-2xl overflow-hidden",
+          // Glass base
+          "bg-white/[0.04] backdrop-blur-md",
+          // Border: subtle → purple tint on hover
+          "border border-white/10 group-hover:border-purple-500/30",
+          // Lift shadow on hover
+          "transition-all duration-300 ease-out",
+          "group-hover:shadow-[0_10px_40px_rgba(139,92,246,0.2)]",
+        ].join(" ")}
       >
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-        
-        {/* Glow effect */}
-        <div className="absolute -inset-1 bg-gradient-to-r from-accent/20 to-accent/10 rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10" />
-        
-        <div className="relative z-10">
-          {/* Header */}
-          <div className="mb-5">
-            <div className="flex items-start justify-between gap-3 mb-4">
-              <h2 className="text-2xl font-bold text-foreground group-hover:text-accent transition-colors duration-300 leading-tight">
-                {name}
-              </h2>
-              <motion.div
-                whileHover={{ rotate: 360, scale: 1.2 }}
-                transition={{ duration: 0.5 }}
-              >
-                <Github size={24} className="text-foreground/40 group-hover:text-accent transition-colors duration-300 shrink-0" />
-              </motion.div>
+        {/* Inner depth gradient — layering effect */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/[0.05] to-transparent pointer-events-none" />
+
+        {/* Top accent shimmer line */}
+        <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+
+        <div className="relative z-10 flex flex-col h-full p-6">
+
+          {/* ─ Header: tag + Featured badge ─ */}
+          <div className="flex items-start justify-between gap-3 mb-3">
+            <div className="min-w-0">
+              {tag && (
+                <p className="text-[11px] font-bold uppercase tracking-widest text-purple-400 mb-2">
+                  {tag}
+                </p>
+              )}
+              {/* Title — semibold for cleaner hierarchy */}
+              <h3 className="text-xl font-semibold text-white leading-tight">{name}</h3>
             </div>
+
+            {/* Featured badge with shimmer sweep */}
+            {featured && (
+              <div className="relative flex items-center gap-1 shrink-0 px-2.5 py-1 rounded-full bg-gradient-to-r from-purple-500/20 to-blue-500/20 border border-purple-500/30 overflow-hidden">
+                <motion.span
+                  animate={{ x: ["-120%", "220%"] }}
+                  transition={{
+                    duration: 2.4,
+                    repeat: Infinity,
+                    repeatDelay: 2,
+                    ease: "easeInOut",
+                  }}
+                  className="absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/15 to-transparent -skew-x-12 pointer-events-none"
+                />
+                <Star className="w-3 h-3 fill-purple-400 text-purple-400 relative z-10" />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-purple-300 relative z-10">
+                  Featured
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* ─ Status ─ */}
+          <div className="mb-4">
             <StatusBadge status={status} />
           </div>
 
-          {/* Description */}
-          <p className="text-base text-foreground/70 mb-6 flex-1 line-clamp-3 leading-relaxed">
+          {/* ─ Description — improved readability ─ */}
+          <p className="text-sm text-white/70 leading-relaxed mb-4">
             {description}
           </p>
 
-          {/* Tech Stack */}
+          {/* ─ Bullet points ─ */}
+          {bullets && bullets.length > 0 && (
+            <ul className="space-y-1.5 mb-5">
+              {bullets.slice(0, 4).map((b, i) => (
+                <li key={i} className="flex items-start gap-2 text-[13px] text-white/60">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-purple-400/80 mt-[2px] shrink-0" />
+                  <span className="leading-snug">{b}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          <div className="flex-1" />
+
+          {/* ─ Tech badges ─ */}
           {techStack.length > 0 && (
-            <div className="mb-6">
-              <div className="flex flex-wrap gap-2">
-                {techStack.slice(0, 6).map((tech, idx) => (
-                  <motion.div
-                    key={tech}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.05 }}
-                    whileHover={{ scale: 1.1, y: -2 }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm bg-foreground/5 border border-foreground/10 group-hover:border-accent/30 group-hover:bg-accent/10 transition-all duration-200"
-                    title={tech}
-                  >
-                    <TechLogo tech={tech} size={16} />
-                    <span className="text-foreground/80 font-medium">{tech}</span>
-                  </motion.div>
-                ))}
-                {techStack.length > 6 && (
-                  <div className="flex items-center px-3 py-2 rounded-lg text-sm text-foreground/60 bg-foreground/5 border border-foreground/10 font-medium">
-                    +{techStack.length - 6} more
-                  </div>
-                )}
-              </div>
+            <div className="flex flex-wrap gap-1.5 mb-5">
+              {techStack.slice(0, 6).map((tech) => (
+                <span
+                  key={tech}
+                  className="px-3 py-1 text-xs font-medium rounded-full bg-white/10 border border-white/10 text-white/80 hover:bg-purple-500/10 hover:border-purple-500/40 hover:text-purple-300 transition-all duration-200 cursor-default"
+                >
+                  {tech}
+                </span>
+              ))}
+              {techStack.length > 6 && (
+                <span className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10 text-white/30">
+                  +{techStack.length - 6}
+                </span>
+              )}
             </div>
           )}
 
-          {/* Footer with arrow animation */}
-          <div className="flex items-center justify-between pt-5 border-t border-foreground/10 group-hover:border-accent/30 transition-colors">
-            <span className="text-sm font-medium text-foreground/70 group-hover:text-accent transition-colors">View Project</span>
-            <motion.div
-              initial={{ x: 0 }}
-              whileHover={{ x: 4 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ExternalLink size={18} className="text-foreground/40 group-hover:text-accent transition-colors duration-300" />
-            </motion.div>
-          </div>
+          {/* ─ Action buttons ─ */}
+          {(demoLink || GithubLink) && (
+            <div className="flex gap-2.5 pt-4 border-t border-white/[0.06]">
+
+              {/* Live Demo — gradient with arrow animation */}
+              {demoLink && (
+                <motion.a
+                  href={demoLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.2, ease: EASE }}
+                  className="flex-1 group/btn flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-xl bg-gradient-to-r from-purple-500 to-blue-500 text-white shadow-lg hover:shadow-[0_0_22px_rgba(139,92,246,0.5)] transition-shadow duration-300"
+                >
+                  <ExternalLink className="w-3.5 h-3.5 shrink-0" />
+                  <span>Live Demo</span>
+                  <ArrowRight className="w-3.5 h-3.5 shrink-0 transition-transform duration-200 group-hover/btn:translate-x-0.5" />
+                </motion.a>
+              )}
+
+              {/* GitHub — ghost with icon micro-animation */}
+              {GithubLink && (
+                <motion.a
+                  href={GithubLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  whileHover={{ scale: 1.04 }}
+                  whileTap={{ scale: 0.97 }}
+                  transition={{ duration: 0.2, ease: EASE }}
+                  className={`group/gh flex items-center justify-center gap-1.5 px-4 py-2.5 text-sm font-semibold rounded-xl border border-white/20 text-white/70 hover:bg-white/10 hover:text-white hover:border-white/30 transition-all duration-200 ${
+                    demoLink ? "" : "flex-1"
+                  }`}
+                >
+                  <Github className="w-3.5 h-3.5 shrink-0 group-hover/gh:scale-110 transition-transform duration-200" />
+                  <span>GitHub</span>
+                </motion.a>
+              )}
+
+            </div>
+          )}
+
         </div>
       </motion.div>
-    </ProjectLink>
+    </motion.div>
   );
 };
 

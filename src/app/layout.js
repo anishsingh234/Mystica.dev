@@ -3,7 +3,6 @@ import "./globals.css";
 import clsx from "clsx";
 import FireFliesBackground from "@/components/fireFilesBackground";
 import Footer from "@/components/footer";
-import Script from "next/script";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -29,12 +28,6 @@ export default function RootLayout({ children }) {
         )}
       >
         {children}
-        <Script 
-          src="https://chat-sathi.vercel.app/chatBot.js" 
-          data-owner-id="usr_115500314898989325"
-          strategy="afterInteractive"
-        />
-      
         <Footer />
         <FireFliesBackground />
       </body>

@@ -1,43 +1,30 @@
 "use client";
-import Image from "next/image";
-import bg from "../../../../public/background/projects-background.png";
 import { projectsData } from "../../data";
 import ProjectList from "@/components/projects";
-import RenderModel from "@/components/RenderModel";
-import Wizard from "@/components/models/Wizard";
 
-export default function Home() {
+export default function ProjectsPage() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      {/* Background with improved styling */}
-      <div className="fixed inset-0 -z-50">
-        <Image
-          src={bg}
-          alt="Projects background"
-          className="w-full h-full object-cover object-center opacity-5"
-          priority
-          sizes="100vw"
+    <div className="relative w-full">
+      {/* ── Premium background ── */}
+      <div className="fixed inset-0 -z-20 bg-[#0a0a0f]">
+        {/* Primary radial glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(120,119,198,0.18),transparent_55%)]" />
+        {/* Secondary accent glow bottom-right */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_80%,rgba(59,130,246,0.07),transparent_45%)]" />
+        {/* Subtle grid overlay */}
+        <div
+          className="absolute inset-0 opacity-[0.025]"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
+            backgroundSize: "48px 48px",
+          }}
         />
-        {/* Gradient overlays for better readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/98 to-background" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-accent/10 via-background/50 to-background" />
-        
-        {/* Animated gradient orbs */}
-        <div className="absolute top-20 left-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000" />
+        {/* Bottom fade so content flows into page */}
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
       </div>
 
-      {/* 3D Wizard Model - Floating on right side */}
-      <div className="fixed top-1/4 right-10 w-[500px] h-[500px] pointer-events-none z-0 opacity-25 hidden xl:block">
-        <RenderModel>
-          <Wizard />
-        </RenderModel>
-      </div>
-
-      {/* Main content */}
-      <main className="relative z-10">
-        <ProjectList projects={projectsData} />
-      </main>
+      <ProjectList projects={projectsData} />
     </div>
   );
 }
