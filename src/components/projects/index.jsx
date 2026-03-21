@@ -58,7 +58,7 @@ const ProjectList = ({ projects }) => {
     <div className="w-full">
 
       {/* ── Hero ──────────────────────────────────────────────────────────── */}
-      <section className="pt-6 pb-12 text-center">
+      <section className="pt-16 sm:pt-24 pb-12 text-center">
         <motion.div
           initial={{ opacity: 0, y: 28 }}
           animate={{ opacity: 1, y: 0 }}
