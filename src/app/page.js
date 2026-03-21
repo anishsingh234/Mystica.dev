@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Github,
   Mail,
@@ -22,6 +22,11 @@ import {
   Calendar,
   MapPin,
   Sparkles,
+  Cpu,
+  Layout,
+  Code2,
+  Bot,
+  Network,
 } from "lucide-react";
 
 // â”€â”€â”€ DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -32,7 +37,7 @@ const featuredProjects = [
     name: "ChatSathi",
     tag: "AI · SaaS Platform",
     featured: true,
-    image: "/projects/chatsathi.png",
+    image: "/projects/chatsathi.png?v=1",
     oneLiner:
       "Multi-tenant AI chatbot platform enabling businesses to deploy custom assistants via embeddable scripts.",
     bullets: [
@@ -50,7 +55,7 @@ const featuredProjects = [
     name: "HopeBridge",
     tag: "AI · RAG System",
     featured: false,
-    image: "/projects/hopebridge.png",
+    image: "/projects/hopebridge.png?v=1",
     oneLiner:
       "AI-powered medical assistant delivering source-grounded cancer insights using RAG architecture.",
     bullets: [
@@ -68,7 +73,7 @@ const featuredProjects = [
     name: "HealSync",
     tag: "Full Stack · Healthcare",
     featured: false,
-    image: "/projects/healsync.png",
+    image: "/projects/healsync.png?v=1",
     oneLiner:
       "Full-stack healthcare platform enabling appointment booking and real-time consultations.",
     bullets: [
@@ -83,38 +88,7 @@ const featuredProjects = [
   },
 ];
 
-const skillGroups = [
-  {
-    label: "AI / ML",
-    icon: Brain,
-    items: ["OpenAI", "LangChain", "RAG", "FAISS", "Pinecone", "Hugging Face"],
-  },
-  {
-    label: "Backend",
-    icon: Server,
-    items: ["Node.js", "Express", "FastAPI", "GraphQL", "REST APIs"],
-  },
-  {
-    label: "Frontend",
-    icon: Globe,
-    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Native"],
-  },
-  {
-    label: "Database",
-    icon: Database,
-    items: ["MongoDB", "MySQL", "PostgreSQL", "Prisma ORM", "Pinecone"],
-  },
-  {
-    label: "Languages",
-    icon: Terminal,
-    items: ["JavaScript", "TypeScript", "Python", "C++", "SQL"],
-  },
-  {
-    label: "Tools & Platforms",
-    icon: Wrench,
-    items: ["Git", "GitHub", "Vercel", "Postman", "VS Code", "Clerk Auth"],
-  },
-];
+// skillGroups definition moved directly inside Skills() component for tabbed layout encapsulation
 
 const experience = [
   {
@@ -513,26 +487,27 @@ function Hero() {
 
 function ProjectCard({ project }) {
   return (
-    // Outer group wrapper: handles hover state for the gradient glow border
-    <div className="relative h-full group">
-      {/* Gradient glow layer – purple → blue → cyan, shows through as border */}
-      <div className="absolute -inset-[1px] rounded-[2rem] bg-gradient-to-br from-purple-500 via-blue-500 to-cyan-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-
-      {/* Ambient bloom beneath card */}
-      <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/20 via-blue-500/15 to-cyan-500/10 opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300 -z-10 pointer-events-none" />
+    <div className="relative h-full group perspective-1000">
+      {/* 1. BALANCE FEATURED CARD - Reduced glow intensity and spread */}
+      {project.featured && (
+        <div className="absolute -inset-[1px] rounded-[2rem] bg-gradient-to-br from-purple-500/30 via-blue-500/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+      )}
+      <div className={`absolute inset-0 rounded-[2rem] bg-gradient-to-br from-purple-500/10 via-blue-500/5 to-transparent opacity-0 group-hover:opacity-100 blur-lg transition-opacity duration-500 -z-10 pointer-events-none ${!project.featured && 'from-white/10 via-white/5'}`} />
 
       {/* Main card surface */}
       <motion.div
-        whileHover={{ scale: 1.03, y: -4 }}
+        whileHover={{ scale: 1.02, y: -4 }}
         transition={{ duration: 0.3, ease: "easeOut" }}
-        className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E] border border-white/[0.08] group-hover:border-transparent overflow-hidden transition-colors duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.3)] group-hover:shadow-[0_24px_60px_rgba(0,0,0,0.6)]"
+        className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E]/80 backdrop-blur-xl border border-white/10 group-hover:border-purple-500/30 overflow-hidden transition-all duration-300 shadow-[0_8px_32px_rgba(0,0,0,0.2)] group-hover:shadow-[0_10px_40px_rgba(139,92,246,0.25)]"
       >
-        {/* Gloss sheen */}
-        <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/[0.05] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10" />
+        {/* Subtle inner gradient for depth */}
+        <div className="absolute inset-0 bg-gradient-to-b from-white/5 to-transparent pointer-events-none z-10" />
 
         {project.featured && (
           <div className="absolute top-5 right-5 z-20">
-            <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-accent bg-background/80 backdrop-blur-md border border-accent/25 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+            {/* Featured Tag Enhancement */}
+            <span className="relative flex items-center justify-center px-4 py-1.5 text-[10px] font-bold uppercase tracking-widest text-white bg-gradient-to-r from-purple-600 to-blue-600 rounded-full shadow-[0_4px_12px_rgba(139,92,246,0.4)] overflow-hidden group/tag">
+              <span className="absolute inset-0 w-full h-full bg-white/20 translate-x-[-100%] group-hover/tag:translate-x-[100%] transition-transform duration-700 ease-out" />
               Featured
             </span>
           </div>
@@ -544,29 +519,40 @@ function ProjectCard({ project }) {
             src={project.image}
             alt={project.name}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+            unoptimized
+            className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-[#0A0A0E]/60 group-hover:bg-[#0A0A0E]/10 transition-colors duration-500" />
+          <div className="absolute inset-0 bg-[#0A0A0E]/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
         </div>
 
-        <div className="p-7 flex flex-col flex-1">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-accent mb-3 drop-shadow-sm">
-            {project.tag}
-          </p>
+        <div className="p-7 flex flex-col flex-1 relative z-20">
+          <div className="flex items-center justify-between mb-3">
+            <p className="text-[11px] font-semibold uppercase tracking-widest text-purple-400 drop-shadow-sm group-hover:text-purple-300 transition-colors">
+              {project.tag}
+            </p>
+            {/* Status Badge Improvement */}
+            <div className="flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 rounded-full shadow-[0_0_10px_rgba(34,197,94,0.15)] group-hover:shadow-[0_0_10px_rgba(34,197,94,0.4)] transition-shadow">
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-green-500"></span>
+              </span>
+              <span className="text-[9px] font-semibold text-white/70 uppercase tracking-wider">Live</span>
+            </div>
+          </div>
 
-          <h3 className="text-xl font-bold text-foreground mb-2 leading-tight pr-16">
+          <h3 className="text-xl font-semibold text-white mb-2 leading-tight">
             {project.name}
           </h3>
 
-          <p className="text-[13px] text-foreground/60 leading-relaxed mb-5 min-h-[40px]">
+          <p className="text-[13px] text-white/70 leading-relaxed mb-5 min-h-[40px]">
             {project.oneLiner}
           </p>
 
           <ul className="space-y-2 mb-6 flex-1">
             {project.bullets.map((b, i) => (
-              <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/50">
-                <CheckCircle2 className="w-4 h-4 text-accent mt-[1px] shrink-0" />
+              <li key={i} className="flex items-start gap-2.5 text-[13px] text-white/60 group-hover:text-white/80 transition-colors">
+                <CheckCircle2 className="w-4 h-4 text-purple-500/70 mt-[1px] shrink-0" />
                 <span className="leading-snug">{b}</span>
               </li>
             ))}
@@ -576,7 +562,7 @@ function ProjectCard({ project }) {
             {project.tech.map((t) => (
               <span
                 key={t}
-                className="px-2.5 py-1 text-[10px] font-semibold tracking-wide bg-white/[0.03] border border-white/[0.08] text-foreground/70 rounded-full backdrop-blur-md hover:border-accent/30 hover:bg-accent/5 hover:text-accent transition-colors duration-300 cursor-default"
+                className="px-3 py-1 text-xs font-semibold text-white/80 bg-white/10 rounded-full backdrop-blur-md hover:bg-purple-500/20 hover:text-purple-200 transition-colors duration-300 cursor-default shadow-sm"
               >
                 {t}
               </span>
@@ -590,10 +576,13 @@ function ProjectCard({ project }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white text-black rounded-xl hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-[0_4px_14px_rgba(255,255,255,0.1)] group/btn"
+                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-xl hover:scale-105 hover:shadow-[0_0_20px_rgba(139,92,246,0.6)] transition-all duration-300 group/btn relative overflow-hidden"
               >
-                <ExternalLink className="w-3.5 h-3.5 group-hover/btn:rotate-[-5deg] transition-transform" />
-                Live Demo
+                <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-[600ms] ease-out" />
+                <ExternalLink className="w-3.5 h-3.5 relative z-10 group-hover/btn:rotate-[-5deg] transition-transform" />
+                <span className="relative z-10 hidden sm:inline">Live Demo</span>
+                <span className="relative z-10 sm:hidden">Demo</span>
+                <ArrowRight className="w-3.5 h-3.5 relative z-10 opacity-0 -translate-x-2 group-hover/btn:opacity-100 group-hover/btn:translate-x-0 transition-all duration-300 -ml-1 border-l border-white/20 pl-1" />
               </a>
             )}
             {project.github && (
@@ -602,10 +591,13 @@ function ProjectCard({ project }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white/[0.03] border border-white/[0.10] text-foreground/80 rounded-xl hover:bg-white/[0.08] hover:text-foreground hover:-translate-y-0.5 transition-all shadow-sm group/btn"
+                className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-transparent border border-white/20 text-white/80 rounded-xl hover:bg-white/10 hover:text-white hover:scale-[1.02] transition-all duration-300 group/git"
               >
-                <Github className="w-3.5 h-3.5" />
-                GitHub
+                <Github className="w-3.5 h-3.5 group-hover/git:scale-110 transition-transform" />
+                <span className="relative">
+                  GitHub
+                  <span className="absolute left-0 bottom-0 w-full h-[1px] bg-white scale-x-0 group-hover/git:scale-x-100 transition-transform origin-left" />
+                </span>
               </a>
             )}
           </div>
@@ -673,39 +665,179 @@ function Projects() {
 // â”€â”€â”€ SKILLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function Skills() {
+  const categories = [
+    {
+      title: "AI / ML",
+      icon: Brain,
+      description: "Building AI agents, RAG pipelines, and intelligent applications.",
+      span: "md:col-span-2 lg:col-span-2",
+      highlight: true,
+      skills: [
+        { name: "LLMs", icon: Sparkles },
+        { name: "Prompt Engineering", icon: Terminal },
+        { name: "LangChain", icon: Network },
+        { name: "CrewAI", icon: Bot },
+        { name: "Hugging Face", icon: Brain },
+        { name: "Ollama", icon: Server },
+        { name: "RAG", icon: Database },
+        { name: "Vector Databases", icon: Database },
+        { name: "Pinecone", icon: Cpu },
+        { name: "Tool Calling", icon: Code2 },
+        { name: "Multi-Agent Systems", icon: Network },
+        { name: "Vercel AI SDK", icon: Cpu },
+      ]
+    },
+    {
+      title: "Backend",
+      icon: Server,
+      description: "Designing scalable APIs and integrating AI systems.",
+      span: "col-span-1",
+      skills: [
+        { name: "Node.js", icon: Terminal },
+        { name: "Express.js", icon: Server },
+        { name: "FastAPI", icon: Cpu },
+        { name: "GraphQL", icon: Network },
+        { name: "REST APIs", icon: Globe },
+      ],
+    },
+    {
+      title: "Frontend",
+      icon: Layout,
+      description: "Building responsive and performant user interfaces.",
+      span: "col-span-1",
+      skills: [
+        { name: "React.js", icon: Code2 },
+        { name: "Next.js", icon: Globe },
+        { name: "React Native", icon: Layout },
+        { name: "Expo", icon: Layout },
+        { name: "Tailwind CSS", icon: Layout },
+        { name: "Three.js", icon: Cpu },
+      ],
+    },
+    {
+      title: "Database",
+      icon: Database,
+      description: "Efficient data modeling and scalable storage systems.",
+      span: "col-span-1",
+      skills: [
+        { name: "MongoDB", icon: Database },
+        { name: "MySQL", icon: Database },
+        { name: "Prisma ORM", icon: Database },
+      ],
+    },
+    {
+      title: "Programming Languages",
+      icon: Code2,
+      description: "Strong problem-solving and system design foundation.",
+      span: "col-span-1 md:col-span-2 lg:col-span-1",
+      skills: [
+        { name: "JavaScript", icon: Code2 },
+        { name: "TypeScript", icon: Code2 },
+        { name: "Python", icon: Terminal },
+        { name: "C++", icon: Cpu },
+        { name: "C", icon: Cpu },
+        { name: "SQL", icon: Database },
+        { name: "HTML", icon: Layout },
+        { name: "CSS", icon: Layout },
+      ],
+    },
+    {
+      title: "Tools & Platforms",
+      icon: Wrench,
+      description: "Development, deployment, and workflow management.",
+      span: "md:col-span-2 lg:col-span-3",
+      skills: [
+        { name: "Git", icon: Network },
+        { name: "GitHub", icon: Github },
+        { name: "Vercel", icon: Globe },
+        { name: "Clerk Auth", icon: CheckCircle2 },
+        { name: "VS Code", icon: Code2 },
+        { name: "Postman", icon: Layout },
+      ],
+    },
+  ];
+
   return (
-    <section id="skills" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          label="Skills"
-          title="My tech stack"
-          subtitle="The tools and frameworks I use to build and ship production-ready AI and full-stack systems."
-        />
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {skillGroups.map(({ label, icon: Icon, items }) => (
-            <div
-              key={label}
-              className="p-6 rounded-[1.5rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_16px_rgba(0,0,0,0.1)] hover:bg-white/[0.03] hover:border-accent/[0.25] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_12px_32px_rgba(139,92,246,0.12)] transition-all duration-400 ease-out"
-            >
-              <div className="flex items-center gap-2.5 mb-4">
-                <div className="p-1.5 bg-accent/[0.10] rounded-md shrink-0">
-                  <Icon className="w-4 h-4 text-accent" />
+    <section id="skills" className="relative py-24 sm:py-32 scroll-mt-20 border-t border-white/[0.06] overflow-hidden">
+      
+      {/* Background ambient light */}
+      <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-purple-500/10 to-transparent" />
+      <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-purple-600/[0.03] blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        <FadeUp className="mb-14 sm:mb-16 text-center sm:text-left">
+          <SectionLabel>My Tech Stack</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
+            Tools I architect with
+          </h2>
+          <p className="text-foreground/50 max-w-xl leading-relaxed text-[15px] sm:mx-0 mx-auto">
+            I use these specific technologies to build production-grade AI systems, scale full-stack architectures, and ship exceptional user experiences.
+          </p>
+        </FadeUp>
+
+        {/* Bento Grid layout */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
+          {categories.map((cat, i) => {
+            const Icon = cat.icon;
+            const isAI = cat.highlight;
+            
+            return (
+              <FadeUp key={cat.title} delay={i * 0.1} className={cat.span}>
+                <div className={`group relative p-6 sm:p-8 rounded-[2rem] bg-white/[0.02] border transition-all duration-500 flex flex-col h-full overflow-hidden ${
+                  isAI 
+                    ? "border-purple-500/20 hover:border-purple-500/40 hover:bg-purple-500/[0.02] shadow-[0_0_30px_rgba(139,92,246,0.03)] hover:shadow-[0_0_40px_rgba(139,92,246,0.1)] hover:-translate-y-1" 
+                    : "border-white/[0.08] hover:border-white/[0.15] hover:bg-white/[0.03] hover:-translate-y-1"
+                }`}>
+                  
+                  {/* Inner ambient glow that triggers on hover */}
+                  <div className={`absolute top-0 right-0 w-32 h-32 rounded-full blur-[60px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none ${
+                    isAI ? "bg-purple-500/20" : "bg-white/5"
+                  }`} />
+                  
+                  <div className="flex items-center gap-4 mb-5 relative z-10">
+                    <div className={`p-3 rounded-2xl border transition-all duration-300 group-hover:scale-[1.05] shadow-inner ${
+                      isAI 
+                        ? "bg-purple-500/10 border-purple-500/20 text-purple-400 group-hover:bg-purple-500/20" 
+                        : "bg-white/[0.04] border-white/[0.08] text-white/70 group-hover:text-white group-hover:bg-white/[0.08]"
+                    }`}>
+                      <Icon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-white/90 tracking-wide">{cat.title}</h3>
+                    </div>
+                  </div>
+                  
+                  <p className="text-[14px] text-white/50 mb-6 max-w-sm leading-relaxed relative z-10">
+                    {cat.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-2 mt-auto relative z-10 pt-2 text-white/70">
+                    {cat.skills.map((skill) => {
+                      const SkillIcon = skill.icon;
+                      return (
+                        <div 
+                          key={skill.name} 
+                          className={`flex items-center gap-1.5 px-3 py-1.5 rounded-lg border transition-all duration-300 ${
+                            isAI 
+                              ? "bg-purple-500/[0.03] border-purple-500/10 group-hover:border-purple-500/20 hover:bg-purple-500/10" 
+                              : "bg-white/[0.02] border-white/[0.05] group-hover:border-white/[0.1] hover:bg-white/[0.08]"
+                          }`}
+                        >
+                          <SkillIcon className={`w-3.5 h-3.5 ${isAI ? "text-purple-400/70" : "text-white/40"}`} />
+                          <span className="text-[12px] font-medium text-white/80 whitespace-nowrap">
+                            {skill.name}
+                          </span>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
-                <h3 className="text-sm font-semibold text-foreground/75">{label}</h3>
-              </div>
-              <div className="flex flex-wrap gap-1.5">
-                {items.map((skill) => (
-                  <span
-                    key={skill}
-                    className="px-3 py-1.5 text-[11px] font-semibold tracking-wide bg-white/[0.03] border border-white/[0.08] text-foreground/70 rounded-full backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:border-accent/40 hover:text-foreground hover:shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-default"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+              </FadeUp>
+            );
+          })}
         </div>
+        
       </div>
     </section>
   );
@@ -714,78 +846,106 @@ function Skills() {
 // â”€â”€â”€ EXPERIENCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function Experience() {
-  return (
-    <section id="experience" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-        <SectionHeader
-          label="Experience"
-          title="Where I've worked"
-          subtitle="Real-world production experience building and shipping software."
-        />
-        <div className="space-y-4">
-          {experience.map((exp, i) => (
-            <div
-              key={i}
-              className="p-6 sm:p-8 rounded-[2rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_24px_rgba(0,0,0,0.15)] hover:bg-white/[0.03] hover:border-white/[0.12] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_16px_40px_rgba(0,0,0,0.4)] transition-all duration-500 ease-out"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
-                <div>
-                  <h3 className="text-lg font-bold text-foreground leading-tight">{exp.role}</h3>
-                  <div className="flex items-center gap-3 mt-1.5">
-                    <p className="text-sm font-semibold text-accent">{exp.company}</p>
-                    <span className="text-white/20">Â·</span>
-                    <span className="flex items-center gap-1 text-xs text-foreground/35">
-                      <MapPin className="w-3 h-3" />
-                      {exp.location}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex items-center gap-1.5 text-xs text-foreground/35 shrink-0">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {exp.period}
-                </div>
-              </div>
-              <ul className="space-y-2.5 mb-6">
-                {exp.bullets.map((b, j) => (
-                  <li key={j} className="flex items-start gap-2.5 text-sm text-foreground/50">
-                    <ChevronRight className="w-4 h-4 text-accent/50 shrink-0 mt-0.5" />
-                    {b}
-                  </li>
-                ))}
-              </ul>
-              <div className="flex flex-wrap gap-2">
-                {exp.tech.map((t) => (
-                  <span
-                    key={t}
-                    className="px-3 py-1.5 text-[11px] font-semibold tracking-wide bg-accent/[0.05] border border-accent/[0.25] text-accent/80 rounded-full shadow-[inset_0_1px_1px_rgba(139,92,246,0.15)] hover:bg-accent/[0.1] hover:shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-default"
-                  >
-                    {t}
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
+  const experiences = [
+    {
+      role: "Software Developer Intern",
+      company: "Exponent Solutions",
+      location: "Remote",
+      period: "Nov 2025 — Present",
+      bullets: [
+        "Developed and deployed 3+ full-stack applications serving 3,000+ users",
+        "Built a RAG-based AI chatbot using LLMs and vector embeddings",
+        "Designed scalable REST APIs and optimized MongoDB queries",
+        "Improved frontend performance with reusable components"
+      ],
+      tech: "Next.js, React, Node.js, MongoDB, LLMs, RAG",
+    },
+    {
+      role: "B.Tech Computer Science (AI & ML)",
+      company: "Uttarakhand Technical University",
+      location: "",
+      period: "Aug 2022 — Jun 2026",
+      bullets: [],
+      tech: "",
+    }
+  ];
 
-          {/* Education */}
-          <div className="p-6 sm:p-8 rounded-[2rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_24px_rgba(0,0,0,0.15)] hover:bg-white/[0.03] hover:border-white/[0.12] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_16px_40px_rgba(0,0,0,0.4)] transition-all duration-500 ease-out">
-            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
-              <div>
-                <h3 className="text-lg font-bold text-foreground leading-tight">
-                  B.Tech â€” Computer Science
-                </h3>
-                <div className="flex items-center flex-wrap gap-3 mt-1.5">
-                  <p className="text-sm font-semibold text-accent">Uttarakhand Technical University</p>
-                  <span className="text-xs px-2 py-0.5 bg-accent/[0.08] border border-accent/[0.20] text-accent/70 rounded-full font-medium">
-                    AI &amp; ML Specialization
-                  </span>
+  return (
+    <section id="experience" className="py-24 sm:py-32 scroll-mt-20 border-t border-white/[0.06] relative overflow-hidden">
+      
+      {/* Background radial gradient */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-purple-600/[0.02] blur-[120px] rounded-full pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-6 sm:px-8 relative z-10">
+        
+        <FadeUp className="mb-14 sm:mb-16">
+          <SectionLabel>Experience</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-4 leading-tight">
+            Where I've worked
+          </h2>
+          <p className="text-white/50 max-w-xl leading-relaxed text-[15px]">
+            Real-world production experience building and shipping software.
+          </p>
+        </FadeUp>
+
+        <div className="relative">
+          {/* Vertical Timeline Line */}
+          <div className="absolute left-[13px] sm:left-[17px] top-3 bottom-0 w-[2px] bg-gradient-to-b from-purple-500/60 via-white/10 to-transparent" />
+
+          <div className="space-y-12 sm:space-y-16">
+            {experiences.map((exp, i) => (
+              <FadeUp key={i} delay={i * 0.1}>
+                <div className="relative pl-12 sm:pl-16 group">
+                  
+                  {/* Timeline Node */}
+                  <div className="absolute left-[9px] sm:left-[13px] top-2.5 w-2.5 h-2.5 rounded-full bg-[#0a0a0f] border-[2px] border-white/20 ring-4 ring-[#0a0a0f] group-hover:border-purple-400 group-hover:bg-purple-400 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300 z-10" />
+
+                  {/* Content Container (Option A: Just typography and spacing, no background card) */}
+                  <div className="group-hover:translate-x-1.5 transition-transform duration-300 ease-out">
+                    <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-2">
+                      <h3 className="text-xl sm:text-[22px] font-semibold text-white tracking-wide">
+                        {exp.role}
+                      </h3>
+                      <span className="text-sm font-medium text-gray-500 shrink-0">
+                        {exp.period}
+                      </span>
+                    </div>
+                    
+                    <div className="text-[15px] font-medium text-purple-400/90 mb-5 tracking-wide flex items-center gap-2">
+                      {exp.company}
+                      {exp.location && (
+                        <>
+                          <span className="text-white/20">•</span>
+                          <span className="text-gray-500">{exp.location}</span>
+                        </>
+                      )}
+                    </div>
+
+                    {exp.bullets.length > 0 && (
+                      <ul className="space-y-3 mb-5">
+                        {exp.bullets.map((b, j) => (
+                          <li key={j} className="flex items-start gap-3.5 text-[15px] text-gray-300/90 leading-relaxed">
+                            <span className="text-purple-400/50 mt-[7px] shrink-0 text-[8px]">■</span>
+                            {b}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+
+                    {exp.tech && (
+                      <div className="mt-3 pt-3 border-t border-white/[0.04]">
+                        <span className="text-[14px] text-gray-500">
+                          Tech: <span className="text-gray-400">{exp.tech}</span>
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
                 </div>
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-foreground/35 shrink-0">
-                <Calendar className="w-3.5 h-3.5" />
-                Aug 2022 â€“ Jun 2026
-              </div>
-            </div>
+              </FadeUp>
+            ))}
           </div>
+
         </div>
       </div>
     </section>
@@ -801,62 +961,60 @@ function About() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
           <div>
             <SectionLabel>About</SectionLabel>
-            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6 leading-tight">
-              Building at the intersection of{" "}
-              <span className="text-gradient">AI &amp; full-stack</span>
+            <h2 className="text-4xl sm:text-5xl font-bold text-foreground mb-6 leading-tight tracking-tight">
+              <span className="bg-gradient-to-r from-purple-400 to-blue-400 text-transparent bg-clip-text">AI Engineer</span> building real-world systems
             </h2>
-            <div className="space-y-4 text-foreground/50 leading-relaxed text-[15px]">
+            <div className="space-y-5 text-foreground/70 leading-[1.7] text-[16px] sm:text-[17px] max-w-lg">
               <p>
-                I&apos;m a full-stack developer with a strong focus on AI systems and
-                real-world applications. I enjoy working on LLM-based products,
-                RAG architectures, and scalable backend systems that people actually use.
+                I&apos;m a full-stack developer focused on building production-grade AI systems using <span className="font-semibold text-white">LLMs</span>, <span className="font-semibold text-white">RAG</span>, and scalable backend architectures.
               </p>
               <p>
-                I&apos;ve solved{" "}
-                <span className="text-foreground font-semibold">350+ DSA problems</span>,
-                which sharpened my problem-solving skills and laid a strong foundation
-                for system design thinking.
+                I&apos;ve built and shipped multiple applications used by real users, combining modern frontend development with intelligent <span className="font-semibold text-white">AI systems</span>.
               </p>
               <p>
-                Currently interning at Exponent Solutions building production Next.js
-                and React Native apps, while exploring new frontiers in multi-agent AI
-                systems and LLM tooling.
+                Currently exploring multi-agent systems and advanced AI tooling.
               </p>
             </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="mailto:anishsingh210204@gmail.com"
-                className="flex items-center gap-2 px-4 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent/90 transition-colors"
-              >
-                <Mail className="w-4 h-4" />
-                Get in Touch
-              </a>
-              <a
-                href="https://linkedin.com/in/anish-ai"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/[0.08] text-foreground/60 hover:text-foreground border border-white/10 text-sm font-semibold rounded-lg transition-all"
-              >
-                <Linkedin className="w-4 h-4" />
-                LinkedIn
-              </a>
+            
+            <div className="mt-10">
+              <p className="text-sm font-medium text-foreground/50 mb-3 ml-0.5">
+                Open to opportunities
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="mailto:anishsingh210204@gmail.com"
+                  className="flex items-center gap-2 px-5 py-2.5 bg-white text-black text-[15px] font-semibold rounded-lg hover:bg-white/90 transition-all hover:-translate-y-0.5 shadow-[0_0_20px_rgba(255,255,255,0.1)] active:scale-95"
+                >
+                  <Mail className="w-4 h-4" />
+                  Get in Touch
+                </a>
+                <a
+                  href="https://linkedin.com/in/anish-ai"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-5 py-2.5 bg-white/[0.04] hover:bg-white/[0.08] text-white/80 hover:text-white border border-white/10 text-[15px] font-semibold rounded-lg transition-all hover:-translate-y-0.5 active:scale-95"
+                >
+                  <Linkedin className="w-4 h-4" />
+                  LinkedIn
+                </a>
+              </div>
             </div>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             {[
               { value: "12+", label: "Projects Shipped", sub: "Web & AI" },
-              { value: "350+", label: "DSA Problems", sub: "C++ & Java" },
-              { value: "4+", label: "AI/LLM Projects", sub: "RAG, Agents" },
-              { value: "2026", label: "Graduating", sub: "CS â€” AI & ML" },
+              { value: "350+", label: "DSA Problems Solved", sub: "C++ & Java" },
+              { value: "4+", label: "AI Systems Built", sub: "RAG, Agents" },
+              { value: "2026", label: "Graduating 2026", sub: "AI & ML" },
             ].map(({ value, label, sub }) => (
               <div
                 key={label}
-                className="p-6 rounded-[1.5rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_16px_rgba(0,0,0,0.1)] hover:bg-white/[0.03] hover:border-accent/[0.25] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_12px_32px_rgba(139,92,246,0.12)] transition-all duration-400 ease-out"
+                className="p-6 rounded-[1.5rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_16px_rgba(0,0,0,0.1)] hover:bg-white/[0.03] hover:border-purple-500/[0.25] hover:-translate-y-1 hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_12px_32px_rgba(139,92,246,0.12)] transition-all duration-300 ease-out"
               >
-                <p className="text-4xl font-extrabold text-accent mb-2 tracking-tight">{value}</p>
-                <p className="text-sm font-semibold text-foreground/70">{label}</p>
-                <p className="text-xs text-foreground/30 mt-0.5">{sub}</p>
+                <p className="text-3xl font-extrabold text-foreground mb-1.5 tracking-tight">{value}</p>
+                <p className="text-[13px] font-semibold text-foreground/70">{label}</p>
+                <p className="text-[11px] font-medium text-purple-400/80 mt-1">{sub}</p>
               </div>
             ))}
           </div>
