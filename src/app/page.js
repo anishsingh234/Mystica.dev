@@ -1,657 +1,772 @@
 "use client";
 
-import bg from "../../public/background/home-background.png"
+import { useState, useEffect } from "react";
+import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import Link from "next/link";
-import RenderModel from "@/components/RenderModel";
-import Wizard from "@/components/models/Wizard";
-import { ArrowRight, Code2, Zap, Github, Linkedin, Mail, ExternalLink, Award, Layers, Clock, Rocket } from "lucide-react";
+import {
+  Github,
+  Mail,
+  Linkedin,
+  ArrowRight,
+  ExternalLink,
+  Download,
+  Brain,
+  Server,
+  Globe,
+  Database,
+  Wrench,
+  Terminal,
+  CheckCircle2,
+  ChevronRight,
+  Calendar,
+  MapPin,
+  Sparkles,
+} from "lucide-react";
 
-export default function Home() {
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-        delayChildren: 0.1,
-      },
-    },
-  };
+// â”€â”€â”€ DATA â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5, ease: "easeOut" },
-    },
-  };
+const featuredProjects = [
+  {
+    id: 1,
+    name: "ChatSathi",
+    tag: "AI Â· SaaS",
+    featured: true,
+    oneLiner:
+      "AI chatbot SaaS platform enabling real-time conversations using LLMs and vector search",
+    bullets: [
+      "Built AI chatbot using OpenAI APIs with streaming responses",
+      "Implemented full RAG pipeline for contextual, accurate answers",
+      "Vector search with FAISS / Pinecone for semantic retrieval",
+      "Multi-tenant architecture with scalable Node.js backend",
+    ],
+    tech: ["React", "Node.js", "OpenAI", "LangChain", "FAISS", "MongoDB"],
+    github: "https://github.com/anishsingh234/ChatSathi",
+    demo: "https://chat-sathi.vercel.app",
+  },
+  {
+    id: 2,
+    name: "HopeBridge",
+    tag: "AI Â· RAG",
+    featured: false,
+    oneLiner:
+      "RAG-based AI assistant delivering reliable, citation-backed cancer information",
+    bullets: [
+      "Document-aware AI system built with LangChain & LLMs",
+      "RAG architecture for accuracy over verified medical datasets",
+      "Semantic search via vector database for relevant retrieval",
+      "FastAPI backend with async endpoints",
+    ],
+    tech: ["Python", "LangChain", "FAISS", "OpenAI", "FastAPI"],
+    github: "https://github.com/anishsingh234/HopeBridge",
+    demo: null,
+  },
+  {
+    id: 3,
+    name: "HealSync",
+    tag: "Full Stack Â· Healthcare",
+    featured: false,
+    oneLiner:
+      "Full-stack healthcare platform for managing patient appointments and workflows",
+    bullets: [
+      "Responsive frontend built with React and Tailwind CSS",
+      "RESTful backend APIs with Express and MongoDB",
+      "Secure authentication and role-based access",
+      "Real-world healthcare scheduling use case",
+    ],
+    tech: ["Next.js", "React", "Prisma ORM", "MongoDB", "TypeScript"],
+    github: "https://github.com/anishsingh234/HealSync",
+    demo: null,
+  },
+];
 
-  const skills = [
-    "React", "Next.js", "React Native", "TypeScript", "Node.js",
-    "Python", "FastAPI", "MongoDB", "Prisma", "LangChain",
-    "LLMs", "RAG Systems", "GraphQL", "Three.js", "Tailwind CSS"
-  ];
+const skillGroups = [
+  {
+    label: "AI / ML",
+    icon: Brain,
+    items: ["OpenAI", "LangChain", "RAG", "FAISS", "Pinecone", "Hugging Face"],
+  },
+  {
+    label: "Backend",
+    icon: Server,
+    items: ["Node.js", "Express", "FastAPI", "GraphQL", "REST APIs"],
+  },
+  {
+    label: "Frontend",
+    icon: Globe,
+    items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "React Native"],
+  },
+  {
+    label: "Database",
+    icon: Database,
+    items: ["MongoDB", "MySQL", "PostgreSQL", "Prisma ORM", "Pinecone"],
+  },
+  {
+    label: "Languages",
+    icon: Terminal,
+    items: ["JavaScript", "TypeScript", "Python", "C++", "SQL"],
+  },
+  {
+    label: "Tools & Platforms",
+    icon: Wrench,
+    items: ["Git", "GitHub", "Vercel", "Postman", "VS Code", "Clerk Auth"],
+  },
+];
 
-  const techStack = [
-    { name: "React", emoji: "⚛️" },
-    { name: "Next.js", emoji: "▲" },
-    { name: "React Native", emoji: "📱" },
-    { name: "TypeScript", emoji: "📘" },
-    { name: "Python", emoji: "🐍" },
-    { name: "LangChain", emoji: "⛓️" },
-    { name: "FastAPI", emoji: "⚡" },
-    { name: "Node.js", emoji: "🟢" },
-    { name: "MongoDB", emoji: "🍃" },
-    { name: "Prisma", emoji: "🔐" },
-    { name: "GraphQL", emoji: "🔗" },
-    { name: "Three.js", emoji: "🎮" },
-  ];
+const experience = [
+  {
+    role: "Software Developer Intern",
+    company: "Exponent Solutions",
+    location: "Remote",
+    period: "Nov 2025 â€“ Present",
+    bullets: [
+      "Built and shipped scalable web applications and backend APIs in production",
+      "Integrated AI chatbot features using OpenAI for real user-facing products",
+      "Improved application performance, UX, and reliability across services",
+      "Collaborated with team on production-level Next.js and React Native projects",
+    ],
+    tech: ["Next.js", "React Native", "TypeScript", "OpenAI", "Node.js"],
+  },
+];
 
-  const featuredProjects = [
-    {
-      title: "HealSync",
-      desc: "Healthcare appointment platform with booking, cancellation, and real-time consultation management for patients, doctors, and admins",
-      tech: ["Next.js", "Prisma", "MongoDB", "Clerk"],
-      icon: "🏥",
-      metrics: "HIPAA-compliant · Video Calling",
-      date: "Sep 2025"
-    },
-    {
-      title: "NutriMate",
-      desc: "AI-powered diet planning mobile app with personalized meal recommendations and real-time nutritional tracking",
-      tech: ["React Native", "Expo", "Gemini AI"],
-      icon: "🥗",
-      metrics: "Cross-platform · AI Suggestions",
-      date: "Jul 2025"
-    },
-    {
-      title: "Deep Research Agent",
-      desc: "Multi-step AI research system with Chain-of-Thought reasoning, live web search, and autonomous task execution",
-      tech: ["Python", "LangChain", "FastAPI"],
-      icon: "🤖",
-      metrics: "Autonomous · Real-time Research",
-      date: "Jan 2026"
-    },
-  ];
+// â”€â”€â”€ SHARED COMPONENTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-  const testimonials = [
-    {
-      name: "Exponent Solutions",
-      role: "Full Stack Developer Intern",
-      text: "Developing full-stack web and mobile applications with modern technologies. Building scalable backend services and responsive interfaces.",
-      avatar: "💼"
-    },
-    {
-      name: "Open Source & Learning",
-      role: "Continuous Contributor",
-      text: "Active on GitHub with 350+ LeetCode problems solved. Consistent contributions and well-documented projects showcasing problem-solving skills.",
-      avatar: "🌟"
-    },
-  ];
+function SectionLabel({ children }) {
+  return (
+    <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
+      {children}
+    </p>
+  );
+}
+
+function SectionHeader({ label, title, subtitle }) {
+  return (
+    <div className="mb-12 sm:mb-16">
+      <SectionLabel>{label}</SectionLabel>
+      <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3 leading-tight">
+        {title}
+      </h2>
+      {subtitle && (
+        <p className="text-foreground/50 max-w-xl leading-relaxed text-base">
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// â”€â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function Navbar() {
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <main className="relative w-full min-h-screen flex flex-col">
-      {/* Background */}
-      <div className="fixed inset-0 -z-50">
-        <Image 
-          src={bg} 
-          alt="background-image" 
-          fill 
-          className="w-full h-full object-cover object-center opacity-10"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-background via-background/95 to-background" />
-      </div>
-
-      {/* 3D Wizard Model - Floating in background */}
-      <div className="fixed top-1/4 left-2 sm:left-10 w-72 h-72 sm:w-80 sm:h-80 xl:w-96 xl:h-96 pointer-events-none z-0 opacity-10 sm:opacity-15 xl:opacity-20 hidden lg:block">
-        <RenderModel>
-          <Wizard />
-        </RenderModel>
-      </div>
-
-      {/* Simple Header Navigation */}
-      <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="fixed top-0 w-full z-50 backdrop-blur-md bg-background/80 border-b border-foreground/10"
-      >
-        <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
-          <div className="flex justify-between items-center">
-            <Link href="/" className="text-lg sm:text-xl font-bold text-accent">
-              Anish Singh
-            </Link>
-            <div className="hidden md:flex items-center gap-4 lg:gap-6">
-              <a href="#about" className="text-sm font-medium hover:text-accent transition-colors">
-                About
-              </a>
-              <Link href="/projects" className="text-sm font-medium hover:text-accent transition-colors">
-                Projects
-              </Link>
-              <Link href="/contact" className="px-4 py-2 bg-accent text-background rounded-lg text-sm font-medium hover:bg-accent/90 transition-colors">
-                Contact
-              </Link>
-            </div>
-            {/* Mobile Menu */}
-            <div className="flex md:hidden items-center gap-3">
-              <a href="#about" className="text-xs font-medium hover:text-accent transition-colors">
-                About
-              </a>
-              <Link href="/projects" className="text-xs font-medium hover:text-accent transition-colors">
-                Projects
-              </Link>
-              <Link href="/contact" className="px-3 py-1.5 bg-accent text-background rounded-lg text-xs font-medium hover:bg-accent/90 transition-colors">
-                Contact
-              </Link>
-            </div>
+    <header
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-[#05050A]/70 backdrop-blur-2xl border-b border-white/[0.05] shadow-[inset_0_-1px_0_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.3)]"
+          : "bg-transparent"
+      }`}
+    >
+      <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        {/* Logo */}
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <div className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center shrink-0">
+            <span className="text-background font-bold text-sm leading-none">AK</span>
           </div>
-        </nav>
-      </motion.header>
+          <span className="font-semibold text-foreground/80 group-hover:text-foreground transition-colors text-sm hidden sm:block">
+            Anish Kumar Singh
+          </span>
+        </Link>
 
-      {/* Hero Section */}
-      <div className="relative w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 pt-32 pb-20 min-h-screen">
-        <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={containerVariants}
-          className="max-w-5xl w-full"
+        {/* Nav links */}
+        <div className="hidden md:flex items-center">
+          {["Projects", "Skills", "Experience", "About", "Contact"].map((item) => (
+            <a
+              key={item}
+              href={`#${item.toLowerCase()}`}
+              className="px-3 py-2 text-sm text-foreground/50 hover:text-foreground/90 rounded-md transition-colors duration-150"
+            >
+              {item}
+            </a>
+          ))}
+        </div>
+
+        {/* Right side */}
+        <div className="flex items-center gap-3">
+          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
+            <span className="w-1.5 h-1.5 bg-emerald-400 rounded-full" />
+            <span className="text-[10px] font-medium text-emerald-400">Open to work</span>
+          </div>
+          <a
+            href="/resume.pdf"
+            download
+            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/25 rounded-lg transition-all duration-200"
+          >
+            <Download className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Resume</span>
+          </a>
+        </div>
+      </nav>
+    </header>
+  );
+}
+
+// â”€â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function Hero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-16">
+      {/* Ambient glow */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-[25%] left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-accent/[0.08] rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute top-[15%] right-[20%] w-[400px] h-[400px] bg-blue-500/[0.04] rounded-full blur-[100px] pointer-events-none" />
+      </div>
+
+      {/* Dot grid */}
+      <div
+        className="absolute inset-0 -z-10 pointer-events-none"
+        style={{
+          backgroundImage: `radial-gradient(circle, rgba(234,179,8,0.12) 1px, transparent 1px)`,
+          backgroundSize: "28px 28px",
+          maskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%)",
+        }}
+      />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-28 sm:py-36 w-full relative z-10">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          className="max-w-5xl mx-auto text-center"
         >
-          {/* Status Badge */}
-          <motion.div variants={itemVariants} className="flex justify-center mb-8">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 border border-accent/30 rounded-full">
-              <span className="w-2 h-2 bg-accent rounded-full animate-pulse"></span>
-              <span className="text-sm font-medium text-accent">Available for work</span>
-            </div>
-          </motion.div>
-
-          {/* Main Heading */}
-          <motion.div variants={itemVariants} className="text-center mb-4 sm:mb-6">
-            <h1 className="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight mb-3 sm:mb-4 px-4">
-              <span className="block text-foreground">Anish Singh</span>
-              <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent block mt-1 sm:mt-2">
-                Full Stack Developer
-              </span>
-            </h1>
-            <p className="text-base sm:text-lg md:text-xl text-foreground/80 font-medium px-4">
-              AI & ML Specialist
-            </p>
-          </motion.div>
-
-          {/* Description */}
-          <motion.p 
-            variants={itemVariants}
-            className="text-center text-sm sm:text-base md:text-lg text-foreground/70 mb-8 sm:mb-12 max-w-2xl mx-auto px-4"
-          >
-            Proven ability in developing full-stack web and mobile applications, integrating AI/ML solutions, 
-            and optimizing databases for high performance. Proficient in modern web technologies with strong 
-            foundation in LLMs, RAG systems, and AI agents.
-          </motion.p>
-
-          {/* CTA Buttons */}
+          {/* Role pill */}
           <motion.div 
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-stretch sm:items-center mb-12 sm:mb-16 px-4 max-w-2xl mx-auto"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            className="inline-flex items-center gap-2.5 px-5 py-2 mb-8 bg-accent/[0.08] border border-accent/20 rounded-full shadow-[0_0_24px_rgba(139,92,246,0.15)]"
           >
-            <Link
-              href="/projects"
-              className="group w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-accent hover:bg-accent/90 text-background font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-accent/30 flex items-center justify-center gap-2 text-sm sm:text-base"
+            <Sparkles className="w-4 h-4 text-accent" />
+            <span className="text-xs font-bold text-accent tracking-widest uppercase">
+              Full-Stack · AI Engineer
+            </span>
+          </motion.div>
+
+          {/* New Giant Headline */}
+          <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-[5.5rem] font-extrabold tracking-tighter mb-8 text-foreground leading-[1.05]">
+            I build <span className="text-gradient drop-shadow-sm">AI-powered</span> applications using <span className="text-gradient hover:opacity-80 transition-opacity cursor-default">LLMs</span>, <span className="text-gradient drop-shadow-sm hover:opacity-80 transition-opacity cursor-default">RAG</span> &amp; scalable systems
+          </h1>
+
+          {/* Subtext */}
+          <p className="text-lg sm:text-lg lg:text-xl font-medium text-foreground/50 max-w-3xl mx-auto mb-14 leading-relaxed tracking-wide">
+            Short, clean, impactful. I transform cutting-edge AI research into production-grade systems that solve real world problems.
+          </p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-5 mb-16"
+          >
+            <a
+              href="#projects"
+              className="flex items-center gap-2 px-8 py-4 bg-accent text-white text-base font-bold rounded-2xl hover:bg-accent/90 shadow-[0_0_32px_rgba(139,92,246,0.4)] hover:shadow-[0_0_60px_rgba(139,92,246,0.6)] hover:-translate-y-1 transition-all duration-300 group"
             >
               View Projects
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </Link>
-
-            <a
-              href="/resume.pdf"
-              download
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-foreground/10 hover:bg-foreground/15 text-foreground font-semibold rounded-lg border border-foreground/20 transition-all duration-300 hover:border-accent/30 text-center text-sm sm:text-base"
-            >
-              Download Resume
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-200" />
             </a>
-
-            <Link
-              href="/contact"
-              className="w-full sm:w-auto px-6 sm:px-8 py-3 sm:py-3.5 bg-foreground/10 hover:bg-foreground/15 text-foreground font-semibold rounded-lg border border-foreground/20 transition-all duration-300 text-center text-sm sm:text-base"
-            >
-              Get in Touch
-            </Link>
-          </motion.div>
-
-          {/* Social Links */}
-          <motion.div 
-            variants={itemVariants}
-            className="flex justify-center items-center gap-4 mb-20"
-          >
             <a
               href="https://github.com/anishsingh234"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-3 bg-foreground/5 hover:bg-foreground/10 rounded-lg border border-foreground/10 hover:border-accent/30 transition-all group"
+              className="flex items-center gap-2.5 px-8 py-4 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/90 hover:text-white border border-white/[0.08] hover:border-white/[0.2] text-base font-bold rounded-2xl backdrop-blur-md transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:-translate-y-1"
             >
-              <Github className="w-5 h-5 group-hover:text-accent transition-colors" />
+              <Github className="w-5 h-5" />
+              GitHub
             </a>
             <a
-              href="https://www.linkedin.com/in/anish-ai/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-foreground/5 hover:bg-foreground/10 rounded-lg border border-foreground/10 hover:border-accent/30 transition-all group"
+              href="#contact"
+              className="flex items-center gap-2.5 px-8 py-4 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/90 hover:text-white border border-white/[0.08] hover:border-white/[0.2] text-base font-bold rounded-2xl backdrop-blur-md transition-all duration-300 shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:-translate-y-1"
             >
-              <Linkedin className="w-5 h-5 group-hover:text-accent transition-colors" />
+              <Mail className="w-5 h-5" />
+              Contact
             </a>
-            <a
-              href="https://codolio.com/profile/J3g5yuKI"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-3 bg-foreground/5 hover:bg-foreground/10 rounded-lg border border-foreground/10 hover:border-accent/30 transition-all group"
-            >
-              <ExternalLink className="w-5 h-5 group-hover:text-accent transition-colors" />
-            </a>
+          </motion.div>
+
+          {/* Social row */}
+          <div className="flex items-center justify-center flex-wrap gap-5 text-xs text-foreground/35">
             <a
               href="mailto:anishsingh210204@gmail.com"
-              className="p-3 bg-foreground/5 hover:bg-foreground/10 rounded-lg border border-foreground/10 hover:border-accent/30 transition-all group"
+              className="flex items-center gap-1.5 hover:text-foreground/60 transition-colors"
             >
-              <Mail className="w-5 h-5 group-hover:text-accent transition-colors" />
+              <Mail className="w-3.5 h-3.5" />
+              anishsingh210204@gmail.com
             </a>
-          </motion.div>
+            <span className="text-foreground/15">·</span>
+            <a
+              href="https://linkedin.com/in/anish-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-foreground/60 transition-colors"
+            >
+              <Linkedin className="w-3.5 h-3.5" />
+              linkedin.com/in/anish-ai
+            </a>
+            <span className="text-foreground/15">·</span>
+            <a
+              href="https://github.com/anishsingh234"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 hover:text-foreground/60 transition-colors"
+            >
+              <Github className="w-3.5 h-3.5" />
+              github.com/anishsingh234
+            </a>
+          </div>
+        </motion.div>
 
-          {/* Skills Grid */}
-          <motion.div variants={itemVariants} className="mb-16 sm:mb-20 px-4">
-            <h2 className="text-xl sm:text-2xl font-bold text-center mb-6 sm:mb-8">Tech Stack</h2>
-            <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto">
-              {skills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 sm:px-4 py-1.5 sm:py-2 bg-foreground/5 hover:bg-accent/10 border border-foreground/10 hover:border-accent/30 rounded-lg text-xs sm:text-sm font-medium transition-all hover:scale-105"
-                >
-                  {skill}
-                </span>
-              ))}
+        {/* Stats strip */}
+        <motion.div 
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-20 pt-10 border-t border-white/[0.06] grid grid-cols-2 sm:grid-cols-4 gap-8 max-w-4xl mx-auto text-center"
+        >
+          {[
+            { value: "12+", label: "Projects Shipped" },
+            { value: "350+", label: "DSA Problems" },
+            { value: "4+", label: "AI / LLM Projects" },
+            { value: "2026", label: "B.Tech Graduating" },
+          ].map(({ value, label }) => (
+            <div key={label}>
+              <p className="text-2xl sm:text-3xl font-bold text-foreground">{value}</p>
+              <p className="text-xs text-foreground/35 mt-1.5 leading-tight">{label}</p>
             </div>
-          </motion.div>
-
-          {/* What I Do Section */}
-          <motion.div 
-            variants={itemVariants}
-            className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 mb-16 sm:mb-20 px-4"
-          >
-            <div className="p-6 bg-gradient-to-br from-accent/5 to-transparent border border-accent/20 hover:border-accent/40 rounded-xl transition-all duration-300 group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                  <Code2 className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold">Full-Stack Development</h3>
-              </div>
-              <p className="text-foreground/70 leading-relaxed">
-                Build responsive web and mobile applications with React, Next.js, and React Native. 
-                Focus on scalable backend services, optimized databases, and modern UI/UX.
-              </p>
-            </div>
-
-            <div className="p-6 bg-gradient-to-br from-accent/5 to-transparent border border-accent/20 hover:border-accent/40 rounded-xl transition-all duration-300 group">
-              <div className="flex items-center gap-4 mb-4">
-                <div className="p-3 bg-accent/10 rounded-lg group-hover:bg-accent/20 transition-colors">
-                  <Zap className="w-6 h-6 text-accent" />
-                </div>
-                <h3 className="text-xl font-bold">AI/ML Integration</h3>
-              </div>
-              <p className="text-foreground/70 leading-relaxed">
-                Integrate LLMs, RAG systems, and AI agents using LangChain, Hugging Face, and Ollama. 
-                Build intelligent workflows with function calling and multi-agent orchestration.
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Stats */}
-          <motion.div 
-            variants={itemVariants}
-            className="pt-8 sm:pt-12 border-t border-foreground/10 px-4"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 text-center">
-              <motion.div whileHover={{ scale: 1.05 }} className="transition-transform">
-                <div className="mb-2 sm:mb-3 flex justify-center">
-                  <div className="p-2 sm:p-3 bg-accent/10 rounded-lg">
-                    <Code2 className="w-4 h-4 sm:w-6 sm:h-6 text-accent" />
-                  </div>
-                </div>
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">12+</p>
-                <p className="text-xs sm:text-sm text-foreground/60">Projects Built</p>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} className="transition-transform">
-                <div className="mb-2 sm:mb-3 flex justify-center">
-                  <div className="p-2 sm:p-3 bg-accent/10 rounded-lg">
-                    <Zap className="w-4 h-4 sm:w-6 sm:h-6 text-accent" />
-                  </div>
-                </div>
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">350+</p>
-                <p className="text-xs sm:text-sm text-foreground/60">LeetCode Solved</p>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} className="transition-transform">
-                <div className="mb-2 sm:mb-3 flex justify-center">
-                  <div className="p-2 sm:p-3 bg-accent/10 rounded-lg">
-                    <Github className="w-4 h-4 sm:w-6 sm:h-6 text-accent" />
-                  </div>
-                </div>
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">Active</p>
-                <p className="text-xs sm:text-sm text-foreground/60">GitHub Profile</p>
-              </motion.div>
-              <motion.div whileHover={{ scale: 1.05 }} className="transition-transform">
-                <div className="mb-2 sm:mb-3 flex justify-center">
-                  <div className="p-2 sm:p-3 bg-accent/10 rounded-lg">
-                    <Rocket className="w-4 h-4 sm:w-6 sm:h-6 text-accent" />
-                  </div>
-                </div>
-                <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-accent mb-1 sm:mb-2">Full Stack</p>
-                <p className="text-xs sm:text-sm text-foreground/60">Developer</p>
-              </motion.div>
-            </div>
-          </motion.div>
+          ))}
         </motion.div>
       </div>
+    </section>
+  );
+}
 
-      {/* About Section */}
-      <section id="about" className="relative py-20 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-5xl mx-auto">
-          {/* Bio Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.div variants={itemVariants} className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4">
-                <span className="bg-gradient-to-r from-accent via-accent/80 to-accent/60 bg-clip-text text-transparent">
-                  About Me
-                </span>
-              </h2>
-              <div className="w-20 h-1 bg-gradient-to-r from-transparent via-accent to-transparent mx-auto mb-6"></div>
-              <p className="text-base sm:text-lg text-foreground/70 leading-relaxed max-w-3xl mx-auto">
-                Full Stack Developer with expertise in React, Next.js, React Native, and modern backend technologies. 
-                Specialized in integrating AI/ML solutions including LLMs, RAG systems, and multi-agent orchestration. 
-                Currently pursuing B.Tech in CS (AI & ML), graduating in 2026.
-              </p>
-            </motion.div>
+// â”€â”€â”€ PROJECTS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-            {/* Education & Expertise Grid */}
-            <motion.div 
-              variants={containerVariants}
-              className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12"
+function ProjectCard({ project }) {
+  return (
+    <div className="relative flex flex-col h-full rounded-[2rem] bg-[#0A0A0E] border border-white/[0.08] overflow-hidden group transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_20px_40px_-15px_rgba(0,0,0,0.5)] cursor-pointer">
+      {/* Gradient glowing border effect on hover */}
+      <div className="absolute inset-0 z-0 bg-gradient-to-br from-purple-500/20 via-blue-500/20 to-cyan-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[2rem] border border-transparent" style={{ backgroundClip: "padding-box, border-box", backgroundImage: "linear-gradient(#0A0A0E, #0A0A0E), linear-gradient(to bottom right, #a855f7, #3b82f6, #06b6d4)"}}></div>
+      
+      {/* Gloss reflection overlay */}
+      <div className="absolute inset-x-0 top-0 h-1/2 z-0 bg-gradient-to-b from-white/[0.04] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"></div>
+
+      {project.featured && (
+        <div className="absolute top-5 right-5 z-20">
+          <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-accent bg-background/80 backdrop-blur-md border border-accent/25 rounded-full shadow-[0_4px_12px_rgba(0,0,0,0.4)]">
+            Featured
+          </span>
+        </div>
+      )}
+
+      {/* Image Container (16:9) */}
+      <div className="relative w-full aspect-video overflow-hidden border-b border-white/[0.06] z-10 bg-black/40">
+        <Image
+          src={project.image}
+          alt={project.name}
+          fill
+          className="object-cover transition-transform duration-500 group-hover:scale-[1.05]"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+        />
+        {/* Subtle overlay */}
+        <div className="absolute inset-0 bg-[#0A0A0E]/60 group-hover:bg-[#0A0A0E]/10 transition-colors duration-500"></div>
+      </div>
+
+      <div className="p-7 flex flex-col flex-1 relative z-10">
+        <p className="text-[11px] font-semibold uppercase tracking-widest text-accent mb-3 drop-shadow-sm">
+          {project.tag}
+        </p>
+
+        <h3 className="text-xl font-bold text-foreground mb-2 leading-tight pr-16">
+          {project.name}
+        </h3>
+
+        <p className="text-[13px] text-foreground/60 leading-relaxed mb-5 min-h-[40px]">
+          {project.oneLiner}
+        </p>
+
+        <ul className="space-y-2 mb-6 flex-1">
+          {project.bullets.map((b, i) => (
+            <li key={i} className="flex items-start gap-2.5 text-[13px] text-foreground/50">
+              <CheckCircle2 className="w-4 h-4 text-accent mt-[1px] shrink-0" />
+              <span className="leading-snug">{b}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap gap-1.5 mb-8">
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className="px-2.5 py-1 text-[10px] font-semibold tracking-wide bg-white/[0.03] border border-white/[0.08] text-foreground/70 rounded-full backdrop-blur-md hover:border-accent/30 hover:bg-accent/5 hover:text-accent transition-colors duration-300 cursor-default"
             >
-              {/* Education */}
-              <motion.div 
-                variants={itemVariants}
-                className="p-6 bg-gradient-to-br from-accent/5 to-transparent border border-accent/20 rounded-xl"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-accent/10 rounded-lg">
-                    <Award className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold text-accent">Education</h3>
-                </div>
-                <div className="space-y-4">
-                  <div className="pb-4 border-b border-foreground/10">
-                    <p className="font-semibold text-foreground mb-1">B.Tech in Computer Science</p>
-                    <p className="text-sm text-foreground/70">Uttarakhand Technical University</p>
-                    <p className="text-xs text-accent mt-1">AI & ML Specialization | Aug 2022 - Jun 2026</p>
-                  </div>
-                  <div>
-                    <p className="font-semibold text-foreground mb-1">Full Stack Developer Intern</p>
-                    <p className="text-sm text-foreground/70">Exponent Solutions</p>
-                    <p className="text-xs text-accent mt-1">Nov 2025 - Present | Next.js, React Native, TypeScript</p>
-                  </div>
-                </div>
-              </motion.div>
+              {t}
+            </span>
+          ))}
+        </div>
 
-              {/* Core Expertise */}
-              <motion.div 
-                variants={itemVariants}
-                className="p-6 bg-gradient-to-br from-accent/5 to-transparent border border-accent/20 rounded-xl"
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="p-2 bg-accent/10 rounded-lg">
-                    <Layers className="w-5 h-5 text-accent" />
-                  </div>
-                  <h3 className="text-xl font-bold text-accent">Core Expertise</h3>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {[
-                    "Full-Stack Development",
-                    "AI/ML Integration",
-                    "LLMs & RAG Systems",
-                    "React Native",
-                    "Next.js & React",
-                    "Python & FastAPI",
-                  ].map((skill, idx) => (
-                    <div
-                      key={idx}
-                      className="px-3 py-2 bg-accent/5 hover:bg-accent/10 rounded-lg border border-accent/20 transition-all duration-300"
-                    >
-                      <p className="text-sm font-medium text-foreground">{skill}</p>
-                    </div>
-                  ))}
-                </div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-
-          {/* Tech Stack Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12 px-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-accent">Technology Stack</h2>
-              <p className="text-sm sm:text-base text-foreground/70">Tools and technologies I work with</p>
-            </motion.div>
-            <motion.div 
-              variants={containerVariants}
-              className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3 sm:gap-4 px-4"
+        <div className="flex gap-2.5 mt-auto">
+          {project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white text-black rounded-xl hover:bg-white/90 hover:-translate-y-0.5 transition-all shadow-[0_4px_14px_rgba(255,255,255,0.1)] group/btn"
             >
-              {techStack.map((tech, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={itemVariants}
-                  whileHover={{ y: -6, scale: 1.08 }}
-                  className="p-3 sm:p-4 bg-foreground/5 hover:bg-accent/10 border border-foreground/10 hover:border-accent/30 rounded-lg text-center transition-all duration-300 cursor-pointer"
-                >
-                  <p className="text-xl sm:text-2xl mb-1">{tech.emoji}</p>
-                  <p className="text-[10px] sm:text-xs font-medium text-foreground">{tech.name}</p>
-                </motion.div>
-              ))}
-            </motion.div>
+              <ExternalLink className="w-3.5 h-3.5 group-hover/btn:rotate-[-5deg] transition-transform" />
+              Live Demo
+            </a>
+          )}
+          {project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={(e) => e.stopPropagation()}
+              className="flex-1 flex items-center justify-center gap-1.5 px-4 py-2.5 text-[13px] font-semibold bg-white/[0.03] border border-white/[0.10] text-foreground/80 rounded-xl hover:bg-white/[0.08] hover:text-foreground hover:-translate-y-0.5 transition-all shadow-sm group/btn"
+            >
+              <Github className="w-3.5 h-3.5" />
+              GitHub
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            {/* GitHub Activity */}
-            <motion.div variants={itemVariants} className="mt-12 text-center">
-              <div className="p-6 bg-gradient-to-br from-accent/5 to-transparent border border-accent/20 rounded-xl inline-block">
-                <p className="text-sm text-foreground/70 mb-2">Check out my coding activity</p>
-                <a 
-                  href="https://github.com/anishsingh234" 
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 text-accent hover:text-accent/80 font-medium transition-colors"
-                >
-                  <Github className="w-5 h-5" />
-                  View GitHub Profile
-                  <ExternalLink className="w-4 h-4" />
-                </a>
-                <p className="text-xs text-foreground/60 mt-2">350+ LeetCode problems • Active contributor</p>
-                <div className="mt-3 pt-3 border-t border-accent/20">
-                  <p className="text-xs font-semibold text-accent mb-1">🏆 Certification</p>
-                  <p className="text-xs text-foreground/70">Java Programming Certificate - HackerRank</p>
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { opacity: 0, y: 30 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.6, ease: "easeOut" } 
+  },
+};
+
+function Projects() {
+  return (
+    <section id="projects" className="py-24 sm:py-32 scroll-mt-20">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          label="Featured Projects"
+          title="What I've built"
+          subtitle="Production-grade SaaS platforms and AI systems."
+        />
+        <motion.div 
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"
+        >
+          {featuredProjects.map((p) => (
+            <motion.div key={p.id} variants={itemVariants} className="h-full">
+              <ProjectCard project={p} />
+            </motion.div>
+          ))}
+        </motion.div>
+        <div className="mt-14 pt-8 border-t border-white/[0.06] text-center">
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 px-6 py-3 bg-white/[0.03] hover:bg-white/[0.08] text-sm font-semibold text-foreground/80 hover:text-foreground border border-white/[0.08] hover:border-white/[0.15] rounded-xl backdrop-blur-sm transition-all duration-300 group"
+          >
+            View all 15 projects
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// â”€â”€â”€ SKILLS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function Skills() {
+  return (
+    <section id="skills" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          label="Skills"
+          title="My tech stack"
+          subtitle="The tools and frameworks I use to build and ship production-ready AI and full-stack systems."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
+          {skillGroups.map(({ label, icon: Icon, items }) => (
+            <div
+              key={label}
+              className="p-6 rounded-[1.5rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_16px_rgba(0,0,0,0.1)] hover:bg-white/[0.03] hover:border-accent/[0.25] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_12px_32px_rgba(139,92,246,0.12)] transition-all duration-400 ease-out"
+            >
+              <div className="flex items-center gap-2.5 mb-4">
+                <div className="p-1.5 bg-accent/[0.10] rounded-md shrink-0">
+                  <Icon className="w-4 h-4 text-accent" />
                 </div>
+                <h3 className="text-sm font-semibold text-foreground/75">{label}</h3>
               </div>
-            </motion.div>
-          </motion.div>
+              <div className="flex flex-wrap gap-1.5">
+                {items.map((skill) => (
+                  <span
+                    key={skill}
+                    className="px-3 py-1.5 text-[11px] font-semibold tracking-wide bg-white/[0.03] border border-white/[0.08] text-foreground/70 rounded-full backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.05)] hover:border-accent/40 hover:text-foreground hover:shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-default"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
-          {/* Featured Projects */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12 px-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-accent">Featured Projects</h2>
-              <p className="text-sm sm:text-base text-foreground/70">Some of my recent work</p>
-            </motion.div>
-            <motion.div 
-              variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 px-4"
+// â”€â”€â”€ EXPERIENCE â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function Experience() {
+  return (
+    <section id="experience" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionHeader
+          label="Experience"
+          title="Where I've worked"
+          subtitle="Real-world production experience building and shipping software."
+        />
+        <div className="space-y-4">
+          {experience.map((exp, i) => (
+            <div
+              key={i}
+              className="p-6 sm:p-8 rounded-[2rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_24px_rgba(0,0,0,0.15)] hover:bg-white/[0.03] hover:border-white/[0.12] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_16px_40px_rgba(0,0,0,0.4)] transition-all duration-500 ease-out"
             >
-              {featuredProjects.map((project, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={itemVariants}
-                  whileHover={{ y: -8, scale: 1.02 }}
-                  className="p-6 bg-gradient-to-br from-accent/10 via-background/50 to-background rounded-xl border border-accent/20 hover:border-accent/40 transition-all duration-300 hover:shadow-lg hover:shadow-accent/10 cursor-pointer"
-                >
-                  <div className="flex justify-between items-start mb-3">
-                    <p className="text-3xl">{project.icon}</p>
-                    <span className="text-[10px] bg-accent/10 text-accent px-2 py-1 rounded-full font-medium">
-                      {project.date}
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-6">
+                <div>
+                  <h3 className="text-lg font-bold text-foreground leading-tight">{exp.role}</h3>
+                  <div className="flex items-center gap-3 mt-1.5">
+                    <p className="text-sm font-semibold text-accent">{exp.company}</p>
+                    <span className="text-white/20">Â·</span>
+                    <span className="flex items-center gap-1 text-xs text-foreground/35">
+                      <MapPin className="w-3 h-3" />
+                      {exp.location}
                     </span>
                   </div>
-                  <h4 className="text-lg font-bold text-accent mb-2">{project.title}</h4>
-                  <p className="text-sm text-foreground/70 mb-3 line-clamp-3">{project.desc}</p>
-                  <p className="text-xs text-accent/80 mb-4 italic">✨ {project.metrics}</p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.tech.map((t, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-accent/20 text-accent px-2 py-1 rounded-full font-medium"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
-            </motion.div>
-            <motion.div variants={itemVariants} className="text-center mt-8">
-              <div className="relative p-8 bg-gradient-to-r from-accent/10 via-accent/5 to-transparent rounded-2xl border border-accent/30 overflow-hidden group cursor-pointer">
-                {/* Animated background gradient */}
-                <div className="absolute inset-0 bg-gradient-to-r from-accent/20 via-accent/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                
-                <div className="relative z-10">
-                  <div className="flex justify-center mb-4">
-                    <div className="p-4 bg-accent/10 rounded-full group-hover:bg-accent/20 transition-all duration-300 group-hover:scale-110">
-                      <Rocket className="w-8 h-8 text-accent" />
-                    </div>
-                  </div>
-                  
-                  <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-accent to-accent/70 bg-clip-text text-transparent">
-                    Explore More Projects
-                  </h3>
-                  
-                  <p className="text-foreground/70 mb-6 max-w-md mx-auto">
-                    Discover 12+ full-stack applications, AI integrations, and open-source contributions
-                  </p>
-                  
-                  <Link
-                    href="/projects"
-                    className="inline-flex items-center gap-2 px-8 py-4 bg-accent hover:bg-accent/90 text-background font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-accent/30 group-hover:scale-105"
-                  >
-                    <span>View All Projects</span>
-                    <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
-                  </Link>
-                  
-                  <div className="mt-6 flex justify-center gap-6 text-sm">
-                    <div className="flex items-center gap-2">
-                      <Code2 className="w-4 h-4 text-accent" />
-                      <span className="text-foreground/60">Full Stack</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Zap className="w-4 h-4 text-accent" />
-                      <span className="text-foreground/60">AI Powered</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <Layers className="w-4 h-4 text-accent" />
-                      <span className="text-foreground/60">Modern Stack</span>
-                    </div>
-                  </div>
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-foreground/35 shrink-0">
+                  <Calendar className="w-3.5 h-3.5" />
+                  {exp.period}
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-
-          {/* Testimonials Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-            className="mb-20"
-          >
-            <motion.div variants={itemVariants} className="text-center mb-8 sm:mb-12 px-4">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-accent">Recommendations</h2>
-              <p className="text-sm sm:text-base text-foreground/70">What people say about my work</p>
-            </motion.div>
-            <motion.div 
-              variants={containerVariants}
-              className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 px-4"
-            >
-              {testimonials.map((testimonial, idx) => (
-                <motion.div
-                  key={idx}
-                  variants={itemVariants}
-                  whileHover={{ y: -4 }}
-                  className="p-6 bg-foreground/5 hover:bg-accent/5 border border-foreground/10 hover:border-accent/30 rounded-xl transition-all duration-300"
-                >
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="text-3xl">{testimonial.avatar}</div>
-                    <div>
-                      <h4 className="font-bold text-foreground">{testimonial.name}</h4>
-                      <p className="text-sm text-foreground/60">{testimonial.role}</p>
-                    </div>
-                  </div>
-                  <p className="text-sm text-foreground/70 italic">&quot;{testimonial.text}&quot;</p>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
-
-          {/* CTA Section */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={containerVariants}
-          >
-            <motion.div 
-              variants={itemVariants}
-              className="p-8 bg-gradient-to-r from-accent/10 to-accent/5 rounded-xl border border-accent/20 text-center"
-            >
-              <p className="text-xl font-semibold text-accent mb-4">Let&apos;s Build Something Amazing</p>
-              <p className="text-foreground/70 mb-6 max-w-xl mx-auto">
-                I&apos;m always interested in hearing about new projects and opportunities in web development and AI.
-              </p>
-              <div className="flex flex-wrap gap-3 justify-center">
-                <Link
-                  href="mailto:anishsingh210204@gmail.com"
-                  className="px-8 py-3 bg-accent hover:bg-accent/90 text-background font-semibold rounded-lg transition-all duration-300 hover:scale-105"
-                >
-                  Get In Touch
-                </Link>
-                <Link
-                  href="/projects"
-                  className="px-8 py-3 bg-foreground/10 hover:bg-foreground/20 text-foreground font-semibold rounded-lg transition-all duration-300 hover:scale-105"
-                >
-                  View Projects
-                </Link>
+              <ul className="space-y-2.5 mb-6">
+                {exp.bullets.map((b, j) => (
+                  <li key={j} className="flex items-start gap-2.5 text-sm text-foreground/50">
+                    <ChevronRight className="w-4 h-4 text-accent/50 shrink-0 mt-0.5" />
+                    {b}
+                  </li>
+                ))}
+              </ul>
+              <div className="flex flex-wrap gap-2">
+                {exp.tech.map((t) => (
+                  <span
+                    key={t}
+                    className="px-3 py-1.5 text-[11px] font-semibold tracking-wide bg-accent/[0.05] border border-accent/[0.25] text-accent/80 rounded-full shadow-[inset_0_1px_1px_rgba(139,92,246,0.15)] hover:bg-accent/[0.1] hover:shadow-[0_0_16px_rgba(139,92,246,0.2)] transition-all duration-300 cursor-default"
+                  >
+                    {t}
+                  </span>
+                ))}
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          ))}
+
+          {/* Education */}
+          <div className="p-6 sm:p-8 rounded-[2rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_24px_rgba(0,0,0,0.15)] hover:bg-white/[0.03] hover:border-white/[0.12] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_16px_40px_rgba(0,0,0,0.4)] transition-all duration-500 ease-out">
+            <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+              <div>
+                <h3 className="text-lg font-bold text-foreground leading-tight">
+                  B.Tech â€” Computer Science
+                </h3>
+                <div className="flex items-center flex-wrap gap-3 mt-1.5">
+                  <p className="text-sm font-semibold text-accent">Uttarakhand Technical University</p>
+                  <span className="text-xs px-2 py-0.5 bg-accent/[0.08] border border-accent/[0.20] text-accent/70 rounded-full font-medium">
+                    AI &amp; ML Specialization
+                  </span>
+                </div>
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-foreground/35 shrink-0">
+                <Calendar className="w-3.5 h-3.5" />
+                Aug 2022 â€“ Jun 2026
+              </div>
+            </div>
+          </div>
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
+
+// â”€â”€â”€ ABOUT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function About() {
+  return (
+    <section id="about" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-14 lg:gap-20 items-center">
+          <div>
+            <SectionLabel>About</SectionLabel>
+            <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-6 leading-tight">
+              Building at the intersection of{" "}
+              <span className="text-gradient">AI &amp; full-stack</span>
+            </h2>
+            <div className="space-y-4 text-foreground/50 leading-relaxed text-[15px]">
+              <p>
+                I&apos;m a full-stack developer with a strong focus on AI systems and
+                real-world applications. I enjoy working on LLM-based products,
+                RAG architectures, and scalable backend systems that people actually use.
+              </p>
+              <p>
+                I&apos;ve solved{" "}
+                <span className="text-foreground font-semibold">350+ DSA problems</span>,
+                which sharpened my problem-solving skills and laid a strong foundation
+                for system design thinking.
+              </p>
+              <p>
+                Currently interning at Exponent Solutions building production Next.js
+                and React Native apps, while exploring new frontiers in multi-agent AI
+                systems and LLM tooling.
+              </p>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <a
+                href="mailto:anishsingh210204@gmail.com"
+                className="flex items-center gap-2 px-4 py-2.5 bg-accent text-background text-sm font-semibold rounded-lg hover:bg-accent/90 transition-colors"
+              >
+                <Mail className="w-4 h-4" />
+                Get in Touch
+              </a>
+              <a
+                href="https://linkedin.com/in/anish-ai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 bg-white/5 hover:bg-white/[0.08] text-foreground/60 hover:text-foreground border border-white/10 text-sm font-semibold rounded-lg transition-all"
+              >
+                <Linkedin className="w-4 h-4" />
+                LinkedIn
+              </a>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4">
+            {[
+              { value: "12+", label: "Projects Shipped", sub: "Web & AI" },
+              { value: "350+", label: "DSA Problems", sub: "C++ & Java" },
+              { value: "4+", label: "AI/LLM Projects", sub: "RAG, Agents" },
+              { value: "2026", label: "Graduating", sub: "CS â€” AI & ML" },
+            ].map(({ value, label, sub }) => (
+              <div
+                key={label}
+                className="p-6 rounded-[1.5rem] bg-white/[0.015] border border-white/[0.06] shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_4px_16px_rgba(0,0,0,0.1)] hover:bg-white/[0.03] hover:border-accent/[0.25] hover:shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),0_12px_32px_rgba(139,92,246,0.12)] transition-all duration-400 ease-out"
+              >
+                <p className="text-4xl font-extrabold text-accent mb-2 tracking-tight">{value}</p>
+                <p className="text-sm font-semibold text-foreground/70">{label}</p>
+                <p className="text-xs text-foreground/30 mt-0.5">{sub}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// â”€â”€â”€ CONTACT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+function Contact() {
+  return (
+    <section id="contact" className="py-24 sm:py-32 border-t border-white/[0.06] scroll-mt-20">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative rounded-[2.5rem] border border-white/[0.06] bg-white/[0.015] p-10 sm:p-16 text-center overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.05),0_8px_32px_rgba(0,0,0,0.2)]">
+          <div className="absolute inset-0 -z-10 pointer-events-none">
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px] h-[200px] bg-accent/[0.06] rounded-full blur-[80px]" />
+          </div>
+          <SectionLabel>Contact</SectionLabel>
+          <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 leading-tight">
+            Let&apos;s build something impactful
+          </h2>
+          <p className="text-foreground/45 mb-10 max-w-lg mx-auto leading-relaxed text-[15px]">
+            I&apos;m actively looking for Full-Stack and AI Engineering opportunities.
+            Open to full-time roles, internships, and interesting collaborations.
+          </p>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-8">
+            <a
+              href="mailto:anishsingh210204@gmail.com"
+              className="flex items-center gap-2.5 px-6 py-3.5 bg-accent text-white text-sm font-bold rounded-xl hover:bg-accent/90 shadow-[0_0_24px_rgba(139,92,246,0.35)] hover:shadow-[0_0_40px_rgba(139,92,246,0.5)] transition-all duration-300 w-full sm:w-auto justify-center"
+            >
+              <Mail className="w-5 h-5" />
+              anishsingh210204@gmail.com
+            </a>
+            <a
+              href="https://linkedin.com/in/anish-ai"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-6 py-3.5 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/80 hover:text-foreground border border-white/[0.08] hover:border-white/[0.15] text-sm font-bold rounded-xl backdrop-blur-sm transition-all duration-300 w-full sm:w-auto justify-center"
+            >
+              <Linkedin className="w-5 h-5" />
+              LinkedIn
+            </a>
+            <a
+              href="https://github.com/anishsingh234"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2.5 px-6 py-3.5 bg-white/[0.03] hover:bg-white/[0.08] text-foreground/80 hover:text-foreground border border-white/[0.08] hover:border-white/[0.15] text-sm font-bold rounded-xl backdrop-blur-sm transition-all duration-300 w-full sm:w-auto justify-center"
+            >
+              <Github className="w-5 h-5" />
+              GitHub
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// â”€â”€â”€ PAGE ROOT â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+
+export default function Home() {
+  return (
+    <main className="relative bg-background">
+      <Navbar />
+      <Hero />
+      <Projects />
+      <Skills />
+      <Experience />
+      <About />
+      <Contact />
     </main>
   );
 }
