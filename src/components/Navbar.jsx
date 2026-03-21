@@ -39,8 +39,8 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
         scrolled || mobileOpen
-          ? "bg-[#05050A]/70 backdrop-blur-md sm:backdrop-blur-2xl border-b border-white/[0.05] shadow-[inset_0_-1px_0_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.3)]"
-          : "bg-[#05050A]/30 backdrop-blur-sm sm:backdrop-blur-lg border-b border-white/[0.02]"
+          ? "bg-[#05050A]/85 backdrop-blur-md sm:backdrop-blur-2xl border-b border-white/[0.05] shadow-[inset_0_-1px_0_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.3)]"
+          : "bg-[#05050A]/40 backdrop-blur-sm sm:backdrop-blur-lg border-b border-white/[0.02]"
       }`}
     >
       <nav

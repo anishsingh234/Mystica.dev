@@ -33,11 +33,17 @@ export function StaggeredText({ text, className }) {
   const words = text.split(" ");
   
   const container = {
-    hidden: { opacity: 0 },
-    visible: (i = 1) => ({
+    hidden: { opacity: 0, y: 10 },
+    visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.1, delayChildren: 0.04 * i },
-    }),
+      y: 0,
+      transition: { 
+        duration: 0.6, 
+        ease: EASE,
+        staggerChildren: 0.08,
+        delayChildren: 0.05
+      },
+    },
   };
   
   const child = {
@@ -52,12 +58,7 @@ export function StaggeredText({ text, className }) {
     },
     hidden: {
       opacity: 0,
-      y: 20,
-      transition: {
-        type: "spring",
-        damping: 12,
-        stiffness: 100,
-      },
+      y: 10,
     },
   };
   
@@ -69,11 +70,16 @@ export function StaggeredText({ text, className }) {
       animate="visible"
       className={className}
     >
-      {words.map((word, index) => (
-        <motion.span variants={child} style={{ display: "inline-block", marginRight: "0.25em" }} key={index}>
-          {word}
-        </motion.span>
-      ))}
+      <span className="hidden sm:inline-block">
+        {words.map((word, index) => (
+          <motion.span variants={child} style={{ display: "inline-block", marginRight: "0.25em" }} key={index}>
+            {word}
+          </motion.span>
+        ))}
+      </span>
+      <span className="inline-block sm:hidden">
+        {text}
+      </span>
     </motion.span>
   );
 }

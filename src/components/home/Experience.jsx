@@ -59,7 +59,7 @@ export default function Experience() {
                   <div className="absolute left-[9px] sm:left-[13px] top-2.5 w-2.5 h-2.5 rounded-full bg-[#0a0a0f] border-[2px] border-white/20 ring-4 ring-[#0a0a0f] group-hover:border-purple-400 group-hover:bg-purple-400 group-hover:shadow-[0_0_15px_rgba(168,85,247,0.6)] transition-all duration-300 z-10" />
 
                   {/* Content Container */}
-                  <div className="group-hover:translate-x-1.5 transition-transform duration-300 ease-out">
+                  <div className="sm:group-hover:translate-x-1.5 transition-transform duration-300 ease-out">
                     <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-4 mb-2">
                       <h3 className="text-xl sm:text-[22px] font-semibold text-white tracking-wide">
                         {exp.role}
