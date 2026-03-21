@@ -1,6 +1,12 @@
 "use client";
 import { motion } from "framer-motion";
-import { ExternalLink, Github, Star, CheckCircle2, ArrowRight } from "lucide-react";
+import {
+  ExternalLink,
+  Github,
+  Star,
+  CheckCircle2,
+  ArrowRight,
+} from "lucide-react";
 
 const EASE = [0.16, 1, 0.3, 1];
 
@@ -44,13 +50,19 @@ const StatusBadge = ({ status }) => {
     pulse: false,
   };
   return (
-    <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${cfg.cls}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border ${cfg.cls}`}
+    >
       {/* Pulsing dot — live indicator feel */}
       <span className="relative flex h-1.5 w-1.5 shrink-0">
         {cfg.pulse && (
-          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${cfg.dot}`} />
+          <span
+            className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-60 ${cfg.dot}`}
+          />
         )}
-        <span className={`relative inline-flex h-1.5 w-1.5 rounded-full ${cfg.dot}`} />
+        <span
+          className={`relative inline-flex h-1.5 w-1.5 rounded-full ${cfg.dot}`}
+        />
       </span>
       {cfg.label}
     </span>
@@ -71,7 +83,6 @@ const ProjectLayout = ({
 }) => {
   return (
     <motion.div variants={cardVariants} className="relative group h-full">
-
       {/* Reduced ambient glow — balanced, not overpowering */}
       <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-purple-500/10 to-blue-500/5 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-300 -z-10 pointer-events-none" />
 
@@ -97,7 +108,6 @@ const ProjectLayout = ({
         <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-purple-500/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 
         <div className="relative z-10 flex flex-col h-full p-6">
-
           {/* ─ Header: tag + Featured badge ─ */}
           <div className="flex items-start justify-between gap-3 mb-3">
             <div className="min-w-0">
@@ -107,7 +117,9 @@ const ProjectLayout = ({
                 </p>
               )}
               {/* Title — semibold for cleaner hierarchy */}
-              <h3 className="text-xl font-semibold text-white leading-tight">{name}</h3>
+              <h3 className="text-xl font-semibold text-white leading-tight">
+                {name}
+              </h3>
             </div>
 
             {/* Featured badge with shimmer sweep */}
@@ -145,7 +157,10 @@ const ProjectLayout = ({
           {bullets && bullets.length > 0 && (
             <ul className="space-y-1.5 mb-5">
               {bullets.slice(0, 4).map((b, i) => (
-                <li key={i} className="flex items-start gap-2 text-[13px] text-white/60">
+                <li
+                  key={i}
+                  className="flex items-start gap-2 text-[13px] text-white/60"
+                >
                   <CheckCircle2 className="w-3.5 h-3.5 text-purple-400/80 mt-[2px] shrink-0" />
                   <span className="leading-snug">{b}</span>
                 </li>
@@ -177,7 +192,6 @@ const ProjectLayout = ({
           {/* ─ Action buttons ─ */}
           {(demoLink || GithubLink) && (
             <div className="flex gap-2.5 pt-4 border-t border-white/[0.06]">
-
               {/* Live Demo — gradient with arrow animation */}
               {demoLink && (
                 <motion.a
@@ -214,10 +228,8 @@ const ProjectLayout = ({
                   <span>GitHub</span>
                 </motion.a>
               )}
-
             </div>
           )}
-
         </div>
       </motion.div>
     </motion.div>

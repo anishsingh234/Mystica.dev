@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import ItemLayout from "./ItemLayout";
+import TechStack from "./TechStack";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { Code2, Zap, Layers, Clock, Award, Rocket } from "lucide-react";
@@ -199,45 +200,8 @@ const AboutDetails = () => {
           </motion.div>
         </motion.div>
 
-        {/* Technology Stack */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="col-span-full mb-12 xs:mb-16"
-        >
-          <motion.div variants={itemVariants}>
-            <ItemLayout className="flex-col items-start">
-              <h3 className="text-xl xs:text-2xl font-bold text-accent mb-4 xs:mb-6">Technology Stack</h3>
-              <div className="grid grid-cols-3 xs:grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2 xs:gap-3 md:gap-4 w-full">
-                {[
-                  { name: "React", emoji: "⚛️" },
-                  { name: "Next.js", emoji: "▲" },
-                  { name: "TypeScript", emoji: "📘" },
-                  { name: "Python", emoji: "🐍" },
-                  { name: "MongoDB", emoji: "🍃" },
-                  { name: "GraphQL", emoji: "⚡" },
-                  { name: "Prisma", emoji: "🔐" },
-                  { name: "ConvexDB", emoji: "🔄" },
-                  { name: "Tailwind", emoji: "🎨" },
-                  { name: "Node.js", emoji: "🟢" },
-                  { name: "Git", emoji: "📦" },
-                  { name: "Vercel", emoji: "▲" },
-                ].map((tech, idx) => (
-                  <motion.div
-                    key={idx}
-                    whileHover={{ y: -4, scale: 1.05 }}
-                    className="p-2 xs:p-3 md:p-4 bg-foreground/5 hover:bg-accent/10 border border-foreground/10 hover:border-accent/30 rounded-lg text-center transition-all duration-300"
-                  >
-                    <p className="text-lg xs:text-xl md:text-2xl mb-1">{tech.emoji}</p>
-                    <p className="text-xs font-medium text-foreground">{tech.name}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </ItemLayout>
-          </motion.div>
-        </motion.div>
+        {/* My Tech Stack */}
+        <TechStack />
 
         {/* Highlighted Projects Section */}
         <motion.div
