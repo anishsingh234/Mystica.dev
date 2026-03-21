@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import Navbar from "@/components/Navbar";
+import Form from "@/components/contact/Form";
 import {
   Github,
   Mail,
@@ -1110,42 +1111,16 @@ function Contact() {
               </motion.a>
             </div>
 
-            {/* Optional Minimal Contact Form */}
-            <div className="text-left relative pt-10 border-t border-white/10 mt-4">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0d0d14] px-4 py-1 border border-white/10 rounded-full">
+            {/* Functional Contact Form via EmailJS */}
+            <div className="w-full text-left relative pt-10 border-t border-white/10 mt-4">
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#0d0d14] px-4 py-1 border border-white/10 rounded-full z-10">
                 <span className="text-xs font-semibold text-foreground/50 uppercase tracking-widest whitespace-nowrap">
                   Or send a message
                 </span>
               </div>
-              <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); e.target.reset(); }}>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input 
-                    type="text" 
-                    placeholder="Name" 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all font-medium"
-                    required
-                  />
-                  <input 
-                    type="email" 
-                    placeholder="Email" 
-                    className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all font-medium"
-                    required
-                  />
-                </div>
-                <textarea 
-                  rows={4} 
-                  placeholder="Message" 
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all resize-none font-medium"
-                  required
-                />
-                <button 
-                  type="submit"
-                  className="w-full py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-xl hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 group"
-                >
-                  Send Message
-                  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                </button>
-              </form>
+              <div className="-mx-4">
+                <Form />
+              </div>
             </div>
             
           </motion.div>

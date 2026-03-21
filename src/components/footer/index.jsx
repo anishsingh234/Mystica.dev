@@ -181,6 +181,7 @@ const Footer = () => {
         {/* Scroll to Top Button */}
         <motion.button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          suppressHydrationWarning
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           className="fixed bottom-8 right-8 w-11 h-11 rounded-xl bg-white/[0.04] border border-white/[0.08] hidden md:flex items-center justify-center text-foreground/50 hover:text-foreground hover:bg-white/[0.08] hover:border-white/[0.15] transition-all duration-200 backdrop-blur-sm"

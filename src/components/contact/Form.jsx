@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 import emailjs from "@emailjs/browser";
 import { Toaster, toast } from "sonner";
 import { motion } from "framer-motion";
-import { Mail, MessageSquare, User, Send } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 
 const container = {
   hidden: { opacity: 0 },
@@ -34,6 +34,7 @@ export default function Form() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
 
@@ -61,6 +62,7 @@ export default function Form() {
       )
       .then(
         () => {
+          reset();
           toast.success(
             "I have received your message, I will get back to you soon!",
             {
@@ -92,143 +94,86 @@ export default function Form() {
   };
 
   return (
-    <div className="w-full flex items-center justify-center min-h-auto p-4">
+    <div className="w-full">
       <Toaster richColors={true} />
-      
-      <motion.form
+      <motion.form 
         variants={container}
         initial="hidden"
         animate="show"
+        className="space-y-4 w-full" 
         onSubmit={handleSubmit(onSubmit)}
-        className="w-full max-w-md flex flex-col items-center justify-center space-y-6"
       >
-        {/* Background decoration */}
-        <motion.div
-          className="absolute inset-0 w-96 h-96 bg-gradient-to-r from-accent/10 via-transparent to-accent/10 rounded-full blur-3xl -z-10 opacity-20"
-          animate={{
-            scale: [1, 1.1, 1],
-            opacity: [0.1, 0.2, 0.1],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-
-        {/* Form wrapper with glass effect */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 0.6 }}
-          className="w-full p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-foreground/5 to-foreground/0 border border-foreground/10 backdrop-blur-lg shadow-2xl hover:shadow-xl transition-all duration-300"
-        >
-        {/* Name Input */}
-        <motion.div variants={item} className="w-full space-y-2">
-          <motion.label
-            className="flex items-center space-x-2 text-xs sm:text-sm font-medium text-muted ml-1"
-          >
-            <User size={14} className="text-accent" />
-            <span>Full Name</span>
-          </motion.label>
-          <motion.input
-            type="text"
-            placeholder="Enter your name"
-            {...register("name", {
-              required: "This field is required!",
-              minLength: {
-                value: 3,
-                message: "Name should be at least 3 characters long.",
-              },
-            })}
-            whileFocus={{ scale: 1.01 }}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-sm sm:text-base text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 font-medium"
-          />
-          {errors.name && (
-            <motion.span 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-block text-accent text-sm font-medium"
-            >
-              ✗ {errors.name.message}
-            </motion.span>
-          )}
-        </motion.div>
-
-        {/* Email Input */}
-        <motion.div variants={item} className="w-full space-y-2">
-          <motion.label
-            className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted ml-1"
-          >
-            <Mail size={14} className="text-accent" />
-            <span>Email Address</span>
-          </motion.label>
-          <motion.input
-            type="email"
-            placeholder="your.email@example.com"
-            {...register("email", { required: "This field is required!" })}
-            whileFocus={{ scale: 1.02 }}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 font-medium"
-          />
-          {errors.email && (
-            <motion.span 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-block text-accent text-sm font-medium"
-            >
-              ✗ {errors.email.message}
-            </motion.span>
-          )}
-        </motion.div>
-
-        {/* Message Textarea */}
-        <motion.div variants={item} className="w-full space-y-2">
-          <motion.label
-            className="flex items-center space-x-2 text-xs md:text-sm font-medium text-muted ml-1"
-          >
-            <MessageSquare size={14} className="text-accent" />
-            <span>Message</span>
-          </motion.label>
-          <motion.textarea
-            placeholder="Share your thoughts, ideas, or collaboration proposals..."
-            rows={5}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="w-full flex-col flex gap-1">
+            <motion.input 
+              variants={item}
+              type="text" 
+              placeholder="Name" 
+              suppressHydrationWarning
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all font-medium"
+              {...register("name", {
+                required: "Name is required!",
+                minLength: {
+                  value: 3,
+                  message: "At least 3 characters.",
+                },
+              })}
+            />
+            {errors.name && (
+              <span className="inline-block text-red-400 text-xs font-medium pl-1">
+                {errors.name.message}
+              </span>
+            )}
+          </div>
+          
+          <div className="w-full flex-col flex gap-1">
+            <motion.input 
+              variants={item}
+              type="email" 
+              placeholder="Email" 
+              suppressHydrationWarning
+              className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all font-medium"
+              {...register("email", { required: "Email is required!" })}
+            />
+            {errors.email && (
+              <span className="inline-block text-red-400 text-xs font-medium pl-1">
+                {errors.email.message}
+              </span>
+            )}
+          </div>
+        </div>
+        
+        <div className="w-full flex-col flex gap-1">
+          <motion.textarea 
+            variants={item}
+            rows={4} 
+            placeholder="Message" 
+            suppressHydrationWarning
+            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm text-foreground placeholder:text-foreground/40 focus:outline-none focus:border-purple-500 focus:ring-2 focus:ring-purple-500/30 transition-all resize-none font-medium"
             {...register("message", {
-              required: "This field is required!",
-              maxLength: {
-                value: 500,
-                message: "Message should be less than 500 characters",
-              },
+              required: "Message is required!",
               minLength: {
-                value: 50,
-                message: "Message should be more than 50 characters",
+                value: 20,
+                message: "Please write a bit more.",
               },
             })}
-            whileFocus={{ scale: 1.02 }}
-            className="w-full p-3 sm:p-4 rounded-xl shadow-lg text-foreground placeholder-foreground/40 focus:outline-none focus:ring-2 focus:ring-accent/50 custom-bg transition-all duration-200 hover:shadow-xl border border-foreground/10 hover:border-accent/30 resize-none font-medium"
           />
           {errors.message && (
-            <motion.span 
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-block text-accent text-sm font-medium"
-            >
-              ✗ {errors.message.message}
-            </motion.span>
+            <span className="inline-block text-red-400 text-xs font-medium pl-1">
+              {errors.message.message}
+            </span>
           )}
-        </motion.div>
-
-        {/* Submit Button */}
-        <motion.button
+        </div>
+        
+        <motion.button 
           variants={item}
           type="submit"
-          whileHover={{ scale: 1.03, y: -2 }}
-          whileTap={{ scale: 0.95 }}
-          className="w-full sm:w-auto px-6 sm:px-8 md:px-12 py-3 sm:py-4 md:py-5 rounded-xl shadow-lg bg-gradient-to-r from-accent/20 to-accent/10 border border-accent/30 hover:border-accent/60 text-foreground hover:text-accent focus:outline-none focus:ring-2 focus:ring-accent/50 cursor-pointer capitalize transition-all duration-300 hover:shadow-xl active:scale-95 font-semibold text-sm sm:text-base md:text-lg flex items-center justify-center space-x-2 group"
+          suppressHydrationWarning
+          className="w-full py-3 bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold rounded-xl hover:shadow-[0_0_25px_rgba(139,92,246,0.4)] hover:scale-[1.02] transition-all duration-300 flex items-center justify-center gap-2 group"
         >
-          <Send size={16} className="sm:w-[18px] sm:h-[18px] group-hover:translate-x-1 transition-transform duration-200" />
-          <span>Send Message</span>
+          Send Message
+          <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </motion.button>
-        </motion.div>
       </motion.form>
     </div>
   );
