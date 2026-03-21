@@ -1,7 +1,6 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
 import clsx from "clsx";
-import FireFliesBackground from "@/components/fireFilesBackground";
 import Footer from "@/components/footer";
 
 const inter = Inter({
@@ -10,7 +9,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Anish Singh | Full Stack Developer",
+  title: "Anish Singh | Full Stack Developer & AI Engineer",
   description:
     "Full stack developer specializing in React, Next.js, Node.js, and AI/ML integration. Building modern web applications with clean code and great user experience.",
   icons: {
@@ -20,8 +19,9 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <body
+        suppressHydrationWarning
         className={clsx(
           inter.variable,
           "bg-background text-foreground font-inter",

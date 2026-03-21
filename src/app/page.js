@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import Navbar from "@/components/Navbar";
 import {
   Github,
   Mail,
@@ -149,6 +150,58 @@ function FadeUp({ children, delay = 0, className = "" }) {
   );
 }
 
+// Staggered text component for character/word animations
+function StaggeredText({ text, className }) {
+  const words = text.split(" ");
+  
+  const container = {
+    hidden: { opacity: 0 },
+    visible: (i = 1) => ({
+      opacity: 1,
+      transition: { staggerChildren: 0.1, delayChildren: 0.04 * i },
+    }),
+  };
+  
+  const child = {
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+    hidden: {
+      opacity: 0,
+      y: 20,
+      transition: {
+        type: "spring",
+        damping: 12,
+        stiffness: 100,
+      },
+    },
+  };
+  
+  return (
+    <motion.span
+      style={{ display: "inline-block" }}
+      variants={container}
+      initial="hidden"
+      animate="visible"
+      className={className}
+    >
+      {words.map((word, index) => (
+        <motion.span variants={child} style={{ display: "inline-block", marginRight: "0.25em" }} key={index}>
+          {word}
+        </motion.span>
+      ))}
+    </motion.span>
+  );
+}
+
+
+
 function SectionLabel({ children }) {
   return (
     <p className="text-xs font-semibold uppercase tracking-widest text-accent mb-3">
@@ -173,89 +226,7 @@ function SectionHeader({ label, title, subtitle }) {
   );
 }
 
-// â”€â”€â”€ NAVBAR â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-
-function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  return (
-    <motion.header
-      initial={{ y: -80, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: EASE, delay: 0.05 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "bg-[#05050A]/70 backdrop-blur-2xl border-b border-white/[0.05] shadow-[inset_0_-1px_0_rgba(255,255,255,0.02),0_8px_32px_rgba(0,0,0,0.3)]"
-          : "bg-transparent"
-      }`}
-    >
-      <nav
-        className={`max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between transition-all duration-300 ${
-          scrolled ? "h-14" : "h-16"
-        }`}
-      >
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <motion.div
-            whileHover={{ scale: 1.08 }}
-            whileTap={{ scale: 0.94 }}
-            transition={{ duration: 0.2, ease: EASE }}
-            className="w-8 h-8 bg-accent rounded-lg flex items-center justify-center shrink-0"
-          >
-            <span className="text-background font-bold text-sm leading-none">AK</span>
-          </motion.div>
-          <span className="font-semibold text-foreground/80 group-hover:text-foreground transition-colors text-sm hidden sm:block">
-            Anish Kumar Singh
-          </span>
-        </Link>
-
-        {/* Nav links */}
-        <div className="hidden md:flex items-center">
-          {["Projects", "Skills", "Experience", "About", "Contact"].map((item) => (
-            <motion.a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              whileHover={{ y: -1 }}
-              transition={{ duration: 0.15, ease: EASE }}
-              className="px-3 py-2 text-sm text-foreground/50 hover:text-foreground/90 rounded-md transition-colors duration-150"
-            >
-              {item}
-            </motion.a>
-          ))}
-        </div>
-
-        {/* Right side */}
-        <div className="flex items-center gap-3">
-          <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-full">
-            <motion.span
-              animate={{ opacity: [1, 0.35, 1] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-              className="w-1.5 h-1.5 bg-emerald-400 rounded-full"
-            />
-            <span className="text-[10px] font-medium text-emerald-400">Open to work</span>
-          </div>
-          <motion.a
-            href="/resume.pdf"
-            download
-            whileHover={{ scale: 1.04, y: -1 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ duration: 0.2, ease: EASE }}
-            className="flex items-center gap-1.5 px-3.5 py-2 text-xs font-semibold bg-accent/10 hover:bg-accent/20 text-accent border border-accent/25 rounded-lg transition-colors duration-200"
-          >
-            <Download className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Resume</span>
-          </motion.a>
-        </div>
-      </nav>
-    </motion.header>
-  );
-}
+// Removed inline Navbar
 
 // â”€â”€â”€ HERO â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
@@ -325,10 +296,11 @@ function Hero() {
             variants={heroItem}
             className="text-4xl sm:text-5xl lg:text-[60px] tracking-tight font-extrabold mb-6 text-foreground leading-[1.1]"
           >
-            I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300">AI-powered</span> applications using{" "}
+            I build <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300">AI-powered </span> 
+            <StaggeredText text="applications using " />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300 cursor-default">LLMs</span>,{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 drop-shadow-[0_0_15px_rgba(124,58,237,0.3)] hover:drop-shadow-[0_0_25px_rgba(124,58,237,0.6)] transition-all duration-300 cursor-default">RAG</span>{" "}
-            &amp; scalable systems
+            <StaggeredText text="& scalable systems" />
           </motion.h1>
 
           <motion.p
@@ -513,17 +485,31 @@ function ProjectCard({ project }) {
           </div>
         )}
 
-        {/* Image Container (16:9) */}
-        <div className="relative w-full aspect-video overflow-hidden border-b border-white/[0.06] bg-black/40">
+        {/* Image Container */}
+        <div className="relative w-full aspect-[16/10] overflow-hidden border-b border-white/[0.06] bg-[#050508]">
+          {/* Blurred Background Layer (Fills letterboxing elegantly) */}
+          <Image
+            src={project.image}
+            alt={`${project.name} background blur`}
+            fill
+            unoptimized
+            className="object-cover blur-[24px] opacity-40 scale-125 saturate-150 group-hover:opacity-60 transition-all duration-700 pointer-events-none"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          />
+          
+          {/* Crisp Foreground Image */}
           <Image
             src={project.image}
             alt={project.name}
             fill
             unoptimized
-            className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+            className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.6)] group-hover:scale-[1.03] transition-transform duration-700 ease-out z-10 p-2 sm:p-4"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-          <div className="absolute inset-0 bg-[#0A0A0E]/10 group-hover:bg-transparent transition-colors duration-500 z-10 pointer-events-none" />
+          
+          {/* Inner Vignette for depth */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_40%,rgba(5,5,8,0.7)_120%)] z-20 pointer-events-none transition-opacity duration-500 group-hover:opacity-50" />
+          <div className="absolute inset-0 bg-[#0A0A0E]/10 group-hover:bg-transparent transition-colors duration-500 z-20 pointer-events-none" />
         </div>
 
         <div className="p-7 flex flex-col flex-1 relative z-20">

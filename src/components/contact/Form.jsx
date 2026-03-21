@@ -69,8 +69,9 @@ export default function Form() {
           );
         },
         (error) => {
+          console.error("EmailJS Error:", error);
           toast.error(
-            "There was an error sending your message, please try again later!",
+            `Error sending message: ${error?.text || error?.message || "Unknown error"}`,
             {
               id: toastId,
             }

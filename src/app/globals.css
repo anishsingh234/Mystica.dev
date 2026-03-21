@@ -80,15 +80,6 @@
            hover:shadow-[0_24px_64px_-16px_rgba(139,92,246,0.28)];
   }
 
-  /* Skill category cards */
-  .skill-card {
-    @apply p-5 rounded-xl border
-           bg-white/[0.025] border-white/[0.08]
-           hover:bg-white/[0.05] hover:border-accent/[0.22]
-           hover:shadow-[0_0_24px_rgba(139,92,246,0.08)]
-           transition-all duration-200;
-  }
-
   /* Tech / skill pill badges */
   .tech-pill {
     @apply px-2.5 py-1 text-[11px] font-medium
@@ -143,22 +134,23 @@
            bg-clip-text text-transparent;
   }
 
-  /* Legacy glass (used in sub-pages / other components) */
-  .premium-glass {
+  /* Glass surface — unified across all pages */
+  .glass-surface {
     @apply bg-white/[0.04] backdrop-blur-xl
            border border-white/[0.09]
            shadow-[0_8px_32px_rgba(0,0,0,0.3)];
   }
 
-  .premium-glass-hover {
+  .glass-surface-hover {
     @apply hover:bg-white/[0.07] hover:border-accent/25
            hover:shadow-[0_0_28px_rgba(139,92,246,0.15)]
            transition-all duration-300;
   }
 
+  /* Legacy compat — used by HomeBtn and old navigation */
   .custom-bg {
     @apply bg-background/20 border border-accent/20 border-solid
-           backdrop-blur-[6px] shadow-glass-inset hover:shadow-glass-sm;
+           backdrop-blur-[6px] shadow-[inset_0_17px_5px_-9px_rgba(254,254,91,0.05)] hover:shadow-[5px_5px_20px_0px_rgba(254,254,91,0.3)];
   }
 
   .pause {
